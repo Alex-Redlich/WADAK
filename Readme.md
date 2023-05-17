@@ -58,9 +58,11 @@ OTT 플랫폼은 자신들이 제공하는 추천 알고리즘의 실패를 줄�
 
 우리는 이러한 문제점을 어떻게 하면 해결할 수 있을까? 이러한 문제를 해결하기 위해서 색다른 추천 알고리즘으로 선택지를 줄여주고, 보다 결정하기 쉬운 기준으로 콘텐츠를 분류해 제시하는 방법이 있다. 넷플릭스에서는 한국에서 인기 많은 순위, 로맨스 드라마 종류 등 선택지를 줄인 추천 알고리즘을 제시하고 있다. 이러한 방식들을 기본적으로 채용하고, 와닥 팀만의 특색있는 추천 알고리즘을 개발하려한다. **관계성**을 이용하여 유저에게 좀 더 세분화 되어있는 맞춤 알고리즘을 제시한다.
 
-<center> 
+<div align="center">
+
 `비록 그 알고리즘이 실패하더라도 말이다. 일단 하나 고르게 하자! 선택에 부담을 주지 말자!`
-</center>
+
+</div>
 
 ![관계성 설명](Readme/Untitled3.png)
 
@@ -112,9 +114,16 @@ Q. 유저 A는 영화 A를 좋아한다. 그리고 유저 A는 유저B에게 긍
         - 기능을 개발하는 브랜치
         - 새로운 기능 개발 및 버그 수정이 필요할 때마다 생성 및 작업 이후 dev로 병합
 
-        ```html
-        git checkout -b feature/login develop /* 작업 수행 */ git checkout develop git merge --no-ff feature/login /* --no-ff option : feature branch에 존재하는 커밋 이력을 하나의 커밋 객체로 만들어
-        develop 브랜치로 병합 */ git branch -d feature/logi* /* -d option: 브랜치 삭제 */ git push origin develop
+        ```javascript
+        git checkout -b feature/login develop
+        /* 작업 수행 */
+        git checkout develop git merge --no-ff feature/login
+        /* --no-ff option :
+        feature branch에 존재하는 커밋 이력을 하나의 커밋 객체로 만들어 develop 브랜치로 병합 */
+        git branch -d feature/logi*
+        /* -d option:
+        브랜치 삭제 */
+        git push origin develop
         ```
 
      4. hotfix
