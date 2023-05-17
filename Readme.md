@@ -120,7 +120,7 @@ Q. 유저 A는 영화 A를 좋아한다. 그리고 유저 A는 유저B에게 긍
         git checkout develop git merge --no-ff feature/login
         /* --no-ff option :
         feature branch에 존재하는 커밋 이력을 하나의 커밋 객체로 만들어 develop 브랜치로 병합 */
-        git branch -d feature/logi*
+        git branch -d feature/login
         /* -d option:
         브랜치 삭제 */
         git push origin develop
