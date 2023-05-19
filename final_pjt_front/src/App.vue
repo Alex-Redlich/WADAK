@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">영화보기</router-link> |
+      <router-link to="/movies/:moviePk">moviedetail</router-link> |
+      <router-link to="/popcorn-machine">팝콘머신</router-link> |
+      <router-link to="/profile/:userId">프로필</router-link> |
+      <router-link to="/search">찾기</router-link> |
+      <router-link to="/:userId/inventory">인벤토리</router-link> |
     </nav>
     <router-view/>
   </div>
