@@ -1,5 +1,5 @@
 <template>
-  <div class="MovieCardOne">
+  <div class="MovieCardOneDetail">
     <div style="border: solid pink">
       <h2>영화카드-One</h2>
     </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "MovieCardOne",
+  name: "MovieCardOneDetail",
 }
 </script>
 

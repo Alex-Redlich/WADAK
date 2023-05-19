@@ -2,18 +2,18 @@
   <div class="UserToday">
     <div style="border: solid black">
       <h1>유저의 오늘의 영화</h1>
-      <MovieCardOne />
+      <MovieCardOneDetail />
     </div>
   </div>
 </template>
 
 <script>
-import MovieCardOne from "@/components/Main/MovieCardOne"
+import MovieCardOneDetail from "@/components/Main/MovieCardOneDetail"
 
 export default {
   name: "UserToday",
   components: {
-    MovieCardOne,
+    MovieCardOneDetail,
   },
 }
 </script>
