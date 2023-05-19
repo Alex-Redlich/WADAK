@@ -12,9 +12,22 @@ headers = {
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMGVhNDA4YjMwNGUwZTFkODEwYjVkNzVmNmRlNWE4NiIsInN1YiI6IjYzZDMxOGJlZTcyZmU4MDA4NDkxNmUyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5S11pzIijwEo4PZ5NR65364akBOW0nkTeQa3ycHXwfs"
     }
 
+
+def overview_is_valid(overview):
+    # 줄거리에 19금 단어 포함이라면 삭제
+    # overview = Movie.get("overview")
+    filterwords = ["쾌락","욕망","남근","처제","에로"]
+    for filterword in filterwords:
+        if filterword in overview:
+            movie = Movie.objects.get(overview = overview)
+            movie.delete()
+            return False
+    return True
+
+
 # Create your views here.
 
-@api_view(['POST'])
+@api_view(['GET','POST'])
 def get_genres(request):
 # 서버 구동과 함께 모든 장르를 받아와야함. 처음 한번 가져오기.
     url = "https://api.themoviedb.org/3/genre/movie/list?language=ko"
@@ -28,6 +41,8 @@ def get_genres(request):
             name = res.get('name')
         )
         genre.save()
+    
+    return Response({'status':'success'})
 
 
 @api_view(['GET'])
@@ -54,7 +69,7 @@ def movie_detail(request, movie_pk):
             tagline  =  result.get('tagline'),
             backdrop_path =  result.get('backdrop_path'),
             poster_path =  result.get('poster_path'),
-            release_date =  result.get('release_datee'),
+            release_date =  result.get('release_date'),
             runtime =  result.get('runtime'),
             # genres =  result.get('genres'),
             )
@@ -67,18 +82,62 @@ def movie_detail(request, movie_pk):
 
 
 @api_view(['GET'])
-def movie_recent(request):
-    # 5페이지까지 불러오기
-    url = "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1"
+def get_movie_recent(request):
+    # 서버 시작과 동시에 5페이지까지 불러오기
+    base_url = "https://api.themoviedb.org/3/movie/upcoming?language=ko-KR&page="
     global headers
-    
-    # ans = 
-    pass
+    for i in ["1","2","3","4","5"]:
+        url = base_url + i
+        response = requests.get(url, headers=headers)
+        result_list = response.json()
+        for result in result_list.get("results"):
+            movie = Movie(                
+                    id = result.get('id'),
+                    title = result.get('title'),
+                    overview = result.get('overview'),
+                    vote_average =  result.get('vote_average'),
+                    vote_count =  result.get('vote_count'),
+                    tagline  =  result.get('tagline'),
+                    backdrop_path =  result.get('backdrop_path'),
+                    poster_path =  result.get('poster_path'),
+                    release_date =  result.get('release_date'),
+                    runtime =  result.get('runtime'),
+                    # genres =  result.get('genres'),
+                    )
+            movie.save()
+    movies = Movie.objects.all()
+    serializer = MovieSerializer(movies,many=True)
+    return Response(serializer.data)
 
 
-def movie_popular(request):
-    # 5페이지까지 불러오기
-    pass
+@api_view(['GET'])
+def get_movie_popular(request):
+    # 서버 시작과 동시에 5페이지까지 불러오기
+    base_url = "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page="
+    global headers
+    for i in ["1","2","3","4","5"]:
+        url = base_url + i
+        response = requests.get(url, headers=headers)
+        result_list = response.json()
+        for result in result_list.get("results"):
+            
+            movie = Movie(                
+                    id = result.get('id'),
+                    title = result.get('title'),
+                    overview = result.get('overview'),
+                    vote_average =  result.get('vote_average'),
+                    vote_count =  result.get('vote_count'),
+                    tagline  =  result.get('tagline'),
+                    backdrop_path =  result.get('backdrop_path'),
+                    poster_path =  result.get('poster_path'),
+                    release_date =  result.get('release_date'),
+                    runtime =  result.get('runtime'),
+                    # genres =  result.get('genres'),
+                    )
+            movie.save()
+    movies = Movie.objects.all()
+    serializer = MovieSerializer(movies,many=True)
+    return Response(serializer.data)
 
 
 def movie_ranker(request):
