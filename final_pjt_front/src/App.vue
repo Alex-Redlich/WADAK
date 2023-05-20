@@ -1,5 +1,16 @@
 <template>
   <div id="app">
+    <!-- 상단 네비게이션 바 -->
+    <nav class="navbar fixed-top" id="topbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img class="nav-image" src="@/assets/logo.png" alt="WADAK" /></a>
+      </div>
+    </nav>
+    <!-- 좌측 사이드 바 -->
+    <nav class="sidenav">
+      <h4>SideBar</h4>
+    </nav>
+
     <nav>
       <router-link to="/">영화보기</router-link> | <router-link to="/movies/:moviePk">moviedetail</router-link> | <router-link to="/popcorn-machine">팝콘머신</router-link> |
       <router-link to="/profile/:userId">프로필</router-link> | <router-link to="/search">찾기</router-link> | <router-link to="/:userId/inventory">인벤토리</router-link> |
@@ -31,9 +42,13 @@
   src: url("@/assets/fonts/KBO_Dia_Gothic_bold.ttf") format("truetype");
   font-weight: 700;
 }
-
-nav {
-  padding: 30px;
+.nav-image {
+  max-width: 100px;
+}
+#topbar {
+  /* padding: 30px; */
+  max-height: 60px;
+  background-color: #939597;
 }
 
 nav a {
@@ -44,5 +59,13 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+.sidenav {
+  background-color: #939597;
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  margin-top: 60px;
+  padding-top: 50px;
 }
 </style>
