@@ -1,6 +1,6 @@
 <template>
   <div class="MainView">
-    <h1>Main Page</h1>
+    <!-- <h1>Main Page</h1> -->
     <RankerList />
     <UserLikeList />
     <PopularList />
@@ -36,6 +36,6 @@ export default {
   margin-top: 70px;
   margin-left: 200px;
   background-color: black;
-  border: solid white;
+  border: outset white;
 }
 </style>
