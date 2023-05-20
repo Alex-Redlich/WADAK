@@ -14,3 +14,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.SearchView {
+  margin-top: 70px;
+  margin-left: 200px;
+}
+</style>

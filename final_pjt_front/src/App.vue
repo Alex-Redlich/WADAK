@@ -28,7 +28,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
 }
 @font-face {
   font-family: "KBO-Dia-Gothic-md";
@@ -50,7 +50,7 @@
 }
 #topbar {
   max-height: 70px;
-  background-color: #939597;
+  background-color: #090e13;
 }
 nav a:hover {
   color: white;
@@ -58,7 +58,7 @@ nav a:hover {
 nav a {
   font-weight: bold;
   font-size: 25px;
-  color: #2c3e50;
+  color: #939597;
   font-family: "KBO-Dia-Gothic-md";
   margin-bottom: 10px;
 }
@@ -68,7 +68,7 @@ nav a.router-link-exact-active {
 }
 
 .sidenav {
-  background-color: #939597;
+  background-color: #090e13;
   position: fixed;
   width: 200px;
   height: 100%;

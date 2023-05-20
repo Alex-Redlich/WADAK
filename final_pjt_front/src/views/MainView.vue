@@ -35,5 +35,7 @@ export default {
 .MainView {
   margin-top: 70px;
   margin-left: 200px;
+  background-color: black;
+  border: solid white;
 }
 </style>

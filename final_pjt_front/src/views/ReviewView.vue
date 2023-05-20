@@ -14,3 +14,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.ReviewView {
+  margin-top: 70px;
+  margin-left: 200px;
+}
+</style>
