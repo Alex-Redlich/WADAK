@@ -20,4 +20,5 @@ class Movie(models.Model):
     release_date = models.CharField(max_length=50, null=True)
     # json 시리얼라이즈 오류로 charfield로 변경.
     runtime = models.CharField(max_length=30,null=True)
-    # genres = models.ManyToManyField(Genre)
+    genres = models.ManyToManyField(Genre, related_name="gerne_movies")
+    # test = models.BooleanField(default=True)
