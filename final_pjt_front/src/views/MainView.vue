@@ -33,7 +33,7 @@ export default {
 </script>
 <style scoped>
 .MainView {
-  margin-top: 60px;
+  margin-top: 70px;
   margin-left: 200px;
 }
 </style>

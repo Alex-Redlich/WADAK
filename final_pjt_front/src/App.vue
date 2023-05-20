@@ -4,6 +4,10 @@
     <nav class="navbar fixed-top" id="topbar">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"><img class="nav-image" src="@/assets/logo.png" alt="WADAK" /></a>
+        <div class="toplist">
+          <router-link to="/:userId/inventory">로그아웃</router-link> | <router-link to="/:userId/inventory">인벤토리</router-link> |
+          <router-link to="/profile/:userId">프로필</router-link>
+        </div>
       </div>
     </nav>
     <!-- 좌측 사이드 바 -->
@@ -13,10 +17,6 @@
         <router-link to="/popcorn-machine">팝콘머신</router-link>
         <router-link to="/search">찾기</router-link>
       </div>
-    </nav>
-
-    <nav>
-      | <router-link to="/movies/:moviePk">moviedetail</router-link> | | <router-link to="/profile/:userId">프로필</router-link> | | <router-link to="/:userId/inventory">인벤토리</router-link> |
     </nav>
     <router-view />
   </div>
@@ -49,7 +49,7 @@
   max-width: 100px;
 }
 #topbar {
-  max-height: 60px;
+  max-height: 70px;
   background-color: #939597;
 }
 nav a:hover {
@@ -72,7 +72,6 @@ nav a.router-link-exact-active {
   position: fixed;
   width: 200px;
   height: 100%;
-  margin-top: 60px;
-  padding-top: 30px;
+  padding-top: 50px;
 }
 </style>
