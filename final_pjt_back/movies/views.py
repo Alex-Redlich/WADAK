@@ -119,6 +119,40 @@ def get_movie_popular(request):
 
 
 @api_view(['GET'])
+def movie_search(request, keyword):
+    # FE로 json 자료만 보내줌
+    url ="https://api.themoviedb.org/3/search/movie?query="+ keyword +"&include_adult=false&language=ko-KR&page=1"
+    global headers
+    
+    response = requests.get(url, headers=headers)
+    result_list = response.json()
+
+    # for result in result_list.get("results"):
+        
+    #     movie = Movie(                
+    #             id = result.get('id'),
+    #             title = result.get('title'),
+    #             overview = result.get('overview'),
+    #             popularity = result.get('popularity'),
+    #             vote_average =  result.get('vote_average'),
+    #             vote_count =  result.get('vote_count'),
+    #             tagline  =  result.get('tagline'),
+    #             backdrop_path =  result.get('backdrop_path'),
+    #             poster_path =  result.get('poster_path'),
+    #             release_date =  result.get('release_date'),
+    #             runtime =  result.get('runtime'),
+    #             # genres =  result.get('genres'),
+    #             )
+    #     movie.save()
+        
+    #     for genre_id in result.get('genre_ids'):
+    #         genre = Genre.objects.get(id=genre_id)
+    #         movie.genres.add(genre)
+    
+    return Response(result_list)
+
+
+@api_view(['GET'])
 def movie_detail(request, movie_pk):
 # 영화 1개 조회
     if Movie.objects.filter(pk=movie_pk):
@@ -159,6 +193,7 @@ def movie_detail(request, movie_pk):
         # serializer.save()
         
     return Response(serializer.data)
+
 
 
 
