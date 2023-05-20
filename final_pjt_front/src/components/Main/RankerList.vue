@@ -5,7 +5,7 @@
       <!-- 백그라운드 비디오 -->
       <div class="mainVideo">
         <video muted autoplay loop>
-          <source src="@/assets/intro.mp4" type="video/mp4;" />
+          <source src="@/assets/intro2.mp4" type="video/mp4;" />
         </video>
       </div>
       <!-- 랭커 표시-->
@@ -21,7 +21,10 @@
       <!-- 영화설명 란 -->
       <div class="mainSection">
         <div data-aos="flip-up" data-aos-duration="2000" data-aos-delay="1000">
-          <p class="avatarTitle" style="line-height: 110%; margin-left: -7px; font-weight: 700">가디언즈 오브 갤럭시 VOl.3</p>
+          <p class="avatarTitle" style="line-height: 110%; margin-left: -7px; font-weight: 700">
+            가디언즈 오브 갤럭시 VOl.3
+          </p>
+
           <div class="avatarHead">
             <router-link :to="{ name: 'SearchDetailView', params: { moviePk: 76600 } }">
               <button type="button" class="btn btn-warning btn-lg" style="font-weight: 700">자세히 보러가기</button>
@@ -36,14 +39,19 @@
 <script>
 export default {
   name: "RankerList",
-}
+};
 </script>
 
 <style>
+video {
+  width: 100%;
+  height: 100%;
+}
 .mainVideo {
   right: 0;
   top: 0;
   width: 100%;
+  height: 100%;
   overflow: hidden;
   margin: 0px;
   object-fit: fill;
@@ -53,7 +61,7 @@ export default {
   color: white;
   position: absolute;
   top: 15%;
-  left: 13%;
+  left: 10%;
   font-family: Staatliches;
   text-align: left;
   font-size: 3rem;
@@ -65,7 +73,7 @@ export default {
   text-align: center;
   position: absolute;
   top: 40%;
-  left: 13%;
+  left: 10%;
   font-family: Staatliches;
   text-align: left;
   font-size: 4rem;
