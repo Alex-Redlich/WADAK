@@ -10,24 +10,24 @@
 
 <style>
 #app {
-  font-family: "KBO-Dia-Gothic";
+  font-family: "KBO-Dia-Gothic-l";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
 @font-face {
-  font-family: "KBO-Dia-Gothic";
+  font-family: "KBO-Dia-Gothic-md";
   src: url("@/assets/fonts/KBO_Dia_Gothic_medium.ttf") format("truetype");
   font-weight: 400;
 }
 @font-face {
-  font-family: "KBO-Dia-Gothic";
+  font-family: "KBO-Dia-Gothic-l";
   src: url("@/assets/fonts/KBO_Dia_Gothic_light.ttf") format("truetype");
   font-weight: 300;
 }
 @font-face {
-  font-family: "KBO-Dia-Gothic";
+  font-family: "KBO-Dia-Gothic-b";
   src: url("@/assets/fonts/KBO_Dia_Gothic_bold.ttf") format("truetype");
   font-weight: 700;
 }
@@ -39,6 +39,7 @@ nav {
 nav a {
   font-weight: bold;
   color: #2c3e50;
+  font-family: "KBO-Dia-Gothic-md";
 }
 
 nav a.router-link-exact-active {
