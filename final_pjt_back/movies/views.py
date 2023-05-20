@@ -27,8 +27,7 @@ def overview_is_valid(overview):
 
 # Create your views here.
 
-@api_view(['GET','POST'])
-def get_genres(request):
+def get_genres():
 # 서버 구동과 함께 모든 장르를 받아와야함. 처음 한번 가져오기.
     url = "https://api.themoviedb.org/3/genre/movie/list?language=ko"
     global headers
@@ -44,9 +43,7 @@ def get_genres(request):
     
     return Response({'status':'success'})
 
-
-@api_view(['GET'])
-def get_movie_recent(request):
+def get_movie_recent():
     # 서버 시작과 동시에 5페이지까지 불러오기  & ap 스케쥴러로 24시간 마다 한번 불러오기
     base_url = "https://api.themoviedb.org/3/movie/upcoming?language=ko-KR&page="
     global headers
@@ -81,9 +78,7 @@ def get_movie_recent(request):
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
-
-@api_view(['GET'])
-def get_movie_popular(request):
+def get_movie_popular():
     # 서버 시작과 동시에 5페이지까지 불러오기  & ap 스케쥴러로 24시간 마다 한번 불러오기
     base_url = "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page="
     global headers

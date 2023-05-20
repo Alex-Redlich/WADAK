@@ -10,7 +10,7 @@ urlpatterns = [
     path('popular/',views.get_movie_popular),
     path('<int:movie_pk>/', views.movie_detail),
     path('search/<str:keyword>/', views.movie_search),
-
+    
     path('ranker/',views.movie_ranker),
     # path('pick/influncer/',),
     path('friend/<int:user_pk>/like/',views.movie_friend_like),
