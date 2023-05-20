@@ -1,24 +1,35 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">영화보기</router-link> |
-      <router-link to="/movies/:moviePk">moviedetail</router-link> |
-      <router-link to="/popcorn-machine">팝콘머신</router-link> |
-      <router-link to="/profile/:userId">프로필</router-link> |
-      <router-link to="/search">찾기</router-link> |
-      <router-link to="/:userId/inventory">인벤토리</router-link> |
+      <router-link to="/">영화보기</router-link> | <router-link to="/movies/:moviePk">moviedetail</router-link> | <router-link to="/popcorn-machine">팝콘머신</router-link> |
+      <router-link to="/profile/:userId">프로필</router-link> | <router-link to="/search">찾기</router-link> | <router-link to="/:userId/inventory">인벤토리</router-link> |
     </nav>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "KBO-Dia-Gothic";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+@font-face {
+  font-family: "KBO-Dia-Gothic";
+  src: url("@/assets/fonts/KBO_Dia_Gothic_medium.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "KBO-Dia-Gothic";
+  src: url("@/assets/fonts/KBO_Dia_Gothic_light.ttf") format("truetype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "KBO-Dia-Gothic";
+  src: url("@/assets/fonts/KBO_Dia_Gothic_bold.ttf") format("truetype");
+  font-weight: 700;
 }
 
 nav {
