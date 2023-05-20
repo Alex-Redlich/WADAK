@@ -27,8 +27,7 @@ def overview_is_valid(overview):
 
 # Create your views here.
 
-@api_view(['GET','POST'])
-def get_genres(request):
+def get_genres():
 # 서버 구동과 함께 모든 장르를 받아와야함. 처음 한번 가져오기.
     url = "https://api.themoviedb.org/3/genre/movie/list?language=ko"
     global headers
@@ -44,9 +43,7 @@ def get_genres(request):
     
     return Response({'status':'success'})
 
-
-@api_view(['GET'])
-def get_movie_recent(request):
+def get_movie_recent():
     # 서버 시작과 동시에 5페이지까지 불러오기  & ap 스케쥴러로 24시간 마다 한번 불러오기
     base_url = "https://api.themoviedb.org/3/movie/upcoming?language=ko-KR&page="
     global headers
@@ -81,9 +78,7 @@ def get_movie_recent(request):
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
 
-
-@api_view(['GET'])
-def get_movie_popular(request):
+def get_movie_popular():
     # 서버 시작과 동시에 5페이지까지 불러오기  & ap 스케쥴러로 24시간 마다 한번 불러오기
     base_url = "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page="
     global headers
@@ -116,6 +111,40 @@ def get_movie_popular(request):
     movies = Movie.objects.all()
     serializer = MovieSerializer(movies,many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def movie_search(request, keyword):
+    # FE로 json 자료만 보내줌
+    url ="https://api.themoviedb.org/3/search/movie?query="+ keyword +"&include_adult=false&language=ko-KR&page=1"
+    global headers
+    
+    response = requests.get(url, headers=headers)
+    result_list = response.json()
+
+    # for result in result_list.get("results"):
+        
+    #     movie = Movie(                
+    #             id = result.get('id'),
+    #             title = result.get('title'),
+    #             overview = result.get('overview'),
+    #             popularity = result.get('popularity'),
+    #             vote_average =  result.get('vote_average'),
+    #             vote_count =  result.get('vote_count'),
+    #             tagline  =  result.get('tagline'),
+    #             backdrop_path =  result.get('backdrop_path'),
+    #             poster_path =  result.get('poster_path'),
+    #             release_date =  result.get('release_date'),
+    #             runtime =  result.get('runtime'),
+    #             # genres =  result.get('genres'),
+    #             )
+    #     movie.save()
+        
+    #     for genre_id in result.get('genre_ids'):
+    #         genre = Genre.objects.get(id=genre_id)
+    #         movie.genres.add(genre)
+    
+    return Response(result_list)
 
 
 @api_view(['GET'])
@@ -159,6 +188,7 @@ def movie_detail(request, movie_pk):
         # serializer.save()
         
     return Response(serializer.data)
+
 
 
 
