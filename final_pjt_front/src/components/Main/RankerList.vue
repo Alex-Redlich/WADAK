@@ -59,7 +59,7 @@ video {
   color: white;
   position: absolute;
   top: 15%;
-  left: 10%;
+  left: 13%;
   font-family: Staatliches;
   text-align: left;
   font-size: 3rem;
@@ -71,7 +71,7 @@ video {
   text-align: center;
   position: absolute;
   top: 40%;
-  left: 10%;
+  left: 13%;
   font-family: Staatliches;
   text-align: left;
   font-size: 4rem;
