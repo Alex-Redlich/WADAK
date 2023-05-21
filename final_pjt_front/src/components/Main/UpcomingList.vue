@@ -1,5 +1,5 @@
 <template>
-  <div class="UpcomingList">
+  <div class="UpcomingList mb-4">
     <!-- 제목 -->
     <div class="d-flex justify-content-start align-items-baseline ps-3 pl-3">
       <p id="MovieCardUpcomingTitle">UPCOMING! 지금 상영중</p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="UserLikeList">
+  <div class="UserLikeList mb-4">
     <!-- 유저 이름 태그 블럭 -->
     <div class="d-flex justify-content-start align-items-baseline ps-3 pl-3">
       <p id="UserLikeList_username">스펙타클한남자</p>

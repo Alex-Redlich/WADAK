@@ -1,5 +1,5 @@
 <template>
-  <div class="UserToday">
+  <div class="UserToday mb-4">
     <!-- 유저 이름 태그 블럭 -->
     <div class="d-flex justify-content-start align-items-baseline ps-3 pl-3">
       <p id="UserReviewlist_username">세종시 속도제한 20km</p>

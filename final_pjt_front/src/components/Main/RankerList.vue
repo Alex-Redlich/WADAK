@@ -1,5 +1,5 @@
 <template>
-  <div class="RankerList">
+  <div class="RankerList mb-4">
     <!-- <h1>랭커리스트</h1> -->
     <!-- 백그라운드 비디오 -->
     <div class="mainVideo">

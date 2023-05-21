@@ -1,5 +1,5 @@
 <template>
-  <div class="PopularList">
+  <div class="PopularList mb-4">
     <!-- 제목 -->
     <div class="d-flex justify-content-start align-items-baseline ps-3 pl-3">
       <p id="PopularListTitle">지금 인기있는 영화들!</p>
