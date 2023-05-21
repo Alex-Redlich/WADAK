@@ -1,11 +1,15 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
 # Create your models here.
 
 
 class Chingho(models.Model):
     name = models.CharField(max_length=50)
     is_first = models.BooleanField()
+    having_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="chinghos")
+    # m:n 중개테이블을 만들어야 할듯.
     # 형용사 / 명사 구분
     # is_selected = models.BooleanField(default=False)
     # 선택여부를 중개테이블에서 해야할듯?
@@ -14,7 +18,7 @@ class Chingho(models.Model):
 class User(AbstractUser):
     followings = models.ManyToManyField('self',symmetrical=False, related_name="followers")
     # 유저 팔로잉
-    chinghos = models.ForeignKey(Chingho, on_delete=models.CASCADE, related_name="having_users")
+    # chinghos = models.ForeignKey(Chingho, on_delete=models.CASCADE, related_name="having_users")
     # 보유 칭호 ; 1:N or m:n...  현재 ~명이 보유중입니다. ?
     today_movie = models.ForeignKey('movies.Movie', on_delete=models.CASCADE, blank=True)
     # 오늘의 영화
