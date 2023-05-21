@@ -4,7 +4,7 @@
     <nav class="navbar fixed-top" id="topbar">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"><img class="nav-image" src="@/assets/logo.png" alt="WADAK" /></a>
-        <div class="toplist">
+        <div class="toplist mb-4">
           <router-link to="/:userId/inventory">로그아웃</router-link> |
           <router-link to="/:userId/inventory">인벤토리</router-link> |
           <router-link to="/profile/:userId">프로필</router-link>
@@ -20,6 +20,33 @@
       </div>
     </nav>
     <router-view />
+    <!-- 풋터 -->
+    <div class="container" style="background-color: black">
+      <footer class="row py-5 border-top">
+        <div class="col">
+          <img class="nav-image" src="@/assets/logo.png" alt="WADAK" />
+          <p class="text-muted">© 2023 WADAK</p>
+          <p class="text-muted">김효인 김영민</p>
+        </div>
+
+        <div class="col mb-3 d-flex justify-content-center">
+          <ul class="nav">
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">자막 및 음성</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">화면 해설</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">고객 센터</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">기프트 카드</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">미디어 센터</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">투자 정보(IR)</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">입사 정보</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">이용 약관</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">개인 정보</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">법적 고지</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">쿠키 설정</a></li>
+            <li class="nav-item m-2"><a href="#" class="nav-link p-0 text-muted">회사 정보</a></li>
+          </ul>
+        </div>
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -30,6 +57,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
+  background-color: black;
 }
 @font-face {
   font-family: "KBO-Dia-Gothic-md";
