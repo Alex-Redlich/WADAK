@@ -15,7 +15,7 @@
         <label for="content" class="form-label">리뷰 내용</label>
         <textarea class="form-control" id="content" rows="20" placeholder="내용을 입력하세요"></textarea>
       </div>
-      <button type="button" class="btn btn-warning btn-lg">작성하기</button>
+      <button type="button" class="btn btn-warning btn-lg" @click="CreateReview">작성하기</button>
     </div>
   </div>
 </template>
@@ -23,6 +23,11 @@
 <script>
 export default {
   name: "ReviewCreateForm",
+  methods: {
+    CreateReview() {
+      this.$router.push({ name: "moviedetail" })
+    },
+  },
 }
 </script>
 

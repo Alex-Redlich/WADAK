@@ -19,7 +19,7 @@
       <div class="buttons">
         <div><button type="button" class="btn btn-secondary">수정</button> | <button type="button" class="btn btn-danger">삭제</button></div>
 
-        <button id="Callback" type="button" class="btn btn-warning">다른 리뷰 보러 가기</button>
+        <button id="Callback" type="button" class="btn btn-warning" @click="Callback">다른 리뷰 보러 가기</button>
       </div>
     </div>
   </div>
@@ -28,6 +28,11 @@
 <script>
 export default {
   name: "ReviewDetail",
+  methods: {
+    Callback() {
+      this.$router.push({ name: "moviedetail" })
+    },
+  },
 }
 </script>
 
