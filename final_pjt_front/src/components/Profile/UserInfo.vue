@@ -9,7 +9,7 @@
         <div id="UserDetail" class="col-4">
           <div class="row align-items-center">
             <p id="chingho">[매일눈물흘리는 어린꿈나무]</p>
-            <button id="InvenBtn" class="btn btn-warning">인벤토리</button>
+            <button id="InvenBtn" class="btn btn-warning" @click="GoInventory">인벤토리</button>
           </div>
 
           <div class="d-flex align-items-baseline">
@@ -42,6 +42,11 @@
 export default {
   name: "UserInfo",
   components: {},
+  methods: {
+    GoInventory() {
+      this.$router.push({ name: "inventory" });
+    },
+  },
 };
 </script>
 
