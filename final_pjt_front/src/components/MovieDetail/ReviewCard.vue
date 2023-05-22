@@ -1,6 +1,6 @@
 <template>
   <div class="ReviewCard">
-    <div class="card">
+    <div class="card" @click="ReviewDetail">
       <div class="card-body">
         <h5 class="card-title text-center">리뷰 타이틀</h5>
         <h5 class="card-subtitle mb-2 text-muted">작성자</h5>
@@ -17,6 +17,11 @@
 <script>
 export default {
   name: "ReviewCard",
+  methods: {
+    ReviewDetail() {
+      this.$router.push({ name: "reviewdetail" })
+    },
+  },
 }
 </script>
 
