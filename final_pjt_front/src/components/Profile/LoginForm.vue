@@ -1,6 +1,6 @@
 <template>
   <div class="LoginForm">
-    <div class="createform">
+    <div class="login">
       <h1>Login</h1>
       <div id="LoginForm_ID" class="mb-3">
         <label for="Id" class="form-label">아이디(ID)</label>
@@ -33,7 +33,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-.createform {
+.login {
   width: 1000px;
   height: 1000px;
   margin: 300px;

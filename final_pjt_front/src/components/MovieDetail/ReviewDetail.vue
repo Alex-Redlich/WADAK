@@ -4,6 +4,10 @@
       <h3>리뷰 제목</h3>
       <div class="reviewtitle">이영화맛나다!</div>
     </div>
+    <div id="reviewuser">
+      <h3>작성 유저</h3>
+      <div class="reviewuser">username</div>
+    </div>
     <div id="reviewvote">
       <h3>평점</h3>
       <div class="reviewvote">⭐ 10</div>
@@ -53,6 +57,20 @@ export default {
   margin-bottom: 20px;
 }
 .reviewtitle {
+  color: black;
+  background-color: white;
+  width: 1000px;
+  font-size: 30px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+#reviewuser {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.reviewuser {
   color: black;
   background-color: white;
   width: 1000px;

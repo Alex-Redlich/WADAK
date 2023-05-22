@@ -9,6 +9,7 @@ import InventoryView from "@/views/InventoryView"
 import ReviewCreateForm from "@/components/MovieDetail/ReviewCreateForm"
 import ReviewDetail from "@/components/MovieDetail/ReviewDetail"
 import LoginForm from "@/components/Profile/LoginForm"
+import SignupForm from "@/components/Profile/SignupForm"
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,11 @@ const routes = [
     path: "/:reviewId/reviewdetail",
     name: "reviewdetail",
     component: ReviewDetail,
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: SignupForm,
   },
 ]
 
