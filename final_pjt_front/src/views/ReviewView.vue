@@ -1,6 +1,5 @@
 <template>
   <div class="ReviewView">
-    <h1>Review Page</h1>
     <ReviewList />
   </div>
 </template>
@@ -19,5 +18,8 @@ export default {
 .ReviewView {
   margin-top: 70px;
   margin-left: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
