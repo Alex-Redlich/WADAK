@@ -16,11 +16,11 @@ headers = {
 def overview_is_valid(overview):
     # 줄거리에 19금 단어 포함이라면 삭제
     # overview = Movie.get("overview")
-    filterwords = ["쾌락","욕망","남근","처제","에로"]
+    filterwords = ["쾌락","욕망","남근","처제","에로","형수"]
     for filterword in filterwords:
         if filterword in overview:
-            movie = Movie.objects.get(overview = overview)
-            movie.delete()
+            # movie = Movie.objects.get(overview = overview)
+            # movie.delete()
             return False
     return True
 
@@ -53,22 +53,23 @@ def get_movie_recent():
         result_list = response.json()
         
         for result in result_list.get("results"):
-            movie = Movie(                
-                    id = result.get('id'),
-                    title = result.get('title'),
-                    overview = result.get('overview'),
-                    popularity = result.get('popularity'),
-                    vote_average =  result.get('vote_average'),
-                    vote_count =  result.get('vote_count'),
-                    tagline  =  result.get('tagline'),
-                    backdrop_path =  result.get('backdrop_path'),
-                    poster_path =  result.get('poster_path'),
-                    release_date =  result.get('release_date'),
-                    runtime =  result.get('runtime'),
-                    # test = True
-                    # genres =  result.get('genres'),
-                    )
-            movie.save()
+            if overview_is_valid(result.get('overview')):
+                movie = Movie(                
+                        id = result.get('id'),
+                        title = result.get('title'),
+                        overview = result.get('overview'),
+                        popularity = result.get('popularity'),
+                        vote_average =  result.get('vote_average'),
+                        vote_count =  result.get('vote_count'),
+                        tagline  =  result.get('tagline'),
+                        backdrop_path =  result.get('backdrop_path'),
+                        poster_path =  result.get('poster_path'),
+                        release_date =  result.get('release_date'),
+                        runtime =  result.get('runtime'),
+                        # test = True
+                        # genres =  result.get('genres'),
+                        )
+                movie.save()
             
             for genre_id in result.get('genre_ids'):
                 genre = Genre.objects.get(id=genre_id)
