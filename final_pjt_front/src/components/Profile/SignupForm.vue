@@ -4,7 +4,7 @@
       <h1>Sign Up</h1>
       <div id="signForm_ID" class="mb-3">
         <label for="Id" class="form-label">아이디(ID)</label>
-        <input class="form-control" id="id" placeholder="아이디를 입력하세요" v-model="id" />
+        <input class="form-control" id="id" placeholder="아이디를 입력하세요" v-model="username" />
       </div>
       <div id="signForm_Password" class="mb-3">
         <label for="password" class="form-label">패스워드(PASSWORD)</label>
@@ -31,7 +31,7 @@ export default {
   components: {},
   data() {
     return {
-      id: "",
+      username: "",
       password: "",
       nickname: "",
       intro: "",
@@ -40,15 +40,15 @@ export default {
   methods: {
     Signup() {
       const userdata = {
-        user_id: this.id,
-        user_password: this.password,
+        username: this.username,
+        password: this.password,
         nickname: this.nickname,
         intro: this.intro,
       }
       axios({
         method: "post",
         url: "http://127.0.0.1:8000/api/v1/accounts/signup/",
-        data: { userdata },
+        data: userdata,
       })
         .then((res) => {
           console.log(res)
