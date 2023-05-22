@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from .models import Review, Comment
-from .serializers import ReviewListSerializer, ReviewSerializer,CommentSerializer
+from .serializers import ReviewListSerializer, ReviewSerializer, CommentSerializer
 from ..movies.models import Movie
 
 from rest_framework import status
@@ -54,6 +54,18 @@ def review_delete(request, movie_pk, review_pk):
     review.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['POST','DELETE'])
+def review_like(request, movie_pk, review_pk):
+    user = request.user
+    # 이렇게 구하는게 맞나..?
+    review = get_object_or_404(Review, pk = review_pk)
+    if user in review.like_users.all():
+        review.like_users.remove(user)
+    else:
+        review.like_users.add(user)
+
+
+
 
 @api_view(['GET'])
 def comment_list(request, review_pk):
@@ -83,3 +95,13 @@ def comment_delete(request, review_pk, comment_pk):
     comment = get_object_or_404(Comment, pk = comment_pk)
     comment.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST','DELETE'])
+def comment_like(request, review_pk, comment_pk):
+    user = request.user
+    # 이렇게 구하는게 맞나..?
+    comment = get_object_or_404(Comment, pk = comment_pk)
+    if user in comment.like_users.all():
+        comment.like_users.remove(user)
+    else:
+        comment.like_users.add(user) 

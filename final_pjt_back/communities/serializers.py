@@ -6,6 +6,7 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
         read_only_fields = ('review','user')
+        
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep.pop('review',None)
@@ -16,7 +17,6 @@ class ReviewListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('id','title','rating')
-        read_only_fields = ('movie','users','like_users')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
