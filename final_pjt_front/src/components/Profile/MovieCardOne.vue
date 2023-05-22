@@ -1,7 +1,12 @@
 <template>
   <div class="MovieCardOne">
-    <div style="border: solid pink">
-      <h2>영화카드-One</h2>
+    <div class="card" style="width: 500px">
+      <img
+        id="MovieCardOne"
+        src="https://image.tmdb.org/t/p/w500/dlGyzCxbBQK1U2O5o31Z1hB6erc.jpg"
+        class="card-img-top"
+        style="border: 0px"
+      />
     </div>
   </div>
 </template>
@@ -9,7 +14,17 @@
 <script>
 export default {
   name: "MovieCardOne",
-}
+};
 </script>
 
-<style></style>
+<style scoped>
+.MovieCardOne {
+  width: 500px;
+  margin: 20px;
+  margin-bottom: 100px;
+}
+#MovieCardOne {
+  box-shadow: 3px 3px 5px rgb(212, 212, 212);
+  /* border: 0; */
+}
+</style>
