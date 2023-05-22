@@ -27,6 +27,9 @@ export default {
 </script>
 
 <style>
+.MovieInfo2 {
+  margin-top: 50px;
+}
 #iframe {
   border-right: solid 1px white;
   margin-bottom: 100px;

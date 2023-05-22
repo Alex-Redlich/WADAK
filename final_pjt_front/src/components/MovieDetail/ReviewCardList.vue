@@ -23,6 +23,7 @@ export default {
 <style>
 .ReviewCardList {
   display: flex;
+  margin-top: 50px;
 }
 #ReviewCardList {
   width: 300px;
