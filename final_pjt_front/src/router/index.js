@@ -8,6 +8,7 @@ import SearchView from "@/views/SearchView"
 import InventoryView from "@/views/InventoryView"
 import ReviewCreateForm from "@/components/MovieDetail/ReviewCreateForm"
 import ReviewDetail from "@/components/MovieDetail/ReviewDetail"
+import LoginForm from "@/components/Profile/LoginForm"
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,11 @@ const routes = [
     path: "/profile/:userId",
     name: "profile",
     component: ProfileView,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginForm,
   },
   {
     path: "/search",

@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="/"><img class="nav-image" src="@/assets/logo.png" alt="WADAK" /></a>
         <div class="toplist mb-4">
-          <router-link to="/">로그아웃</router-link> | <router-link to="/:userId/inventory">인벤토리</router-link> |
+          <router-link to="/login">로그인</router-link> | <router-link to="/:userId/inventory">인벤토리</router-link> |
           <router-link to="/profile/:userId">프로필</router-link>
         </div>
       </div>
