@@ -17,8 +17,8 @@
     </div>
     <div>
       <div class="buttons">
-        <div><button type="button" class="btn btn-secondary">수정</button> | <button type="button" class="btn btn-danger">삭제</button></div>
-
+        <div><button type="button" class="btn btn-danger">삭제</button></div>
+        <div class="review_comments">리뷰창 구현</div>
         <button id="Callback" type="button" class="btn btn-warning" @click="Callback">다른 리뷰 보러 가기</button>
       </div>
     </div>
