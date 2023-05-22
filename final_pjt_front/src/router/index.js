@@ -6,6 +6,8 @@ import ReviewView from "@/views/ReviewView"
 import ProfileView from "@/views/ProfileView"
 import SearchView from "@/views/SearchView"
 import InventoryView from "@/views/InventoryView"
+import ReviewCreateForm from "@/components/MovieDetail/ReviewCreateForm"
+import ReviewDetail from "@/components/MovieDetail/ReviewDetail"
 
 Vue.use(VueRouter)
 
@@ -39,6 +41,16 @@ const routes = [
     path: "/:userId/inventory",
     name: "inventory",
     component: InventoryView,
+  },
+  {
+    path: "/:movieId/reviewcreate",
+    name: "reviewcreate",
+    component: ReviewCreateForm,
+  },
+  {
+    path: "/:reviewId/reviewdetail",
+    name: "reviewdetail",
+    component: ReviewDetail,
   },
 ]
 

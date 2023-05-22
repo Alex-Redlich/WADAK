@@ -8,7 +8,7 @@
     </div>
     <div v-if="SelectMenu1">
       <ReviewCardList />
-      <div class="ReviewCreateForm">리 뷰 작 성</div>
+      <div class="ReviewCreateForm" @click="ReviewCreate">리 뷰 작 성</div>
     </div>
     <div v-else>
       <MovieInfo2 />
@@ -45,6 +45,9 @@ export default {
       this.SelectMenu1 = false
       this.selectcolor1 = !this.selectcolor1
       this.selectcolor2 = !this.selectcolor2
+    },
+    ReviewCreate() {
+      this.$router.push({ name: "reviewcreate" })
     },
   },
 }
