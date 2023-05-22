@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_list_or_404, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -109,7 +109,7 @@ def get_movie_popular():
                 movie.genres.add(genre)
                 
     movies = Movie.objects.all()
-    serializer = MovieSerializer(movies,many=True)
+    serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
 
@@ -154,7 +154,7 @@ def movie_detail(request, movie_pk):
         movie = Movie.objects.get(pk=movie_pk)
         if movie.get('tagline'):
             serializer = MovieSerializer(movie)
-            return Response(serializer)
+            return Response(serializer.data)
         
     url = "https://api.themoviedb.org/3/movie/"+ str(movie_pk) +"?language=ko-KR"
     global headers
@@ -189,7 +189,14 @@ def movie_detail(request, movie_pk):
         
     return Response(serializer.data)
 
-
+@api_view(['POST'])
+def movie_like(request, movie_pk):
+    user = request.user
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    if user in movie.like_users.all():
+        movie.like_users.remove(user)
+    else:
+        movie.like_users.add(user)
 
 
 

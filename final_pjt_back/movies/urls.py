@@ -9,6 +9,8 @@ urlpatterns = [
     path('recent/',views.get_movie_recent),
     path('popular/',views.get_movie_popular),
     path('<int:movie_pk>/', views.movie_detail),
+    path('<int:movie_pk>/like/', views.movie_like),    
+    
     path('search/<str:keyword>/', views.movie_search),
     
     path('ranker/',views.movie_ranker),
