@@ -57,6 +57,9 @@ export default {
   text-align: start;
   font-size: 30px;
 }
+#MovieVote {
+  margin-right: 30px;
+}
 #MovieDetail {
   font-size: 30px;
 }
