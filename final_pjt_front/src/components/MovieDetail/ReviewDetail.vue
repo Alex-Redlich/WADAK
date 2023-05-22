@@ -19,19 +19,23 @@
         ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ
       </div>
     </div>
-    <div>
-      <div class="buttons">
-        <div><button type="button" class="btn btn-danger">삭제</button></div>
-        <div class="review_comments">리뷰창 구현</div>
-        <button id="Callback" type="button" class="btn btn-warning" @click="Callback">다른 리뷰 보러 가기</button>
-      </div>
+    <div id="deleteReview"><button type="button" class="btn btn-danger">삭제</button></div>
+    <div id="LikeReview"><button type="button" class="btn btn-danger">좋아요</button></div>
+    <div class="review_comments">
+      <CommentsList />
     </div>
+    <button id="Callback" type="button" class="btn btn-warning" @click="Callback">다른 리뷰 보러 가기</button>
   </div>
 </template>
 
 <script>
+import CommentsList from "@/components/Comments/CommentsList"
+
 export default {
   name: "ReviewDetail",
+  components: {
+    CommentsList,
+  },
   methods: {
     Callback() {
       this.$router.push({ name: "moviedetail" })
@@ -45,9 +49,7 @@ export default {
   margin-top: 70px;
   margin-left: 200px;
   background-color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
   padding: 30px;
 }
 #reviewtitle {
@@ -106,7 +108,7 @@ export default {
   padding: 10px;
   margin-bottom: 20px;
 }
-.buttons {
+.like {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -116,5 +118,12 @@ export default {
 #Callback {
   margin-top: 30px;
   font-size: 30px;
+  width: 1000px;
+}
+#deleteReview {
+  margin-bottom: 30px;
+}
+#LikeReview {
+  margin-bottom: 30px;
 }
 </style>
