@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from .models import Review, Comment
 from .serializers import ReviewListSerializer, ReviewSerializer, CommentSerializer
-from ..movies.models import Movie
+from movies.models import Movie
 
 from rest_framework import status
 from rest_framework.response import Response
