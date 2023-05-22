@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
 
 
@@ -20,5 +20,6 @@ class Movie(models.Model):
     release_date = models.CharField(max_length=50, null=True)
     # json 시리얼라이즈 오류로 charfield로 변경.
     runtime = models.CharField(max_length=30,null=True)
+    
     genres = models.ManyToManyField(Genre, related_name="gerne_movies")
-    # test = models.BooleanField(default=True)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_movies")
