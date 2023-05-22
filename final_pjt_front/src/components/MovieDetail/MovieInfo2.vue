@@ -1,9 +1,17 @@
 <template>
   <div class="MovieInfo2">
-    <div style="border: solid black">
-      <h1>영화 정보2</h1>
-      iframe 2개
-      <MovieCardLarge />
+    <div class="row">
+      <div id="iframe" class="col-6">
+        <h1>관련 영상 보러가기</h1>
+        <iframe src="https://www.youtube.com/embed/9mLpChKFV80">관련영상1</iframe>
+        <iframe src="https://www.youtube.com/embed/4jhz2NU-24Q">관련영상2</iframe>
+      </div>
+      <div id="similar" class="col-6">
+        <h1>이런 영화는 어때요?</h1>
+        <div class="d-flex justify-content-center" style="margin: 20px">
+          <MovieCardLarge />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,4 +26,18 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+#iframe {
+  border-right: solid 1px white;
+  margin-bottom: 100px;
+}
+#similar {
+  display: flex;
+  flex-direction: column;
+}
+iframe {
+  width: 600px;
+  height: 350px;
+  margin: 20px;
+}
+</style>

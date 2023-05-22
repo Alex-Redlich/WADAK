@@ -1,9 +1,10 @@
 <template>
   <div class="ReviewCardList">
-    <div style="border: solid black">
-      <h1>리뷰 카드 리스트</h1>
-      <div v-for="card in 3" :key="card">
-        <ReviewCard />
+    <div class="row">
+      <div class="col d-flex justify-content-center flex-wrap">
+        <div id="ReviewCardList" v-for="card in 20" :key="card">
+          <ReviewCard />
+        </div>
       </div>
     </div>
   </div>
@@ -19,4 +20,12 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.ReviewCardList {
+  display: flex;
+}
+#ReviewCardList {
+  width: 300px;
+  margin: 15px;
+}
+</style>
