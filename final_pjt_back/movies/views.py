@@ -258,13 +258,12 @@ def movie_search(request, keyword):
     
     return Response(result_list)
 
-
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
 # 영화 1개 조회
     if Movie.objects.filter(pk=movie_pk):
         movie = Movie.objects.get(pk=movie_pk)
-        if movie.get('tagline'):
+        if movie.tagline:
             serializer = MovieSerializer(movie)
             return Response(serializer.data)
         
