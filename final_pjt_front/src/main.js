@@ -12,6 +12,7 @@ import "bootstrap-vue/dist/bootstrap-vue-icons.min.css"
 
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
+import store from './store'
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
@@ -20,9 +21,13 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+
   // store,
   render: (h) => h(App),
+
+  store,
+
   mounted() {
     AOS.init()
-  },
+  }
 }).$mount("#app")
