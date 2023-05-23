@@ -9,7 +9,7 @@
       <div id="similar" class="col-6">
         <h1>이런 영화는 어때요?</h1>
         <div class="d-flex justify-content-center" style="margin: 20px">
-          <MovieCardLarge />
+          <MovieCardLarge :similarmovie="similarmovie" />
         </div>
       </div>
     </div>
@@ -18,10 +18,33 @@
 
 <script>
 import MovieCardLarge from "@/components/MovieDetail/MovieCardLarge"
+import axios from "axios"
+
 export default {
   name: "MovieInfo2",
   components: {
     MovieCardLarge,
+  },
+  props: {
+    movieId: String,
+  },
+  data() {
+    return {
+      similarmovie: [],
+    }
+  },
+  methods: {
+    getSmilar() {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/api/v1/movies/${this.movieId}/similar`,
+      })
+        .then((res) => {
+          console.log(res.data)
+          this.similarmovie = res.data
+        })
+        .catch((err) => console.log(err))
+    },
   },
 }
 </script>
