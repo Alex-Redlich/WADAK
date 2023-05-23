@@ -28,12 +28,6 @@ export default {
     UpcomingList,
     UserReviewList,
   },
-  methods: {
-    // ServiceOn(){
-    //   let signIn = "${signIn}"
-    //   if
-    // }
-  },
 }
 </script>
 <style scoped>
