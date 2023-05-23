@@ -1,6 +1,6 @@
 <template>
   <div class="MovieDetailView">
-    <MovieInfo />
+    <MovieInfo :movie="movie" />
     <div id="SelectMenu" class="d-flex justify-content-center">
       <div id="Select1" @click="SelectTurn1" :class="{ isSelected: selectcolor1, isnotSelected: selectcolor2 }">팝콘머신 보기</div>
       <div id="blank">|</div>
@@ -20,6 +20,7 @@
 import MovieInfo from "@/components/MovieDetail/MovieInfo"
 import MovieInfo2 from "@/components/MovieDetail/MovieInfo2"
 import ReviewCardList from "@/components/MovieDetail/ReviewCardList"
+import axios from "axios"
 
 export default {
   name: "MovieDetailView",
@@ -33,6 +34,8 @@ export default {
       selectcolor1: true,
       selectcolor2: false,
       SelectMenu1: true,
+      moviePK: this.$route.params.moviePK,
+      movie: {},
     }
   },
   methods: {
@@ -49,6 +52,20 @@ export default {
     ReviewCreate() {
       this.$router.push({ name: "reviewcreate" })
     },
+    getMovieDetail() {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/api/v1/movies/${this.moviePK}/`,
+      })
+        .then((res) => {
+          console.log(res.data)
+          this.movie = res.data
+        })
+        .catch((err) => console.log(err))
+    },
+  },
+  created() {
+    this.getMovieDetail()
   },
 }
 </script>

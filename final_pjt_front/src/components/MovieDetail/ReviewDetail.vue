@@ -36,6 +36,9 @@ export default {
   components: {
     CommentsList,
   },
+  data() {
+    return {}
+  },
   methods: {
     Callback() {
       this.$router.push({ name: "moviedetail" })
