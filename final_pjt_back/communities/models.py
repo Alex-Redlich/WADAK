@@ -10,6 +10,7 @@ class Review(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
     rating = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name="comments")

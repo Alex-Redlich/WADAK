@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser
 class Chingho(models.Model):
     name = models.CharField(max_length=50)
     is_first = models.BooleanField()
-    having_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="chinghos")
+    having_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="chinghos", through = "Chingho_user")
     # m:n 중개테이블을 만들어야 할듯.
     # 형용사 / 명사 구분
     # is_selected = models.BooleanField(default=False)
@@ -19,10 +19,7 @@ class User(AbstractUser):
     followings = models.ManyToManyField('self',symmetrical=False, related_name="followers")
     # 유저 팔로잉
     
-    
-    # chinghos = models.ForeignKey(Chingho, on_delete=models.CASCADE, related_name="having_users")
-    # 보유 칭호 ; 1:N or m:n...  현재 ~명이 보유중입니다. ?
-    # today_movie = models.ForeignKey('movies.Movie', on_delete=models.CASCADE, null=True)
+    today_movie = models.ForeignKey('movies.Movie', on_delete=models.CASCADE, null=True)
     # 오늘의 영화
     
     is_public = models.BooleanField(default=True)
@@ -35,9 +32,14 @@ class User(AbstractUser):
     # 유저레벨
     rank = models.IntegerField(default=0, null=True)
     # 랭킹유저 표시   1 ~ 5위까지 판단.
-
+    
     nickname = models.CharField(max_length=50)
     intro = models.TextField()
     
     # profile_pic = models.CharField(max_length=200)
     # 프로필 사진 링크 url
+
+class Chingho_user(models.Model):
+    chingho = models.ForeignKey('Chingho', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    is_selected = models.BooleanField(default=False)

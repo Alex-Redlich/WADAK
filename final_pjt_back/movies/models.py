@@ -7,6 +7,7 @@ class Genre(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
 
+
 class Movie(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=100)
@@ -21,5 +22,17 @@ class Movie(models.Model):
     # json 시리얼라이즈 오류로 charfield로 변경.
     runtime = models.CharField(max_length=30,null=True)
     
+    # genres = models.ManyToManyField(Genre, related_name="gerne_movies")
     genres = models.ManyToManyField(Genre, related_name="gerne_movies")
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_movies")
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_movies", through="Movie_like_users")
+
+# class test(models.Model):
+#  # datetime 필드 & created_at 확인용
+#     movie = models.ForeignKey("Movie", on_delete=models.CASCADE)
+#     genre = models.ForeignKey("Genre", on_delete=models.CASCADE)
+#     created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+class Movie_like_users(models.Model):
+    movie = models.ForeignKey('Movie', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
