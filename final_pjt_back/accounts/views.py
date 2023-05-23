@@ -29,7 +29,7 @@ def signup(request):
     return Response({'status':'success', 'user_pk': user.pk})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def login(request):
     user = get_object_or_404(User, username=request.data.get('username'))
     if user.check_password(request.data.get('password')):
