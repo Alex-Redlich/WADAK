@@ -13,10 +13,11 @@ class CommentSerializer(serializers.ModelSerializer):
         return rep
 
 class ReviewListSerializer(serializers.ModelSerializer):
-    
+    # 작성자, 작성시간, 좋아요 수 필요, 평점
     class Meta:
         model = Review
-        fields = ('id','title','rating')
+        # fields = ('id','title','rating', 'created_at')
+        fields = '__all__'
 
 
 class ReviewSerializer(serializers.ModelSerializer):
