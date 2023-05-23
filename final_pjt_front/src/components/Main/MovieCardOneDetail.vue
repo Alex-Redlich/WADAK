@@ -1,6 +1,6 @@
 <template>
-  <div class="MovieCardOneDetail">
-    <div id="MovieCardOneDetail" class="card" style="max-width: 1200px">
+  <div class="MovieCardOneDetail1">
+    <div id="MovieCardOneDetail1" class="card" style="max-width: 1200px">
       <div class="row">
         <div class="col-4">
           <img src="https://image.tmdb.org/t/p/w500/3JT1oE0JIA6CQJaZDG00y3S0kP3.jpg" class="img-fluid rounded-start" />
@@ -44,7 +44,7 @@ export default {
   color: grey;
   font-size: 20px;
 }
-#MovieCardOneDetail {
+#MovieCardOneDetail1 {
   box-shadow: 3px 3px 5px rgb(212, 212, 212);
 }
 </style>

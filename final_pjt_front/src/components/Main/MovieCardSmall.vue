@@ -1,5 +1,5 @@
 <template>
-  <div class="MovieCardSmall">
+  <div class="MovieCardSmall1">
     <div class="card" style="width: 300px">
       <img id="MovieCardSmall" src="https://image.tmdb.org/t/p/w500/sz6mTIDDQmR3DYgJudiTmoW2gR5.jpg" class="card-img-top" />
     </div>
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style>
-.MovieCardSmall {
+.MovieCardSmall1 {
   width: 300px;
 }
 #MovieCardSmall {

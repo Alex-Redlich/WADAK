@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import MovieCardSmall from "@/components/Main/MovieCardSmall";
+import MovieCardSmall from "@/components/Main/MovieCardSmall"
 export default {
   name: "PopularList",
   components: {
     MovieCardSmall,
   },
-};
+}
 </script>
 
 <style>
