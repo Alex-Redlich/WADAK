@@ -1,7 +1,7 @@
 <template>
   <div class="MovieCardSmall1">
     <div class="card hovering2" style="width: 300px; height: 447px">
-      <figure><img id="MovieCardSmall" src="https://image.tmdb.org/t/p/w500/sz6mTIDDQmR3DYgJudiTmoW2gR5.jpg" class="card-img-top" /></figure>
+      <figure><img id="MovieCardSmall" :src="url" class="card-img-top" /></figure>
       <div class="movieCard__overlay2">
         <h3>자세히 보러가기</h3>
       </div>
@@ -12,6 +12,14 @@
 <script>
 export default {
   name: "MovieCardSmall",
+  props: {
+    movie: Object,
+  },
+  computed: {
+    url() {
+      return "https://image.tmdb.org/t/p/w500" + this.movie.poster_path
+    },
+  },
 }
 </script>
 

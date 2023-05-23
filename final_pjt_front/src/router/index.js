@@ -20,7 +20,7 @@ const routes = [
     component: MainView,
   },
   {
-    path: "/movies/:moviePk",
+    path: "/movies/:moviePK",
     name: "moviedetail",
     component: MovieDetailView,
   },
@@ -30,7 +30,7 @@ const routes = [
     component: ReviewView,
   },
   {
-    path: "/profile/:userId",
+    path: "/profile/:userID",
     name: "profile",
     component: ProfileView,
   },

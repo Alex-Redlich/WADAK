@@ -7,9 +7,7 @@
     <!-- 카드 리스트 -->
     <div>
       <div id="PopularList" class="row justify-content-center">
-        <div id="MovieCardPopular" class="col" v-for="card in 5" :key="card">
-          <MovieCardSmall />
-        </div>
+          <MovieCardSmall id="MovieCardPopular" class="col" v-for="movie in movies" :key="movie.id" :movie="movie" />
       </div>
     </div>
   </div>
@@ -17,10 +15,32 @@
 
 <script>
 import MovieCardSmall from "@/components/Main/MovieCardSmall"
+import axios from "axios"
 export default {
   name: "PopularList",
   components: {
     MovieCardSmall,
+  },
+  data() {
+    return {
+      movies: [],
+    }
+  },
+  methods: {
+    getPopularList() {
+      axios({
+        method: "get",
+        url: "http://127.0.0.1:8000/api/v1/movies/popular/",
+      })
+        .then((res) => {
+          console.log(res.data)
+          this.movies = res.data
+        })
+        .catch((err) => console.log(err))
+    },
+  },
+  created() {
+    this.getPopularList()
   },
 }
 </script>
