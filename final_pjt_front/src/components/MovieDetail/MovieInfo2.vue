@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import MovieCardLarge from "@/components/MovieDetail/MovieCardLarge"
-import axios from "axios"
+import MovieCardLarge from "@/components/MovieDetail/MovieCardLarge";
+import axios from "axios";
 
 export default {
   name: "MovieInfo2",
@@ -26,30 +26,30 @@ export default {
     MovieCardLarge,
   },
   props: {
-    movieId: String,
+    moviepk: String,
   },
   data() {
     return {
       similarmovie: {},
-    }
+    };
   },
   methods: {
     getSmilar() {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/api/v1/movies/${this.movieId}/similar`,
+        url: `http://127.0.0.1:8000/api/v1/movies/${this.moviepk}/similar`,
       })
         .then((res) => {
-          console.log(res.data)
-          this.similarmovie = res.data
+          console.log(res.data);
+          this.similarmovie = res.data;
         })
-        .catch(() => console.log(this.url))
+        .catch(() => {});
     },
   },
   created() {
-    this.getSmilar()
+    this.getSmilar();
   },
-}
+};
 </script>
 
 <style>

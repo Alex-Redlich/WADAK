@@ -2,25 +2,29 @@
   <div class="MovieDetailView">
     <MovieInfo :movie="movie" />
     <div id="SelectMenu" class="d-flex justify-content-center">
-      <div id="Select1" @click="SelectTurn1" :class="{ isSelected: selectcolor1, isnotSelected: selectcolor2 }">팝콘머신 보기</div>
+      <div id="Select1" @click="SelectTurn1" :class="{ isSelected: selectcolor1, isnotSelected: selectcolor2 }">
+        팝콘머신 보기
+      </div>
       <div id="blank">|</div>
-      <div id="Select2" @click="SelectTurn2" :class="{ isSelected: selectcolor2, isnotSelected: selectcolor1 }">영화 상세정보</div>
+      <div id="Select2" @click="SelectTurn2" :class="{ isSelected: selectcolor2, isnotSelected: selectcolor1 }">
+        영화 상세정보
+      </div>
     </div>
     <div v-if="SelectMenu1">
       <ReviewCardList />
       <div class="ReviewCreateForm" @click="ReviewCreate">리 뷰 작 성</div>
     </div>
     <div v-else>
-      <MovieInfo2 :movie-id="moviePK" />
+      <MovieInfo2 :moviepk="moviePK" />
     </div>
   </div>
 </template>
 
 <script>
-import MovieInfo from "@/components/MovieDetail/MovieInfo"
-import MovieInfo2 from "@/components/MovieDetail/MovieInfo2"
-import ReviewCardList from "@/components/MovieDetail/ReviewCardList"
-import axios from "axios"
+import MovieInfo from "@/components/MovieDetail/MovieInfo";
+import MovieInfo2 from "@/components/MovieDetail/MovieInfo2";
+import ReviewCardList from "@/components/MovieDetail/ReviewCardList";
+import axios from "axios";
 
 export default {
   name: "MovieDetailView",
@@ -36,21 +40,21 @@ export default {
       SelectMenu1: true,
       moviePK: this.$route.params.moviePK,
       movie: {},
-    }
+    };
   },
   methods: {
     SelectTurn1() {
-      this.SelectMenu1 = true
-      this.selectcolor1 = !this.selectcolor1
-      this.selectcolor2 = !this.selectcolor2
+      this.SelectMenu1 = true;
+      this.selectcolor1 = !this.selectcolor1;
+      this.selectcolor2 = !this.selectcolor2;
     },
     SelectTurn2() {
-      this.SelectMenu1 = false
-      this.selectcolor1 = !this.selectcolor1
-      this.selectcolor2 = !this.selectcolor2
+      this.SelectMenu1 = false;
+      this.selectcolor1 = !this.selectcolor1;
+      this.selectcolor2 = !this.selectcolor2;
     },
     ReviewCreate() {
-      this.$router.push({ name: "reviewcreate" })
+      this.$router.push({ name: "reviewcreate" });
     },
     getMovieDetail() {
       axios({
@@ -58,16 +62,19 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/movies/${this.moviePK}/`,
       })
         .then((res) => {
-          console.log(res.data)
-          this.movie = res.data
+          // console.log(res.data);
+          this.movie = res.data;
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     },
   },
   created() {
-    this.getMovieDetail()
+    this.getMovieDetail();
   },
-}
+  // updated() {
+  //   this.getMovieDetail();
+  // },
+};
 </script>
 <style scoped>
 .MovieDetailView {

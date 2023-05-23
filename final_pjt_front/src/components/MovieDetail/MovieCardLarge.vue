@@ -1,10 +1,18 @@
 <template>
   <div class="MovieCardLarge1">
-    <div class="card hovering" style="width: 500px; height: 747px" @click="GoDetail">
+    <div
+      v-if="this.similarMovie.poster_path"
+      class="card hovering"
+      style="width: 500px; height: 747px"
+      @click="GoDetail"
+    >
       <figure><img id="MovieCardLarge1" :src="url" class="card-img-top" style="border: 0px" /></figure>
       <div class="movieCard__overlay">
         <h3>자세히 보러가기</h3>
       </div>
+    </div>
+    <div v-else>
+      <p class="text-center">아쉽게도 관련 영화가 없습니다...</p>
     </div>
   </div>
 </template>
@@ -15,11 +23,11 @@ export default {
   data() {
     return {
       poster_path: "/3JT1oE0JIA6CQJaZDG00y3S0kP3.jpg",
-    }
+    };
   },
   computed: {
     url() {
-      return "https://image.tmdb.org/t/p/w500" + this.similarMovie.poster_path
+      return "https://image.tmdb.org/t/p/w500" + this.similarMovie.poster_path;
     },
   },
   props: {
@@ -27,16 +35,17 @@ export default {
   },
   methods: {
     GoDetail() {
-      this.$router.push({ name: "moviedetail", params: { moviePK: this.similarMovie.id } })
+      this.$router.replace({ name: "moviedetail", params: { moviePK: this.similarMovie.id } });
     },
   },
-}
+};
 </script>
 
 <style>
 .MovieCardLarge1 {
   width: 500px;
   display: flex;
+  justify-content: center;
 }
 #MovieCardLarge1 {
   box-shadow: 3px 3px 5px rgb(212, 212, 212);
