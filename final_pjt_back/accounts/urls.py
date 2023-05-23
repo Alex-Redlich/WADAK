@@ -3,7 +3,7 @@ from . import views
 
 app_name = 'accounts'
 urlpatterns = [
-    path('profile/<int:user_pk>/', views.profile),
+    path('profile/<int:user_pk>/', views.profile_detail),
     path('profile/<int:user_pk>/follow/', views.follow),
     path('profile/<int:user_pk>/review/', views.review_list),
     path('profile/<int:user_pk>/like/', views.like_list),

@@ -289,7 +289,7 @@ def movie_detail(request, movie_pk):
                 )
         movie.save()
         for genredict in result.get('genres'):
-            genre = Genre.objects.get(pk=genredict.ger('id'))
+            genre = Genre.objects.get(pk=genredict.get('id'))
 
             movie.genres.add(genre)
         serializer = MovieSerializer(movie)

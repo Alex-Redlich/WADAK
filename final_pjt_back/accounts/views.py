@@ -62,7 +62,7 @@ def delete(request, user_pk):
     return Response({'status':'deleted'})
 
 @api_view(['GET'])
-def profile(request, user_pk):
+def profile_detail(request, user_pk):
     # 프로필 조회.. 유저 DB 조회나 다름없는듯?
     pass
 
