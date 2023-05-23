@@ -14,9 +14,9 @@ headers = {
 
 
 def overview_is_valid(overview):
-    # 줄거리에 19금 단어 포함이라면 삭제
+    # 줄거리에 19금 단어 포함이라면 거르기.
     # overview = Movie.get("overview")
-    filterwords = ["쾌락","욕망","남근","처제","에로","형수"]
+    filterwords = ["쾌락","욕망","남근","처제","에로","형수","sex"]
     for filterword in filterwords:
         if filterword in overview:
             # movie = Movie.objects.get(overview = overview)
@@ -31,7 +31,7 @@ def get_genres():
 # 서버 구동과 함께 모든 장르를 받아와야함. 처음 한번 가져오기.
     url = "https://api.themoviedb.org/3/genre/movie/list?language=ko"
     global headers
-
+    # print("장르~")
     response = requests.get(url, headers=headers)
     result = response.json()
     for res in result.get('genres') :
@@ -47,6 +47,7 @@ def get_movie_recent():
     # 서버 시작과 동시에 5페이지까지 불러오기  & ap 스케쥴러로 24시간 마다 한번 불러오기
     base_url = "https://api.themoviedb.org/3/movie/upcoming?language=ko-KR&page="
     global headers
+    # print("recent~")
     for i in ["1","2","3","4","5"]:
         url = base_url + i
         response = requests.get(url, headers=headers)
@@ -83,6 +84,7 @@ def get_movie_popular():
     # 서버 시작과 동시에 5페이지까지 불러오기  & ap 스케쥴러로 24시간 마다 한번 불러오기
     base_url = "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page="
     global headers
+    # print("파퓰라~")
     for i in ["1","2","3","4","5"]:
         url = base_url + i
         response = requests.get(url, headers=headers)
