@@ -9,7 +9,15 @@
         <div id="UserDetail" class="col-4">
           <div class="row align-items-center">
             <p id="chingho">[매일눈물흘리는 어린꿈나무]</p>
-            <button id="InvenBtn" class="btn btn-warning" @click="GoInventory">인벤토리</button>
+            <div>
+              <!-- 인벤토리 버튼 -->
+              <button v-if="userId" id="InvenBtn" class="btn btn-warning" @click="GoInventory">인벤토리</button>
+              <div v-else>
+                <!-- 본인 프로필이 아니라면 팔로우 버튼 생성 -->
+                <button v-if="isFollowed" id="followBtn" class="btn btn-danger" @click="follow">팔로잉취소</button>
+                <button v-else id="followBtn" class="btn btn-primary" @click="follow">팔로잉하기</button>
+              </div>
+            </div>
           </div>
 
           <div class="d-flex align-items-baseline">
@@ -17,8 +25,8 @@
             <img id="levelsymbol" src="@/assets/level/2.png" alt="" />
           </div>
           <p id="message">
-            난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을
-            흘린다난 가끔 눈물을 흘린다
+            난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난
+            가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다
           </p>
         </div>
         <div id="Userintro" class="col-4">
@@ -42,12 +50,18 @@
 export default {
   name: "UserInfo",
   components: {},
+  data() {
+    return {
+      userId: false,
+      isFollowed: true,
+    };
+  },
   methods: {
     GoInventory() {
-      this.$router.push({ name: "inventory" })
+      this.$router.push({ name: "inventory" });
     },
   },
-}
+};
 </script>
 
 <style>
@@ -55,6 +69,7 @@ export default {
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+  padding-top: 30px;
 }
 #chingho {
   margin-top: 20px;
