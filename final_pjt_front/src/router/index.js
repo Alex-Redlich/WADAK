@@ -10,6 +10,7 @@ import ReviewCreateForm from "@/components/MovieDetail/ReviewCreateForm";
 import ReviewDetail from "@/components/MovieDetail/ReviewDetail";
 import LoginForm from "@/components/Profile/LoginForm";
 import SignupForm from "@/components/Profile/SignupForm";
+import UpdateForm from "@/components/Profile/UpdateForm";
 
 Vue.use(VueRouter);
 
@@ -42,6 +43,16 @@ const routes = [
     component: LoginForm,
   },
   {
+    path: "/signup",
+    name: "signup",
+    component: SignupForm,
+  },
+  {
+    path: "/updateprofile/:userID",
+    name: "update",
+    component: UpdateForm,
+  },
+  {
     path: "/search",
     name: "search",
     component: SearchView,
@@ -60,11 +71,6 @@ const routes = [
     path: "/:reviewId/reviewdetail",
     name: "reviewdetail",
     component: ReviewDetail,
-  },
-  {
-    path: "/signup",
-    name: "signup",
-    component: SignupForm,
   },
 ];
 

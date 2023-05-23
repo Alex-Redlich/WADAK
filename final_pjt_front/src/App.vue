@@ -18,7 +18,7 @@
         <router-link to="/search">찾기</router-link>
       </div>
     </nav>
-    <router-view :key="$route.fullPath" />
+    <router-view />
     <!-- 풋터 -->
     <footer class="row py-5 border-top">
       <div class="col">

@@ -4,7 +4,7 @@
       <div class="row">
         <dlv id="UserImagediv" class="col-4">
           <img id="UserImage" src="@/assets/profile.jpg" alt="" />
-          <button id="EditBtn" class="btn btn-warning text-center">Edit Profile</button>
+          <button id="EditBtn" class="btn btn-warning text-center" @click="GoUpdate">Edit Profile</button>
         </dlv>
         <div id="UserDetail" class="col-4">
           <div class="row align-items-center">
@@ -59,6 +59,9 @@ export default {
   methods: {
     GoInventory() {
       this.$router.push({ name: "inventory" });
+    },
+    GoUpdate() {
+      this.$router.push({ name: "update", params: { userID: "" } });
     },
   },
 };

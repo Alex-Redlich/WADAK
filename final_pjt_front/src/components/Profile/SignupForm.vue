@@ -8,7 +8,23 @@
       </div>
       <div id="signForm_Password" class="mb-3">
         <label for="password" class="form-label">패스워드(PASSWORD)</label>
-        <input type="password" class="form-control" id="password" placeholder="패스워드를 입력하세요" v-model="password" />
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="패스워드를 입력하세요"
+          v-model="password"
+        />
+      </div>
+      <div id="signForm_Password" class="mb-3">
+        <label for="password2" class="form-label">패스워드(CHECK)</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password2"
+          placeholder="패스워드를 확인하세요"
+          v-model="password2"
+        />
       </div>
       <div id="signForm_Nickname" class="mb-3">
         <label for="nickname" class="form-label">닉네임(NICKNAME)</label>
@@ -24,7 +40,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 
 export default {
   name: "SignupForm",
@@ -33,31 +49,33 @@ export default {
     return {
       username: "",
       password: "",
+      password2: "",
       nickname: "",
       intro: "",
-    }
+    };
   },
   methods: {
     Signup() {
       const userdata = {
         username: this.username,
         password: this.password,
+        password2: this.password2,
         nickname: this.nickname,
         intro: this.intro,
-      }
+      };
       axios({
         method: "post",
         url: "http://127.0.0.1:8000/api/v1/accounts/signup/",
         data: userdata,
       })
         .then((res) => {
-          console.log(res)
+          console.log(res);
         })
-        .catch((err) => console.log(err))
-      console.log(userdata)
+        .catch((err) => console.log(err));
+      console.log(userdata);
     },
   },
-}
+};
 </script>
 
 <style>
@@ -89,5 +107,8 @@ export default {
 #signForm_intro {
   text-align: start;
   font-size: 30px;
+}
+#intro {
+  height: 300px;
 }
 </style>
