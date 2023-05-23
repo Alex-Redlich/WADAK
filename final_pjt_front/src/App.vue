@@ -77,6 +77,7 @@
 }
 #topbar {
   max-height: 70px;
+  width: 1920px;
   background-color: #090e13;
 }
 nav a:hover {

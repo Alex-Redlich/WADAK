@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import UserInfo from "@/components/Profile/UserInfo";
-import TodayMovie from "@/components/Profile/TodayMovie";
-import LikeMovies from "@/components/Profile/LikeMovies";
-import ReviewMovies from "@/components/Profile/ReviewMovies";
+import UserInfo from "@/components/Profile/UserInfo"
+import TodayMovie from "@/components/Profile/TodayMovie"
+import LikeMovies from "@/components/Profile/LikeMovies"
+import ReviewMovies from "@/components/Profile/ReviewMovies"
 export default {
   name: "ProfileView",
   components: {
@@ -28,7 +28,9 @@ export default {
     LikeMovies,
     ReviewMovies,
   },
-};
+  data() {},
+  methods: {},
+}
 </script>
 <style scoped>
 .ProfileView {

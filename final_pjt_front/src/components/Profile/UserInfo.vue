@@ -17,8 +17,8 @@
             <img id="levelsymbol" src="@/assets/level/2.png" alt="" />
           </div>
           <p id="message">
-            난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난
-            가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다
+            난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을
+            흘린다난 가끔 눈물을 흘린다
           </p>
         </div>
         <div id="Userintro" class="col-4">
@@ -44,10 +44,10 @@ export default {
   components: {},
   methods: {
     GoInventory() {
-      this.$router.push({ name: "inventory" });
+      this.$router.push({ name: "inventory" })
     },
   },
-};
+}
 </script>
 
 <style>

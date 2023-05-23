@@ -14,11 +14,11 @@ export default new Vuex.Store({
   mutations: {
     LOGIN(state, payload) {
       state.user_pk = payload
-      this.isLogin = true
+      state.isLogin = true
     },
     LOGOUT(state) {
       state.user_pk = null
-      this.isLogin = false
+      state.isLogin = false
     },
   },
   actions: {

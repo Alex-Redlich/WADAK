@@ -1,6 +1,6 @@
 <template>
   <div class="ReviewMovies">
-    <h1>user 최근 남긴 영화들</h1>
+    <h1>user 최근에 리뷰를 남긴 영화들</h1>
     <div id="ReviewMovies">
       <div v-for="card in 3" :key="card">
         <MovieCardSmall />
@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import MovieCardSmall from "@/components/Profile/MovieCardSmall";
+import MovieCardSmall from "@/components/Profile/MovieCardSmall"
 export default {
   name: "LikeMovies",
   components: {
     MovieCardSmall,
   },
-};
+}
 </script>
 
 <style lscoped>
