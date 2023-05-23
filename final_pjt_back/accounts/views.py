@@ -18,7 +18,7 @@ def signup(request):
     user = User()
     
     user.username = request.data.get('username')
-    user.password = request.data.get('password')
+    user.set_password(request.data.get('password'))
     user.nickname = request.data.get('nickname')
     user.intro = request.data.get('intro')
         # 유효성 검사하기
@@ -32,7 +32,7 @@ def signup(request):
 @api_view(['GET'])
 def login(request):
     user = get_object_or_404(User, username=request.data.get('username'))
-    if user.password == request.data.get('password'):
+    if user.check_password(request.data.get('password')):
         return Response({'status':'success', 'user_pk': user.pk})
     else:
         return Response({'status':'fail'})
