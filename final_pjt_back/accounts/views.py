@@ -26,7 +26,7 @@ def signup(request):
         # 패스워드가 잘못됬을 경우
         # 어쩌구저쩌구
     user.save()
-    return Response({'status':'signup sucess', 'user_pk': user.pk})
+    return Response({'status':'success', 'user_pk': user.pk})
 
 
 @api_view(['GET'])
