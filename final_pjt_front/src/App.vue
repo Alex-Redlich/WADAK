@@ -16,7 +16,6 @@
         <router-link to="/">영화보기</router-link>
         <router-link to="/popcorn-machine">팝콘머신</router-link>
         <router-link to="/search">찾기</router-link>
-        <router-link to="/movies/:moviePk">디테일버튼</router-link>
       </div>
     </nav>
     <router-view />
