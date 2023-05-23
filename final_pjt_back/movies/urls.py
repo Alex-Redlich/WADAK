@@ -6,16 +6,17 @@ app_name = 'movies'
 urlpatterns = [
     path('getgenres/', views.get_genres),
     # 장르 받아옴
-    path('recent/',views.get_movie_recent),
-    path('popular/',views.get_movie_popular),
     path('<int:movie_pk>/', views.movie_detail),
-    path('<int:movie_pk>/like/', views.movie_like),    
-    
     path('search/<str:keyword>/', views.movie_search),
+    path('<int:movie_pk>/like/', views.movie_like), 
+        
+    path('recent/',views.recent_movie),
+    path('popular/',views.popular_movie),
+    path('ranker/',views.ranker_today_movie),
+    path('follow/<int:user_pk>/like/',views.follow_like_movie),
+    path('follow/<int:user_pk>/today/',views.follow_today_movie),
+    path('follow/<int:user_pk>/review/',views.follow_review_movie),
     
-    path('ranker/',views.movie_ranker),
     # path('pick/influncer/',),
-    path('friend/<int:user_pk>/like/',views.movie_friend_like),
-    path('friend/<int:user_pk>/today/',views.movie_friend_today),
-    path('friend/<int:user_pk>/review/',views.movie_friend_review),
+    # path('test/', views.popular_movie),
 ]

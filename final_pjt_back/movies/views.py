@@ -1,16 +1,124 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.db.models import Q
+from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from .models import Movie, Genre
-from .serializers import MovieSerializer
-
+from .serializers import MovieSerializer, MovieSimpleSerializer
+from accounts.models import User, Chingho
 import requests
+import random
 
 headers = {
         "accept": "application/json",
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMGVhNDA4YjMwNGUwZTFkODEwYjVkNzVmNmRlNWE4NiIsInN1YiI6IjYzZDMxOGJlZTcyZmU4MDA4NDkxNmUyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5S11pzIijwEo4PZ5NR65364akBOW0nkTeQa3ycHXwfs"
     }
+
+# def test_func(request):
+#     test_queryset = test.objects.order_by('-created_at')
+#     filtered_queryset = test_queryset.filter(genre_id=12)
+#     movie_queryset = Movie.objects.filter(test__in=filtered_queryset).order_by('-test__created_at')
+
+#     for movie in movie_queryset:
+#         print(movie.title)
+    # filter(test.movie.id < "100").order_by('test.movie')
+    
+    # return movie_queryset
+
+@api_view(['GET'])
+def ranker_today_movie(request):
+    # 랜덤 랭커 유저의 칭호, 닉네임, todaymovie_id
+    rankers = get_list_or_404(User, rank__gt=0).filter(is_public__gt = 0, today_movie__isnull=False)
+    ranker = random.choice(rankers)
+    movie = ranker.today_movie
+    
+    
+    data = {'ranker_nickname' : ranker.nickname}
+    serializer = MovieSimpleSerializer(movie)
+    data.update(serializer.data)
+    
+    return Response(data)
+    # {ranker_nickname, id, title}
+
+@api_view(['GET'])
+def follow_today_movie(request):
+    # 팔로잉 랜덤유저 1명 닉네임, movie_detail 전체 정보
+    user = User.objects.get(pk = request.data.get("user_pk"))
+    random_following = random.choice(user.followings.filter(today_movie__isnull=False, is_public__gt = 0))
+    movie = random_following.today_movie
+    
+    data = {'following_nickname' : random_following.nickname}
+    serializer = MovieSerializer(movie)
+    data.update(serializer.data)
+    
+    return Response(data)
+    # { following_nickname , id, title, ...}
+
+@api_view(['GET'])
+def follow_like_movie(request):
+    #  팔로잉 랜덤유저 1명 닉네임, 최근 좋아요한 영화 id & path 3개
+    user = User.objects.get(pk = request.data.get("user_pk"))
+    followings = user.followings.filter(is_public__gt = 0)
+    random_following = random.choice(followings)
+    
+    while random_following.like_movies.count() == 0:
+        random_following = random.choice(followings)
+    movies = random_following.like_movies.all().order_by('-Movie_like_users__created_at')[:3]
+    
+    data = {'following_nickname' : random_following.nickname}
+    serializer = MovieSimpleSerializer(movies, many = True)
+    data.update(movies = serializer.data)
+    
+    return Response(data)
+    # {following_nickname , movies }
+
+@api_view(['GET'])
+def follow_review_movie(request):
+    # 팔로잉 랜덤유저 1명 닉네임, 최근 리뷰 남긴 영화 id & path 3개
+    user = User.objects.get(pk = request.data.get("user_pk"))
+    followings = user.followings.filter(is_public__gt = 0)
+    random_following = random.choice(followings)
+    
+    while random_following.reviews.count() == 0:
+        random_following = random.choice(followings)
+    reviews = random_following.reviews.all().order_by('-review__created_at')[:10]
+    review_ids = list(set([review.id for review in reviews]))
+    movies = Movie.objects.filter(review__in=review_ids)[:3]
+    
+    data = {'following_nickname' : random_following.nickname}
+    serializer = MovieSimpleSerializer(movies, many = True)
+    data.update(movies = serializer.data)
+    
+    return Response(data)
+    # {following_nickname , movies }
+
+@api_view(['GET'])
+def popular_movie(request):
+    # popularity로 movie 정렬 후 5개 출력
+    movies = Movie.objects.order_by('-popularity')[:5]
+    serializer = MovieSimpleSerializer(movies, many = True)
+    # serializer.data => list안에 들어감.
+    return Response(serializer.data)
+    # [ {} , {}, {}]
+
+    # data = {'following_nickname' : 'ㅁ'}
+    # movies = Movie.objects.get(id=175)
+    # serializer = MovieSerializer(movies)
+    # data.update(serializer.data)
+    # # serializer.data => list안에 들어감.
+    # return Response(data)
+
+@api_view(['GET'])
+def recent_movie(request):
+    # 개봉일로 정렬 후 5개 출력
+    movies = Movie.objects.order_by('-release_date')[:5]
+    serializer = MovieSimpleSerializer(movies, many = True)
+    return Response(serializer.data)
+    # [ {} , {}, {}]
+
+
+
 
 
 def overview_is_valid(overview):
@@ -26,6 +134,7 @@ def overview_is_valid(overview):
 
 
 # Create your views here.
+# follower ~ 누구가 
 
 def get_genres():
 # 서버 구동과 함께 모든 장르를 받아와야함. 처음 한번 가져오기.
@@ -164,33 +273,33 @@ def movie_detail(request, movie_pk):
     response = requests.get(url, headers=headers)
     result = response.json()
     # result type은 dict . dict get 메서드이용해서 필드가 없을 경우 none 입력.
-    
-    movie = Movie(                
-            id = result.get('id'),
-            title = result.get('title'),
-            overview = result.get('overview'),
-            popularity = result.get('popularity'),
-            vote_average =  result.get('vote_average'),
-            vote_count =  result.get('vote_count'),
-            tagline  =  result.get('tagline'),
-            backdrop_path =  result.get('backdrop_path'),
-            poster_path =  result.get('poster_path'),
-            release_date =  result.get('release_date'),
-            runtime =  result.get('runtime'),
-            # genres =  result.get('genre_ids'),
-            )
-    movie.save()
-    for genredict in result.get('genres'):
-        genre = Genre.objects.get(pk=genredict.ger('id'))
+    if overview_is_valid(overview = result.get('overview')):
+        movie = Movie(                
+                id = result.get('id'),
+                title = result.get('title'),
+                overview = result.get('overview'),
+                popularity = result.get('popularity'),
+                vote_average =  result.get('vote_average'),
+                vote_count =  result.get('vote_count'),
+                tagline  =  result.get('tagline'),
+                backdrop_path =  result.get('backdrop_path'),
+                poster_path =  result.get('poster_path'),
+                release_date =  result.get('release_date'),
+                runtime =  result.get('runtime'),
+                # genres =  result.get('genre_ids'),
+                )
+        movie.save()
+        for genredict in result.get('genres'):
+            genre = Genre.objects.get(pk=genredict.ger('id'))
 
-        movie.genres.add(genre)
-
-    
-    serializer = MovieSerializer(movie)
-    # if serializer.is_valid(raise_exception=True):
-        # serializer.save()
-        
-    return Response(serializer.data)
+            movie.genres.add(genre)
+        serializer = MovieSerializer(movie)
+        # if serializer.is_valid(raise_exception=True):
+            # serializer.save()
+            
+        return Response(serializer.data)
+    else:
+        return Response({'status':'fail'})
 
 @api_view(['POST'])
 def movie_like(request, movie_pk):
@@ -200,20 +309,6 @@ def movie_like(request, movie_pk):
         movie.like_users.remove(user)
     else:
         movie.like_users.add(user)
-
-
-
-
-def movie_ranker(request):
-    pass
-
-
-def movie_friend_like(request, user_pk):
-    pass
-def movie_friend_today(request, user_pk):
-    pass
-def movie_friend_review(request, user_pk):
-    pass
 
 
 
