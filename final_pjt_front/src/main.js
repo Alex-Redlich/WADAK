@@ -5,14 +5,13 @@ import App from "./App.vue"
 import router from "./router"
 import AOS from "aos"
 import "aos/dist/aos.css"
-// import store from "./store";
+import store from "./store"
 
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue"
 import "bootstrap-vue/dist/bootstrap-vue-icons.min.css"
 
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
-import store from './store'
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
@@ -22,12 +21,11 @@ Vue.config.productionTip = false
 new Vue({
   router,
 
-  // store,
   render: (h) => h(App),
 
   store,
 
   mounted() {
     AOS.init()
-  }
+  },
 }).$mount("#app")
