@@ -11,7 +11,7 @@
       <div class="ReviewCreateForm" @click="ReviewCreate">리 뷰 작 성</div>
     </div>
     <div v-else>
-      <MovieInfo2 />
+      <MovieInfo2 :movie-id="moviePK" />
     </div>
   </div>
 </template>

@@ -9,7 +9,7 @@
       <div id="similar" class="col-6">
         <h1>이런 영화는 어때요?</h1>
         <div class="d-flex justify-content-center" style="margin: 20px">
-          <MovieCardLarge :similarmovie="similarmovie" />
+          <MovieCardLarge :similar-movie="similarmovie" />
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      similarmovie: [],
+      similarmovie: {},
     }
   },
   methods: {
@@ -43,8 +43,11 @@ export default {
           console.log(res.data)
           this.similarmovie = res.data
         })
-        .catch((err) => console.log(err))
+        .catch(() => console.log(this.url))
     },
+  },
+  created() {
+    this.getSmilar()
   },
 }
 </script>
