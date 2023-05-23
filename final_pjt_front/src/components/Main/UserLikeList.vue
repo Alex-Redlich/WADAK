@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import MovieCardLarge from "@/components/Main/MovieCardLarge";
+import MovieCardLarge from "@/components/Main/MovieCardLarge"
 export default {
   name: "UserLikeList",
   components: {
     MovieCardLarge,
   },
-};
+}
 </script>
 
 <style>

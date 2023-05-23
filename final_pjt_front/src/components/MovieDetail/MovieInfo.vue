@@ -4,7 +4,18 @@
     <div id="MovieInfo" class="row">
       <div class="col-4"><img id="MovieDetailimg" src="https://image.tmdb.org/t/p/w500/dlGyzCxbBQK1U2O5o31Z1hB6erc.jpg" /></div>
       <div id="MovieInfo2" class="col-8">
-        <p id="MovieTitle">슈퍼 마리오 브라더스</p>
+        <div class="d-flex align-items-baseline">
+          <p id="MovieTitle">슈퍼 마리오 브라더스</p>
+          <div>
+            <img v-if="isLikedBtn" id="Btn1" @click="ClickLike" src="@/assets/Like_ON.png" alt="" />
+            <img v-else id="Btn1" @click="ClickLike" src="@/assets/Like_OFF.png" alt="" />
+          </div>
+          <div>
+            <img v-if="isTodayMovieBtn" id="Btn2" @click="ClickTodayMovie" src="@/assets/TodayMovie_ON.png" alt="" />
+            <img v-else id="Btn2" @click="ClickTodayMovie" src="@/assets/TodayMovie_OFF.png" alt="" />
+          </div>
+        </div>
+
         <p id="MovieTagline">동생을 구하기 위해! 세상을 지키기 위해! '슈퍼 마리오'로 레벨업하기 위한 '마리오'의 스펙터클한 스테이지가 시작된다</p>
         <p id="MovieGenre">애니메이션·가족·모험·판타지·코미디</p>
         <div id="MovieDetail" class="d-flex">
@@ -25,6 +36,20 @@
 <script>
 export default {
   name: "MovieInfo",
+  data() {
+    return {
+      isLikedBtn: false,
+      isTodayMovieBtn: false,
+    }
+  },
+  methods: {
+    ClickLike() {
+      this.isLikedBtn = !this.isLikedBtn
+    },
+    ClickTodayMovie() {
+      this.isTodayMovieBtn = !this.isTodayMovieBtn
+    },
+  },
 }
 </script>
 
@@ -70,5 +95,15 @@ export default {
   -webkit-line-clamp: 8;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+#Btn1 {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+}
+#Btn2 {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
 }
 </style>

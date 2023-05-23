@@ -37,7 +37,7 @@ export default {
 #PopularListTitle {
   font-size: 30px;
   font-weight: 700;
-  margin-right: 10px;
+  margin-left: 20px;
   margin-top: 10px;
 }
 </style>

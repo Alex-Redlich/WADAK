@@ -3,7 +3,7 @@
     <!-- 유저 이름 태그 블럭 -->
     <div class="d-flex justify-content-start align-items-baseline ps-3 pl-3">
       <p id="UserReviewlist_username">재밌으면 짖는 개</p>
-      <p id="UserReviewlist_text">님의 최근 리뷰 모음.zip</p>
+      <p id="UserReviewlist_text">님이 최근 리뷰를 남긴 작품들</p>
     </div>
     <!-- 카드 리스트 -->
     <div>
@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import MovieCardLarge from "@/components/Main/MovieCardLarge";
+import MovieCardLarge from "@/components/Main/MovieCardLarge"
 export default {
   name: "UserReviewList",
   components: {
     MovieCardLarge,
   },
-};
+}
 </script>
 
 <style>

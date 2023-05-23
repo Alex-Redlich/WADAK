@@ -20,9 +20,7 @@
     <!-- 영화설명 란 -->
     <div class="mainSection">
       <div data-aos="flip-up" data-aos-duration="2000" data-aos-delay="1000">
-        <p class="avatarTitle" style="line-height: 110%; margin-left: -7px; font-weight: 700">
-          가디언즈 오브 갤럭시 VOl.3
-        </p>
+        <p class="avatarTitle" style="line-height: 110%; margin-left: -7px; font-weight: 700">가디언즈 오브 갤럭시 VOl.3</p>
 
         <div class="avatarHead">
           <router-link :to="{ name: 'SearchDetailView', params: { moviePk: 76600 } }">
@@ -37,12 +35,12 @@
 <script>
 export default {
   name: "RankerList",
-};
+}
 </script>
 
 <style>
 video {
-  width: 100%;
+  width: 105%;
   height: 100%;
 }
 .mainVideo {

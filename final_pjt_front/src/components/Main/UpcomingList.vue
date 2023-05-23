@@ -2,7 +2,7 @@
   <div class="UpcomingList mb-4">
     <!-- 제목 -->
     <div class="d-flex justify-content-start align-items-baseline ps-3 pl-3">
-      <p id="MovieCardUpcomingTitle">UPCOMING! 지금 상영중</p>
+      <p id="MovieCardUpcomingTitle">최근 영화 모음.zip</p>
     </div>
     <!-- 카드 리스트 -->
     <div>
@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import MovieCardSmall from "@/components/Main/MovieCardSmall";
+import MovieCardSmall from "@/components/Main/MovieCardSmall"
 export default {
   name: "UpcomingList",
   components: {
     MovieCardSmall,
   },
-};
+}
 </script>
 
 <style>
@@ -37,7 +37,7 @@ export default {
 #MovieCardUpcomingTitle {
   font-size: 30px;
   font-weight: 700;
-  margin-right: 10px;
+  margin-left: 20px;
   margin-top: 10px;
 }
 </style>
