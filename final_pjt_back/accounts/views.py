@@ -94,12 +94,15 @@ def chingho_pick(request, user_pk):
 @api_view(['POST'])
 def follow(request, user_pk):
     # 타겟 유저를 팔로우/ 언팔로우
+    # user = get_object_or_404(User, pk = 1)
     user = get_object_or_404(User, pk = request.data.get('user_pk'))
     target_user = get_object_or_404(User, pk = user_pk)
     if target_user in user.followings.all():
         user.followings.remove(target_user)
     else:
         user.followings.add(target_user)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def review_list(request, user_pk):
