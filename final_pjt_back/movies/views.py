@@ -300,6 +300,26 @@ def movie_detail(request, movie_pk):
     else:
         return Response({'status':'fail'})
 
+@api_view(['GET'])
+def movie_detail_similar(request, movie_pk):
+    
+    url = "https://api.themoviedb.org/3/movie/"+ str(movie_pk) + "/similar?language=ko-KR&page=1"
+    global headers
+
+    response = requests.get(url, headers=headers)
+    result = response.json()
+    
+    result = result.get("results")[0]
+    print(result)
+    
+    data = {
+        'id' : result.get('id'),
+        'poster_path' : result.get('poster_path'),
+    }
+    
+    return Response(data)
+
+
 @api_view(['POST'])
 def movie_like(request, movie_pk):
     user = request.user
