@@ -2,7 +2,6 @@
   <div class="ReviewList">
     <div class="Reviewlistbox">
       <table id="ReviewTable" class="table">
-        
         <thead>
           <tr>
             <th scope="col-2">영화이름</th>
@@ -16,12 +15,12 @@
         <tbody>
           <!-- for문돌기 -->
           <tr v-for="review in reviews" :key="review.id">
-            <th scope="row">{{review.movie}}</th>
-            <td @click="GoDetail(review.id, review.movie, review)">{{review.title}}</td>
-            <td>⭐ {{review.rating}}</td>
-            <td>{{review.user.nickname}}</td>
-            <td>{{review.created_at}}</td>
-            <td>{{review.like_users_count}}</td>
+            <th @click="GoDetail(review.id, review.movie, review)" scope="row">{{ review.movie.title }}</th>
+            <td @click="GoDetail(review.id, review.movie, review)">{{ review.title }}</td>
+            <td @click="GoDetail(review.id, review.movie, review)">⭐ {{ review.rating }}</td>
+            <td @click="GoDetail(review.id, review.movie, review)">{{ review.user.nickname }}</td>
+            <td @click="GoDetail(review.id, review.movie, review)">{{ review.created_at }}</td>
+            <td @click="GoDetail(review.id, review.movie, review)">{{ review.like_users_count }}</td>
           </tr>
         </tbody>
       </table>
@@ -30,36 +29,35 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   name: "ReviewList",
   data() {
-    return{
-      reviews : []
-    }
+    return {
+      reviews: [],
+    };
   },
   methods: {
-    getAllList(){
+    getAllList() {
       axios({
         method: "get",
         url: "http://127.0.0.1:8000/api/v1/communities/allreviews/",
       })
         .then((res) => {
           console.log("요청성공!");
-          this.reviews = res.data
+          this.reviews = res.data;
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     },
     GoDetail(id, movie, review) {
-      this.$router.push({ name: "reviewdetail", params: { reviewID: id, moviePK: movie, review_detail : review}})
-    }
-
+      this.$router.push({ name: "reviewdetail", params: { reviewID: id, moviePK: movie, review_detail: review } });
+    },
   },
   created() {
-    this.getAllList()
-  }
-}
+    this.getAllList();
+  },
+};
 </script>
 
 <style>
