@@ -8,7 +8,7 @@ from movies.models import Movie
 from movies.serializers import MovieSimpleSerializer
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer(many = True, read_only =True)
+    user = UserSerializer(read_only =True)
     like_users = UserSerializer(many = True, read_only =True)
     like_users_count = serializers.IntegerField(source='like_users.count', read_only = True)
     
@@ -37,12 +37,12 @@ class ReviewListSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    movie = MovieSimpleSerializer(many=True, read_only=True)
+    movie = MovieSimpleSerializer(read_only=True)
     
     comments = CommentSerializer(many=True, read_only = True)
     comments_count = serializers.IntegerField(source='comments.count', read_only = True)
     
-    user = UserSerializer(many = True, read_only =True)
+    user = UserSerializer(read_only =True)
     like_users = UserSerializer(many = True, read_only =True)
     like_users_count = serializers.IntegerField(source='like_users.count', read_only = True)
 
