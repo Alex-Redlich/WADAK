@@ -48,11 +48,14 @@ export default {
       return "https://image.tmdb.org/t/p/w500" + this.movie.poster_path
     },
     moviegenre() {
-      let result = this.movie.genres[0].name
-      for (let i = 1; i < this.movie.genres.length; i++) {
-        result += "·" + this.movie.genres[i].name
+      if(this.movie.genres != undefined){
+        let result = this.movie.genres[0].name
+        for (let i = 1; i < this.movie.genres.length; i++) {
+          result += "·" + this.movie.genres[i].name
+        }
+        return result
       }
-      return result
+      return null
     },
   },
   methods: {

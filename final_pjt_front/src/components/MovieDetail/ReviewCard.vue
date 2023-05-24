@@ -3,7 +3,7 @@
     <div class="card" @click="ReviewDetail">
       <div class="card-body">
         <h5 class="card-title text-center">{{ review.title }}</h5>
-        <h5 class="card-subtitle mb-2 text-muted">{{ review }}</h5>
+        <h5 class="card-subtitle mb-2 text-muted">{{ review.user.nickname }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">⭐{{ review.rating }}</h6>
         <p class="card-text">
           {{ review.content }}

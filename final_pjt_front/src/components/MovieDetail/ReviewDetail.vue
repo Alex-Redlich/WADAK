@@ -2,13 +2,12 @@
   <div class="ReviewDetail1">
     <div id="reviewtitle">
       <h3>리뷰 제목</h3>
-      {{ review_detail }}
-      {{reviewID}}
       <div class="reviewtitle">{{ review_detail.title }}</div>
     </div>
     <div id="reviewuser">
       <h3>작성 유저</h3>
-      <div class="reviewuser">{{review_detail.usernicname}}</div>
+      {{review_detail}}
+      <div class="reviewuser">{{review_detail.user.nickname}}</div>
     </div>
     <div id="reviewvote">
       <h3>평점</h3>
@@ -20,8 +19,12 @@
         {{review_detail.content}}
       </div>
     </div>
-    <div id="deleteReview"><button type="button" class="btn btn-danger">삭제</button></div>
-    <div id="LikeReview"><button type="button" class="btn btn-danger">좋아요</button></div>
+    <div id="deleteReview"><button type="button" class="btn btn-danger" @click="DeleteReview">삭제</button></div>
+    <div id="LikeReview">
+      for like_users.id in 내가 있는지
+      <button type="button" class="btn btn-danger" @click="LikeReview">좋아요</button>
+      <button type="button" class="btn btn-light" @click="LikeReview">좋아요취소</button>
+    <div>{{review_detail.like_users_count}}</div></div>
     <div class="review_comments">
       <CommentsList />
     </div>
@@ -31,6 +34,7 @@
 
 <script>
 import CommentsList from "@/components/Comments/CommentsList"
+import axios from 'axios'
 
 export default {
   name: "ReviewDetail",
@@ -48,6 +52,31 @@ export default {
     Callback() {
       this.$router.push({ name: "moviedetail", params:{moviePK : this.moviePK}})
     },
+    DeleteReview() {
+      axios({
+        method: "DELETE",
+        url: `http://127.0.0.1:8000/api/v1/communities/movie/${this.moviePK}/review/${this.reviewID}/delete/`,
+      })
+        .then(() => {
+          console.log("리뷰 삭제 성공!")
+          this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK} })
+        })
+        .catch((err) => console.log(err))
+    },
+    LikeReview() {
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/api/v1/communities/movie/${this.moviePK}/review/${this.reviewID}/like/`,
+        data : {
+          'userID' :this.$store.state.userID
+          }
+      })
+        .then(() => {
+          console.log("좋아요!")
+          this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK} })
+        })
+        .catch((err) => console.log(err))
+    }
   },
 }
 </script>

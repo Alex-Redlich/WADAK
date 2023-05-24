@@ -30,7 +30,7 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/communities/movie/${this.moviePK}/review/`,
       })
         .then((res) => {
-          console.log(res.data)
+          // console.log(res.data)
           this.reviews = res.data
         })
         .catch((err) => console.log(err))
