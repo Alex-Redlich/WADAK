@@ -50,52 +50,108 @@ def ranker_today_movie(request):
 def follow_today_movie(request, userID):
     # 팔로잉 랜덤유저 1명 닉네임, movie_detail 전체 정보
     user = User.objects.get(pk = userID)
-    random_following = random.choice(user.followings.filter(today_movie__isnull=False, is_public__gt = 0))
-    movie = random_following.today_movie
+    today_movie_user = user.followings.filter(today_movie__isnull=False)
+    if today_movie_user :
+        # 오늘의 영화 설정 유저 리스트
+        if today_movie_user.count() > 1:
+            # 1명 넘을 때 랜덤
+            random_following = random.choice(today_movie_user)
+        else:
+            # 1명이라면 그 유저
+            random_following = today_movie_user[0]
+
+        movie = random_following.today_movie
+        data = {
+            'following_nickname' : random_following.nickname,
+            'id' : random_following.id,
+            }
+        serializer = MovieSerializer(movie)
+        data.update(serializer.data)
     
-    data = {'following_nickname' : random_following.nickname}
-    serializer = MovieSerializer(movie)
-    data.update(serializer.data)
-    
-    return Response(data)
+        return Response(data)
+    return Response({'status':'fail'})
     # { following_nickname , id, title, ...}
 
 @api_view(['GET'])
 def follow_like_movie(request, userID):
     #  팔로잉 랜덤유저 1명 닉네임, 최근 좋아요한 영화 id & path 3개
     user = User.objects.get(pk = userID)
-    followings = user.followings.filter(is_public__gt = 0)
-    random_following = random.choice(followings)
-    
-    while random_following.like_movies.count() == 0:
-        random_following = random.choice(followings)
-    movies = random_following.like_movies.all()[::-1][:3]
-    
-    data = {'following_nickname' : random_following.nickname}
-    serializer = MovieSerializer(movies, many = True)
-    data.update(movies = serializer.data)
-    
-    return Response(data)
+    followings = user.followings.all()
+    if followings:
+        if followings.count() > 1:
+            # 팔로잉 유저가 2명 이상일 때
+            i = 0
+            random_following = random.choice(followings)
+            while random_following.like_movies.count() == 0 and i < 10:
+                random_following = random.choice(followings)
+                i += 1
+            if random_following.like_movies:
+                movies = random_following.like_movies.all()[::-1][:3]
+                
+                data = {
+                    'following_nickname' : random_following.nickname,
+                    'id' : random_following.id
+                    }
+                serializer = MovieSerializer(movies, many = True)
+                data.update(movies = serializer.data)
+                return Response(data)
+        else:
+            random_following = followings[0]
+            # 팔로잉 유저가 1명일 때
+            if random_following.like_movies.count():
+                movies = random_following.like_movies.all()[::-1][:3]
+
+                data = {'following_nickname' : random_following.nickname}
+                serializer = MovieSerializer(movies, many = True)
+                data.update(movies = serializer.data)
+                return Response(data)
+    return Response({'status':'fail'})
     # {following_nickname , movies }
 
 @api_view(['GET'])
 def follow_review_movie(request, userID):
     # 팔로잉 랜덤유저 1명 닉네임, 최근 리뷰 남긴 영화 id & path 3개
     user = User.objects.get(pk = userID)
-    followings = user.followings.filter(is_public__gt = 0)
-    random_following = random.choice(followings)
+    followings = user.followings.all()
+    if followings:
+        if followings.count() > 1:
+            random_following = random.choice(followings)
+
+            i = 0
+            random_following = random.choice(followings)
+            while random_following.reviews.count() == 0 and i < 10:
+                random_following = random.choice(followings)
+                i += 1
+            
+            if random_following.reviews:
+                reviews = random_following.reviews.all()[:10]
+                review_ids = list(set([review.id for review in reviews]))
+                movies = Movie.objects.filter(reviews__in=review_ids)[:3]
+                
+                data = {
+                    'following_nickname' : random_following.nickname,
+                    'id' : random_following.id
+                    }
+                serializer = MovieSerializer(movies, many = True)
+                data.update(movies = serializer.data)
     
-    while random_following.reviews.count() == 0:
-        random_following = random.choice(followings)
-    reviews = random_following.reviews.all().order_by('-review__created_at')[:10]
-    review_ids = list(set([review.id for review in reviews]))
-    movies = Movie.objects.filter(review__in=review_ids)[:3]
+                return Response(data)
+        else:
+            random_following = followings[0]
+            if random_following.reviews.count():
+                reviews = random_following.reviews.all()[:10]
+                review_ids = list(set([review.id for review in reviews]))
+                movies = Movie.objects.filter(reviews__in=review_ids)[:3]
+                
+                data = {
+                    'following_nickname' : random_following.nickname,
+                    'id' : random_following.id
+                    }
+                serializer = MovieSerializer(movies, many = True)
+                data.update(movies = serializer.data)
     
-    data = {'following_nickname' : random_following.nickname}
-    serializer = MovieSimpleSerializer(movies, many = True)
-    data.update(movies = serializer.data)
-    
-    return Response(data)
+                return Response(data)
+    return Response({'status':'fail'})
     # {following_nickname , movies }
 
 @api_view(['GET'])
