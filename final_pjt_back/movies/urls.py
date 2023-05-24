@@ -15,9 +15,9 @@ urlpatterns = [
     path('recent/',views.recent_movie),
     path('popular/',views.popular_movie),
     path('ranker/',views.ranker_today_movie),
-    path('follow/like/',views.follow_like_movie),
-    path('follow/today/',views.follow_today_movie),
-    path('follow/review/',views.follow_review_movie),
+    path('<int:userID>/follow/like/',views.follow_like_movie),
+    path('<int:userID>/follow/today/',views.follow_today_movie),
+    path('<int:userID>/follow/review/',views.follow_review_movie),
     
     # path('pick/influncer/',),
     # path('test/', views.popular_movie),
