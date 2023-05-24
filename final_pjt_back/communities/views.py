@@ -36,8 +36,8 @@ def review_list(request, movie_pk):
 @api_view(['POST'])
 def review_create(request, movie_pk):
     movie = get_object_or_404(Movie, pk = movie_pk)
-    user = get_object_or_404(User, pk=1)
-    # user = get_object_or_404(User, pk= request.data.get('userID'))
+    # user = get_object_or_404(User, pk=1)
+    user = get_object_or_404(User, pk= request.data.get('userID'))
     print(request.data)
     review = Review()
     review.title = request.data.get('title')

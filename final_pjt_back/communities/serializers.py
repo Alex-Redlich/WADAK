@@ -29,6 +29,7 @@ class ReviewListSerializer(serializers.ModelSerializer):
             fields = ('id','nickname',)
     
     user = UserNameSerializer(read_only =True)
+
     # 작성자, 작성시간, 좋아요 수 필요, 평점
     class Meta:
         model = Review
