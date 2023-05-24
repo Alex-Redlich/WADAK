@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 
 from .models import Movie, Genre
 from .serializers import MovieSerializer, MovieSimpleSerializer
-from accounts.models import User, Chingho
+from accounts.models import User
 from accounts.serializers import UserSerializer
 import requests
 import random
@@ -35,7 +35,11 @@ def ranker_today_movie(request):
     movie = ranker.today_movie
     
     
-    data = {'ranker_nickname' : ranker.nickname}
+    data = {
+        'ranker_nickname' : ranker.nickname, 
+        'chingho' : ranker.chingho
+        }
+    
     serializer = MovieSimpleSerializer(movie)
     data.update(serializer.data)
     

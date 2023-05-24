@@ -70,13 +70,6 @@ def profile_update(request, user_pk):
     # 프로필 수정
     pass
 
-# @api_view(['GET'])
-# def chingho_list(request, user_pk):
-#     user = get_object_or_404(User, pk = user_pk)
-#     chingho = user.have_chinghos.all()
-#     serializer = ChinghoSerializer(chingho, many=True)
-    
-#     return Response(serializer.data)
 
 @api_view(['POST'])
 def chingho_pick(request):
@@ -88,14 +81,7 @@ def chingho_pick(request):
     user.chingho = random.choice(first) +" " + random.choice(second)
     
     return Response({'chingho' : user.chingho})
-    # for selected in user.have_chinghos.filter(is_selected = True):
-    # 이렇게 하는게 맞나... 중개테이블을 돌면서 is_selected 된거를 False로 바꿔줌
-    # chingho_first = get_object_or_404(Chingho, pk = chingho_first)
-    # chingho_second = get_object_or_404(Chingho, pk = chingho_second)
-    # user - chingho first & second 간 중개테이블의 is_selected를 True 바꿔줌
 
-    # request 안에 chingho_first, chingho_second 받아와야함
-    pass
 
 @api_view(['POST'])
 def follow(request, user_pk):

@@ -26,12 +26,6 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre, related_name="gerne_movies")
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_movies", through="Movie_like_users")
 
-# class test(models.Model):
-#  # datetime 필드 & created_at 확인용
-#     movie = models.ForeignKey("Movie", on_delete=models.CASCADE)
-#     genre = models.ForeignKey("Genre", on_delete=models.CASCADE)
-#     created_at = models.DateTimeField(auto_now_add=True, null=True)
-
 class Movie_like_users(models.Model):
     movie = models.ForeignKey('Movie', on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
