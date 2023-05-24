@@ -129,7 +129,7 @@ def recent_movie(request):
 def overview_is_valid(overview):
     # 줄거리에 19금 단어 포함이라면 거르기.
     # overview = Movie.get("overview")
-    filterwords = ["쾌락","욕망","남근","처제","에로","형수","sex"]
+    filterwords = ["쾌락","욕망","남근","처제","에로","형수","sex","섹스","아이돌","형부","sister-in-law","성행", "성애"]
     for filterword in filterwords:
         if filterword in overview:
             # movie = Movie.objects.get(overview = overview)
@@ -237,10 +237,17 @@ def movie_search(request, keyword):
     global headers
     
     response = requests.get(url, headers=headers)
-    result_list = response.json()
-
-    # for result in result_list.get("results"):
-        
+    results = response.json()
+    
+    result_list = []
+    
+    i = 0
+    for result in results.get("results"):
+        if i == 8:
+            break        
+        if overview_is_valid(result.get('overview')):
+            result_list.append(result)
+            i += 1
     #     movie = Movie(                
     #             id = result.get('id'),
     #             title = result.get('title'),
@@ -261,7 +268,7 @@ def movie_search(request, keyword):
     #         genre = Genre.objects.get(id=genre_id)
     #         movie.genres.add(genre)
     
-    return Response(result_list)
+    return Response({"results" : result_list})
 
 @api_view(['GET'])
 def movie_detail(request, movie_pk):

@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from django.contrib.auth import get_user_model
 from .models import User
 
-from communities.serializers import ReviewListSerializer, CommentSerializer
+from communities.serializers import ReviewSerializer,CommentSerializer
 from movies.serializers import MovieSerializer
 
 from .serializers import UserSerializer
@@ -74,13 +74,16 @@ def profile_update(request, user_pk):
 @api_view(['POST'])
 def chingho_pick(request):
     user = get_object_or_404(User, pk = request.data.get("userID"))
-    first = [
-        "고독한", "내일이 없는", "멋쟁이", "거친 파도 속", "멸종 위기종", "신출귀몰", "낙원의", "100%", "유기농", "야망 있는", "가성비", "욕심 많은", "오프라인", "어설픈", "용의주도한", "초식", "아시아"
-    ]
-    second = ["무법자", "고어매니아", "빌런", "범생이", "살림꾼", "유저", "스나이퍼", "기술자", "속도광", "싸피생", "지식인", "젊은이", "강태공", "한량", "와닥죽돌이", "아티스트", "프린스"]
-    user.chingho = random.choice(first) +" " + random.choice(second)
-    
-    return Response({'chingho' : user.chingho})
+    if user.current_point > 20:
+        first = [
+            "고독한", "내일이 없는", "멋쟁이", "거친 파도 속", "멸종 위기종", "신출귀몰", "낙원의", "100%", "유기농", "야망 있는", "가성비", "욕심 많은", "오프라인", "어설픈", "용의주도한", "초식", "아시아"
+        ]
+        second = ["무법자", "고어매니아", "빌런", "범생이", "살림꾼", "유저", "스나이퍼", "기술자", "속도광", "싸피생", "지식인", "젊은이", "강태공", "한량", "와닥죽돌이", "아티스트", "프린스"]
+        user.chingho = random.choice(first) +" " + random.choice(second)
+        user.current_point -= 20
+        user.save()
+        return Response({'chingho' : user.chingho})
+    return Response({'chingho': '포인트가 없어요'})
 
 
 @api_view(['POST'])
@@ -101,7 +104,7 @@ def review_list(request, user_pk):
     # 유저가 남긴 리뷰 리스트 반환
     user = get_object_or_404(User, pk = user_pk)
     reviews = user.reviews.all()
-    serializer = ReviewListSerializer(reviews, many = True)
+    serializer = ReviewSerializer(reviews, many = True)
     
     return Response(serializer.data)
 
@@ -111,7 +114,7 @@ def like_list(request, user_pk):
     user = get_object_or_404(User, pk = user_pk)
     if request.data.get('required_data') == 'review':
         like_reviews = user.like_reviews.all()
-        serailizer = ReviewListSerializer(like_reviews, many= True)
+        serailizer = ReviewSerializer(like_reviews, many= True)
         # 좋아요한 리뷰
     elif request.data.get('required_data') == 'movie':
         like_movies = user.like_movies.all()
@@ -127,10 +130,12 @@ def rank_renewal():
     rankers = User.objects.filter(rank__gt=0)
     for ranker in rankers:
         ranker.rank = 0
+        ranker.save()
         
     newrankers = User.objects.order_by('-total_point')[:5]
     i = 1
     for newranker in newrankers:
         newranker.rank = i
         i += 1
+        newranker.save()
     

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from .models import Review, Comment
-from .serializers import ReviewListSerializer, ReviewSerializer, CommentSerializer
+from .serializers import ReviewSerializer, CommentSerializer
 from movies.models import Movie
 from accounts.models import User
 
@@ -12,7 +12,7 @@ from django.contrib.auth import get_user_model
 @api_view(['GET'])
 def total_review_list(request):
     reviews = Review.objects.all().order_by('-created_at')
-    serializer = ReviewListSerializer(reviews,many = True)
+    serializer = ReviewSerializer(reviews,many = True)
     return Response(serializer.data)
 
 
@@ -22,7 +22,7 @@ def review_list(request, movie_pk):
     # 리뷰 리스트에서 내용을 보여줄건지
     movie = get_object_or_404(Movie, pk = movie_pk)
     reviews = movie.reviews.all()
-    serializer = ReviewListSerializer(reviews,many= True)
+    serializer = ReviewSerializer(reviews,many= True)
     return Response(serializer.data)
     
     # elif request.method == 'POST':
@@ -38,7 +38,7 @@ def review_create(request, movie_pk):
     movie = get_object_or_404(Movie, pk = movie_pk)
     # user = get_object_or_404(User, pk=1)
     user = get_object_or_404(User, pk= request.data.get('userID'))
-    print(request.data)
+
     review = Review()
     review.title = request.data.get('title')
     review.content = request.data.get('content')
@@ -46,6 +46,11 @@ def review_create(request, movie_pk):
     review.user = user
     review.movie = movie
     review.save()
+
+    user.total_point += 5
+    user.current_point += 5
+    user.save()
+
     serializer = ReviewSerializer(review)
     # if serializer.is_valid(data=serializer.data):
     #     serializer.save()
@@ -101,8 +106,15 @@ def comment_create(request, review_pk):
     comment = Comment()
     comment.content = request.data.get('content')
     # comment.user = User.objects.get(pk = 1)
-    comment.user = User.objects.get(pk = request.data.get('userID'))
+
+    user = User.objects.get(pk = request.data.get('userID'))
+    
+    comment.user = user
     comment.review = review
+
+    user.total_point += 5
+    user.current_point += 5
+    user.save()
 
     comment.save()
     serializer = CommentSerializer(comment)

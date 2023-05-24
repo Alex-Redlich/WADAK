@@ -12,7 +12,7 @@ class GenreSerializer(serializers.ModelSerializer):
 class MovieSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('id','poster_path',)
+        fields = ('id','poster_path','title')
 
 class MovieSerializer(serializers.ModelSerializer):
     genres = GenreSerializer(many = True, read_only = True)

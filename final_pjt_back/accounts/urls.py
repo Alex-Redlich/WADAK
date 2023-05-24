@@ -9,6 +9,8 @@ urlpatterns = [
     path('profile/<int:user_pk>/like/', views.like_list),
     path('profile/<int:user_pk>/update/', views.profile_update),
     
+    path('chinghopick/',views.chingho_pick),
+
     path('signup/', views.signup),
     path('login/', views.login),
     path('logout/', views.logout),
