@@ -10,9 +10,11 @@
     <!-- 랭커 표시-->
     <div class="RankerSection">
       <div data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
-        <p class="m-0" style="padding-left: 30px">[고독한 마블매니아]</p>
+        <p class="m-0" style="padding-left: 30px">{{ ranker_movies.chingho }}</p>
         <div class="d-flex align-items-baseline">
-          <p style="font-size: 7rem; text-shadow: 5px 5px 15px black; font-weight: 1000">알렉스 킴</p>
+          <p style="font-size: 7rem; text-shadow: 5px 5px 15px black; font-weight: 1000">
+            {{ ranker_movies.ranker_nickname }}
+          </p>
           <p style="font-size: 2rem">의 Ranker Pick</p>
         </div>
       </div>
@@ -20,12 +22,14 @@
     <!-- 영화설명 란 -->
     <div class="mainSection">
       <div data-aos="flip-up" data-aos-duration="2000" data-aos-delay="1000">
-        <p class="avatarTitle" style="line-height: 110%; margin-left: -7px; font-weight: 700">가디언즈 오브 갤럭시 VOl.3</p>
+        <p class="avatarTitle" style="line-height: 110%; margin-left: -7px; font-weight: 700">
+          {{ ranker_movies.title }}
+        </p>
 
         <div class="avatarHead">
-          <router-link :to="{ name: 'SearchDetailView', params: { moviePk: 76600 } }">
-            <button type="button" class="btn btn-warning btn-lg" style="font-weight: 700">자세히 보러가기</button>
-          </router-link>
+          <button type="button" class="btn btn-warning btn-lg" style="font-weight: 700" @click="GoDetail">
+            자세히 보러가기
+          </button>
         </div>
       </div>
     </div>
@@ -33,9 +37,35 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "RankerList",
-}
+  data() {
+    return {
+      ranker_movies: {},
+    };
+  },
+  methods: {
+    GoDetail() {
+      this.$router.push({ name: "moviedetail", params: { moviePK: this.ranker_movies.id } });
+    },
+    getRanker() {
+      axios({
+        method: "get",
+        url: "http://127.0.0.1:8000/api/v1/movies/ranker/",
+      })
+        .then((res) => {
+          console.log(res.data);
+          this.ranker_movies = res.data;
+        })
+        .catch((err) => console.log(err));
+    },
+  },
+  created() {
+    this.getRanker();
+  },
+};
 </script>
 
 <style>
