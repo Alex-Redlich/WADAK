@@ -1,18 +1,17 @@
-import Vue from "vue"
-import VueRouter from "vue-router"
-import MainView from "@/views/MainView"
-import MovieDetailView from "@/views/MovieDetailView"
-import ReviewView from "@/views/ReviewView"
-import ProfileView from "@/views/ProfileView"
-import SearchView from "@/views/SearchView"
-import InventoryView from "@/views/InventoryView"
-import ReviewCreateForm from "@/components/MovieDetail/ReviewCreateForm"
-import ReviewDetail from "@/components/MovieDetail/ReviewDetail"
-import LoginForm from "@/components/Profile/LoginForm"
-import SignupForm from "@/components/Profile/SignupForm"
-import UpdateForm from "@/components/Profile/UpdateForm"
+import Vue from "vue";
+import VueRouter from "vue-router";
+import MainView from "@/views/MainView";
+import MovieDetailView from "@/views/MovieDetailView";
+import ReviewView from "@/views/ReviewView";
+import ProfileView from "@/views/ProfileView";
+import SearchView from "@/views/SearchView";
+import ReviewCreateForm from "@/components/MovieDetail/ReviewCreateForm";
+import ReviewDetail from "@/components/MovieDetail/ReviewDetail";
+import LoginForm from "@/components/Profile/LoginForm";
+import SignupForm from "@/components/Profile/SignupForm";
+import UpdateForm from "@/components/Profile/UpdateForm";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -55,11 +54,7 @@ const routes = [
     name: "search",
     component: SearchView,
   },
-  {
-    path: "/:userId/inventory",
-    name: "inventory",
-    component: InventoryView,
-  },
+
   {
     path: "/reviewcreate/:moviePK",
     name: "reviewcreate",
@@ -70,15 +65,15 @@ const routes = [
     name: "reviewdetail",
     component: ReviewDetail,
   },
-]
+];
 
 const router = new VueRouter({
   mode: "history",
   scrollBehavior() {
-    return { x: 0, y: 0 }
+    return { x: 0, y: 0 };
   },
   base: process.env.BASE_URL,
   routes,
-})
+});
 
-export default router
+export default router;

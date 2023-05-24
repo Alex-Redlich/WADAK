@@ -25,9 +25,7 @@
       <button v-else type="button" class="btn btn-light" @click="LikeReview">좋아요취소</button>
       <div>{{ review_detail.like_users_count }}</div>
     </div>
-    <div class="review_comments">
-      <CommentsList />
-    </div>
+    <div class="review_comments"><CommentsList :reviewpk="reviewID" /></div>
     <button id="Callback" type="button" class="btn btn-warning" @click="Callback">다른 리뷰 보러 가기</button>
   </div>
 </template>
