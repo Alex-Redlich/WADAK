@@ -6,7 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
     class FollowingSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('id','username')
+            fields = ('id','username',)
 
     followings=FollowingSerializer(many=True, read_only=True)
     followers=FollowingSerializer(many=True,read_only=True)

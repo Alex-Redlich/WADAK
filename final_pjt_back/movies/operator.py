@@ -13,9 +13,9 @@ def start():
     activated_time = datetime.datetime.today()
     
     
-    scheduler.add_job(get_genres, 'cron', hour=activated_time.hour, minute=activated_time.minute, second=activated_time.second + 2, name = 'get_genres')
-    scheduler.add_job(get_movie_recent, 'cron', hour = activated_time.hour, minute=activated_time.minute, second=activated_time.second + 4, name = 'get_recent')
-    scheduler.add_job(get_movie_popular, 'cron', hour=activated_time.hour, minute=activated_time.minute, second=activated_time.second + 10, name = 'get_popular')
+    # scheduler.add_job(get_genres, 'cron', hour=activated_time.hour, minute=activated_time.minute, second=activated_time.second + 2, name = 'get_genres')
+    # scheduler.add_job(get_movie_recent, 'cron', hour = activated_time.hour, minute=activated_time.minute, second=activated_time.second + 4, name = 'get_recent')
+    # scheduler.add_job(get_movie_popular, 'cron', hour=activated_time.hour, minute=activated_time.minute, second=activated_time.second + 10, name = 'get_popular')
     
     
     scheduler.start()
