@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view
 from django.contrib.auth import get_user_model
 from .models import User
 
+from movies.models import Movie
+
 from communities.serializers import ReviewSerializer,CommentSerializer
 from movies.serializers import MovieSerializer
 
@@ -36,40 +38,29 @@ def login(request):
     else:
         return Response({'status':'fail'})
 
-def logout(request):
-    pass
-
 @api_view(['PUT'])
-def update(request, user_pk):
-    # 유저 DB 업데이트
-    user = get_object_or_404(User, pk = user_pk)
-    user.username = request.data.get('username')
-    user.password = request.data.get('password')
+def update(request):
+    # 유저 DB 업데이트 (닉네임, 자기소개)
+    user = get_object_or_404(User, pk = request.data.get('userID'))
     user.nickname = request.data.get('nickname')
     user.intro = request.data.get('intro')
-    user.is_public = request.data.get('is_public')
     user.save()
     
     serializer = UserSerializer(user)
     return Response(serializer.data)
 
 @api_view(['DELETE'])
-def delete(request, user_pk):
-    # 유저 DB 삭제
-    user = get_object_or_404(User, pk = user_pk)
+def delete(request):
+    # 유저 DB 삭제 
+    user = get_object_or_404(User, pk = request.data.get('userID'))
     user.delete()
-    return Response({'status':'deleted'})
+    return Response({'status':'success'})
 
 @api_view(['GET'])
-def profile_detail(request, user_pk):
-    # 프로필 조회.. 유저 DB 조회나 다름없는듯?
-    pass
-
-@api_view(['PUT'])
-def profile_update(request, user_pk):
-    # 프로필 수정
-    pass
-
+def profile_detail(request):
+    user = get_object_or_404(User, pk = request.data.get('userID'))
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def chingho_pick(request):
@@ -83,7 +74,7 @@ def chingho_pick(request):
         user.current_point -= 20
         user.save()
         return Response({'chingho' : user.chingho})
-    return Response({'chingho': '포인트가 없어요'})
+    return Response({'status': 'fail'})
 
 
 @api_view(['POST'])
@@ -101,30 +92,25 @@ def follow(request, user_pk):
 
 @api_view(['GET'])
 def review_list(request, user_pk):
-    # 유저가 남긴 리뷰 리스트 반환
+    # 유저가 리뷰 남긴 영화 리스트 반환
     user = get_object_or_404(User, pk = user_pk)
-    reviews = user.reviews.all()
-    serializer = ReviewSerializer(reviews, many = True)
+    reviews = user.reviews.all().order_by('-created_at')[:10]
+    movie_ids = list(set([review.movie.id for review in reviews]))
+    movies = Movie.objects.filter(id__in=movie_ids)[:3]
+
+    serializer = MovieSerializer(movies, many = True)
     
     return Response(serializer.data)
 
 @api_view(['GET'])
 def like_list(request, user_pk):
-    # request 안에 review, movie, comment를 담아서 요청하기 => 각각 좋아요한 리뷰, 영화, 댓글 리스트 반환
+    # 유저가 좋아요한 영화 리스트 반환
     user = get_object_or_404(User, pk = user_pk)
-    if request.data.get('required_data') == 'review':
-        like_reviews = user.like_reviews.all()
-        serailizer = ReviewSerializer(like_reviews, many= True)
-        # 좋아요한 리뷰
-    elif request.data.get('required_data') == 'movie':
-        like_movies = user.like_movies.all()
-        serailizer = MovieSerializer(like_movies, many= True)
-        # 좋아요한 영화
-    else:
-        like_comments = user.like_comments.all()
-        serailizer = CommentSerializer(like_comments,many= True)
-        # 좋아요한 댓글
-    return Response(serailizer.data)
+    like_movies = user.like_movies.all()[:3]
+
+    serializer = MovieSerializer(like_movies, many = True)
+
+    return Response(serializer.data)
 
 def rank_renewal():
     rankers = User.objects.filter(rank__gt=0)
@@ -139,3 +125,5 @@ def rank_renewal():
         i += 1
         newranker.save()
     
+    serializer = UserSerializer(newrankers)
+    return Response(serializer.data)
