@@ -30,7 +30,7 @@ headers = {
 @api_view(['GET'])
 def ranker_today_movie(request):
     # 랜덤 랭커 유저의 칭호, 닉네임, todaymovie_id
-    rankers = get_list_or_404(User, rank__gt=0).filter(is_public__gt = 0, today_movie__isnull=False)
+    rankers = User.objects.filter(rank__gt=0, is_public__gt = 0, today_movie__isnull=False)
     ranker = random.choice(rankers)
     movie = ranker.today_movie
     
@@ -304,14 +304,19 @@ def movie_detail(request, movie_pk):
 @api_view(['GET'])
 def movie_detail_similar(request, movie_pk):
     
-    url = "https://api.themoviedb.org/3/movie/"+ str(movie_pk) + "/similar?language=ko-KR&page=1"
+    url = "https://api.themoviedb.org/3/movie/"+ str(movie_pk) + "/recommendations?language=ko-KR&page=1"
     global headers
 
     response = requests.get(url, headers=headers)
     result = response.json()
     
-    result = result.get("results")[0]
-    print(result)
+    i = 0
+
+    while not overview_is_valid(result.get("results")[i].get("overview")):
+        # out of range 에러 남 len(result.get("results")) 보다 작을 때 까지 조건 추가.
+        i += 1
+    result = result.get("results")[i]
+    
     
     data = {
         'id' : result.get('id'),
