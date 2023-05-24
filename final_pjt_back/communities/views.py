@@ -30,7 +30,7 @@ def review_list(request, movie_pk):
 def review_create(request, movie_pk):
     movie = get_object_or_404(Movie, pk = movie_pk)
     user = get_object_or_404(User, pk=1)
-    # user = get_object_or_404(User, pj= request.data.get('user_id'))
+    # user = get_object_or_404(User, pk= request.data.get('userID'))
     print(request.data)
     review = Review()
     review.title = request.data.get('title')
@@ -70,7 +70,7 @@ def review_like(request, movie_pk, review_pk):
     # user = User.objects.get(pk=2)
     # user = request.user
     # 이렇게 구하는게 맞나..?
-    user = User.objects.get(pk=request.data.get('user_id'))
+    user = User.objects.get(pk=request.data.get('userID'))
     review = get_object_or_404(Review, pk = review_pk)
     if user in review.like_users.all():
         review.like_users.remove(user)
@@ -94,7 +94,7 @@ def comment_create(request, review_pk):
     comment = Comment()
     comment.content = request.data.get('content')
     # comment.user = User.objects.get(pk = 1)
-    comment.user = User.objects.get(pk = request.data.get('user_pk'))
+    comment.user = User.objects.get(pk = request.data.get('userID'))
     comment.review = review
 
     comment.save()
@@ -124,7 +124,7 @@ def comment_like(request, review_pk, comment_pk):
     # user = User.objects.get(pk=2)
     # user = request.user
     # 이렇게 구하는게 맞나..?
-    user = User.objects.get(pk=request.data.get('user_id'))
+    user = User.objects.get(pk=request.data.get('userID'))
     comment = get_object_or_404(Comment, pk = comment_pk)
     if user in comment.like_users.all():
         comment.like_users.remove(user)

@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from .models import Movie, Genre
 from .serializers import MovieSerializer, MovieSimpleSerializer
 from accounts.models import User, Chingho
+from accounts.serializers import UserSerializer
 import requests
 import random
 
@@ -330,6 +331,19 @@ def movie_like(request, movie_pk):
         movie.like_users.add(user)
 
 
+@api_view(['POST'])
+def movie_today(request, movie_pk):
+    user = User.objects.get(pk=request.data.get('userID'))
+    movie = Movie.objects.get(pk=movie_pk)
 
+    if user.today_movie == movie:
+        user.today_movie = None  
+        # movie와 동일한 경우 today_movie를 null로 설정
+    else:
+        user.today_movie = movie  
+        # movie와 다른 경우 today_movie를 해당 movie로 설정
 
+    user.save()  # 변경사항 저장
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
 
