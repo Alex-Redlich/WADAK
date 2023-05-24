@@ -59,12 +59,11 @@ export default {
   color: grey;
   font-size: 20px;
 }
+
 #MovieCardOneDetail1 {
   box-shadow: 3px 3px 5px rgb(212, 212, 212);
 }
 .hovering5:hover {
-  -webkit-filter: grayscale(100%) blur(2px);
-  filter: grayscale(50%) blur(2px);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
