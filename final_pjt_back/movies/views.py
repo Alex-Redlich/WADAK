@@ -330,6 +330,10 @@ def movie_like(request, movie_pk):
         movie.like_users.add(user)
 
 
-
+@api_view(['POST'])
+def pick_today_movie(request, movie_pk):
+    user = User.objects.get(pk=request.data.get('userID'))
+    
+    user.today_movie
 
 

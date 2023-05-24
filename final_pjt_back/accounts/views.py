@@ -26,14 +26,14 @@ def signup(request):
         # 패스워드가 잘못됬을 경우
         # 어쩌구저쩌구
     user.save()
-    return Response({'status':'success', 'user_pk': user.pk})
+    return Response({'status':'success', 'userID': user.pk})
 
 
 @api_view(['POST'])
 def login(request):
     user = get_object_or_404(User, username=request.data.get('username'))
     if user.check_password(request.data.get('password')):
-        return Response({'status':'success', 'user_pk': user.pk})
+        return Response({'status':'success', 'userID': user.pk})
     else:
         return Response({'status':'fail'})
 
@@ -95,7 +95,7 @@ def chingho_pick(request, user_pk):
 def follow(request, user_pk):
     # 타겟 유저를 팔로우/ 언팔로우
     # user = get_object_or_404(User, pk = 1)
-    user = get_object_or_404(User, pk = request.data.get('user_pk'))
+    user = get_object_or_404(User, pk = request.data.get('userID'))
     target_user = get_object_or_404(User, pk = user_pk)
     if target_user in user.followings.all():
         user.followings.remove(target_user)
