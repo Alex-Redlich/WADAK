@@ -181,7 +181,14 @@ def recent_movie(request):
 
 
 
-
+def title_is_valid(title):
+    filterwords = ["쾌락","욕망","남근","처제","에로","형수","sex","섹스","아이돌","형부","sister-in-law","성행", "성애"]
+    for filterword in filterwords:
+        if filterword in title:
+            # movie = Movie.objects.get(overview = overview)
+            # movie.delete()
+            return False
+    return True
 
 def overview_is_valid(overview):
     # 줄거리에 19금 단어 포함이라면 거르기.
@@ -225,7 +232,7 @@ def get_movie_recent():
         result_list = response.json()
         
         for result in result_list.get("results"):
-            if overview_is_valid(result.get('overview')):
+            if title_is_valid(title = result.get('title')) and overview_is_valid(result.get('overview')):
                 movie = Movie(                
                         id = result.get('id'),
                         title = result.get('title'),
@@ -261,7 +268,7 @@ def get_movie_popular():
         response = requests.get(url, headers=headers)
         result_list = response.json()
         for result in result_list.get("results"):
-            if overview_is_valid(result.get('overview')):
+            if title_is_valid(title = result.get('title')) and overview_is_valid(result.get('overview')):
                 movie = Movie(                
                         id = result.get('id'),
                         title = result.get('title'),
@@ -302,7 +309,7 @@ def movie_search(request, keyword):
     for result in results.get("results"):
         if i == 8:
             break        
-        if overview_is_valid(result.get('overview')):
+        if title_is_valid(title = result.get('title')) and overview_is_valid(result.get('overview')):
             result_list.append(result)
             i += 1
     #     movie = Movie(                
@@ -341,7 +348,7 @@ def movie_detail(request, movie_pk):
     response = requests.get(url, headers=headers)
     result = response.json()
     # result type은 dict . dict get 메서드이용해서 필드가 없을 경우 none 입력.
-    if overview_is_valid(overview = result.get('overview')):
+    if title_is_valid(title = result.get('title')) and overview_is_valid(overview = result.get('overview')):
         movie = Movie(                
                 id = result.get('id'),
                 title = result.get('title'),
