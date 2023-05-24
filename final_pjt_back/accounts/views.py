@@ -7,9 +7,8 @@ from .models import User
 from communities.serializers import ReviewListSerializer, CommentSerializer
 from movies.serializers import MovieSerializer
 
-from .models import Chingho
-from .serializers import UserSerializer, ChinghoSerializer
-
+from .serializers import UserSerializer
+import random
 # Create your views here.
 
 @api_view(['POST'])
@@ -71,21 +70,28 @@ def profile_update(request, user_pk):
     # 프로필 수정
     pass
 
-@api_view(['GET'])
-def chingho_list(request, user_pk):
-    user = get_object_or_404(User, pk = user_pk)
-    chingho = user.have_chinghos.all()
-    serializer = ChinghoSerializer(chingho, many=True)
+# @api_view(['GET'])
+# def chingho_list(request, user_pk):
+#     user = get_object_or_404(User, pk = user_pk)
+#     chingho = user.have_chinghos.all()
+#     serializer = ChinghoSerializer(chingho, many=True)
     
-    return Response(serializer.data)
+#     return Response(serializer.data)
 
 @api_view(['POST'])
-def chingho_pick(request, user_pk):
-    user = get_object_or_404(User, pk = user_pk)
+def chingho_pick(request):
+    user = get_object_or_404(User, pk = request.data.get("userID"))
+    first = [
+        "고독한", "내일이 없는", "멋쟁이", "거친 파도 속", "멸종 위기종", "신출귀몰", "낙원의", "100%", "유기농", "야망 있는", "가성비", "욕심 많은", "오프라인", "어설픈", "용의주도한", "초식", "아시아"
+    ]
+    second = ["무법자", "고어매니아", "빌런", "범생이", "살림꾼", "유저", "스나이퍼", "기술자", "속도광", "싸피생", "지식인", "젊은이", "강태공", "한량", "와닥죽돌이", "아티스트", "프린스"]
+    user.chingho = random.choice(first) +" " + random.choice(second)
+    
+    return Response({'chingho' : user.chingho})
     # for selected in user.have_chinghos.filter(is_selected = True):
     # 이렇게 하는게 맞나... 중개테이블을 돌면서 is_selected 된거를 False로 바꿔줌
-    chingho_first = get_object_or_404(Chingho, pk = chingho_first)
-    chingho_second = get_object_or_404(Chingho, pk = chingho_second)
+    # chingho_first = get_object_or_404(Chingho, pk = chingho_first)
+    # chingho_second = get_object_or_404(Chingho, pk = chingho_second)
     # user - chingho first & second 간 중개테이블의 is_selected를 True 바꿔줌
 
     # request 안에 chingho_first, chingho_second 받아와야함
