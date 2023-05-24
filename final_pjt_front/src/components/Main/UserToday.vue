@@ -2,7 +2,7 @@
   <div class="UserToday mb-4">
     <!-- 유저 이름 태그 블럭 -->
     <div class="d-flex justify-content-start align-items-baseline ps-3 pl-3">
-      <p id="UserReviewlist_username">{{ following_nickname }}</p>
+      <p id="UserReviewlist_username" @click="GoProfile">{{ following_nickname }}</p>
       <p id="UserReviewlist_text">님의 Today Movie</p>
     </div>
     <!-- 단독 카드 -->
@@ -25,9 +25,14 @@ export default {
     return {
       usertoday_movie: {},
       following_nickname: "",
+      userID_usertoday: "",
     };
   },
   methods: {
+    GoProfile() {
+      console.log(this.userID_usertoday);
+      this.$router.push({ name: "profile", params: { userID: this.userID_usertoday } });
+    },
     getUserToday() {
       axios({
         method: "get",
@@ -35,8 +40,9 @@ export default {
       })
         .then((res) => {
           console.log(res.data);
-          this.usertoday_movie = res.data;
+          this.usertoday_movie = res.data.movies;
           this.following_nickname = res.data.following_nickname;
+          this.userID_usertoday = res.data.id;
         })
         .catch((err) => console.log(err));
     },

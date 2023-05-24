@@ -6,23 +6,25 @@
     </div>
     <div id="reviewuser">
       <h3>작성 유저</h3>
-      <div class="reviewuser">{{review_detail.user.nickname}}</div>
+      <div class="reviewuser">{{ review_detail.user.nickname }}</div>
+      <button type="button" class="btn btn-primary" @click="GoProfile">프로필 가기!</button>
     </div>
     <div id="reviewvote">
       <h3>평점</h3>
-      <div class="reviewvote">⭐ {{review_detail.rating}}</div>
+      <div class="reviewvote">⭐ {{ review_detail.rating }}</div>
     </div>
     <div id="reviewcontents">
       <h3>리뷰 내용</h3>
       <div class="reviewcontents">
-        {{review_detail.content}}
+        {{ review_detail.content }}
       </div>
     </div>
     <div id="deleteReview"><button type="button" class="btn btn-danger" @click="DeleteReview">삭제</button></div>
     <div id="LikeReview">
       <button v-if="!isLiked" type="button" class="btn btn-danger" @click="LikeReview">좋아요</button>
       <button v-else type="button" class="btn btn-light" @click="LikeReview">좋아요취소</button>
-    <div>{{review_detail.like_users_count}}</div></div>
+      <div>{{ review_detail.like_users_count }}</div>
+    </div>
     <div class="review_comments">
       <CommentsList />
     </div>
@@ -31,8 +33,8 @@
 </template>
 
 <script>
-import CommentsList from "@/components/Comments/CommentsList"
-import axios from 'axios'
+import CommentsList from "@/components/Comments/CommentsList";
+import axios from "axios";
 
 export default {
   name: "ReviewDetail",
@@ -42,16 +44,19 @@ export default {
   data() {
     return {
       review_detail: this.$route.params.review_detail,
-      reviewID : this.$route.params.reviewID,
+      reviewID: this.$route.params.reviewID,
       moviePK: this.$route.params.moviePK,
-      isLiked : false
-    }
-  },
-  computed() {
+      isLiked: false,
+      review_user_ID: this.$route.params.review_detail.user.id,
+    };
   },
   methods: {
+    GoProfile() {
+      console.log(this.review_user_ID);
+      this.$router.push({ name: "profile", params: { userID: this.review_user_ID } });
+    },
     Callback() {
-      this.$router.push({ name: "moviedetail", params:{moviePK : this.moviePK}})
+      this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK } });
     },
     DeleteReview() {
       axios({
@@ -59,27 +64,27 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/communities/movie/${this.moviePK}/review/${this.reviewID}/delete/`,
       })
         .then(() => {
-          console.log("리뷰 삭제 성공!")
-          this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK} })
+          console.log("리뷰 삭제 성공!");
+          this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK } });
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     },
     LikeReview() {
       axios({
         method: "post",
         url: `http://127.0.0.1:8000/api/v1/communities/movie/${this.moviePK}/review/${this.reviewID}/like/`,
-        data : {
-          'userID' :this.$store.state.userID
-          }
+        data: {
+          userID: this.$store.state.userID,
+        },
       })
         .then(() => {
-          console.log("좋아요!")
-          this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK} })
+          console.log("좋아요!");
+          this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK } });
         })
-        .catch((err) => console.log(err))
-    }
+        .catch((err) => console.log(err));
+    },
   },
-}
+};
 </script>
 
 <style>

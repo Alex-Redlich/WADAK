@@ -12,7 +12,7 @@
       <div data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
         <p class="m-0" style="padding-left: 30px">{{ ranker_movies.chingho }}</p>
         <div class="d-flex align-items-baseline">
-          <p style="font-size: 7rem; text-shadow: 5px 5px 15px black; font-weight: 1000">
+          <p style="font-size: 7rem; text-shadow: 5px 5px 15px black; font-weight: 1000" @click="GoProfile">
             {{ ranker_movies.ranker_nickname }}
           </p>
           <p style="font-size: 2rem">의 Ranker Pick</p>
@@ -44,9 +44,14 @@ export default {
   data() {
     return {
       ranker_movies: {},
+      userID_ranker: "",
     };
   },
   methods: {
+    GoProfile() {
+      console.log(this.userID_ranker);
+      this.$router.push({ name: "profile", params: { userID: this.userID_ranker } });
+    },
     GoDetail() {
       this.$router.push({ name: "moviedetail", params: { moviePK: this.ranker_movies.id } });
     },
@@ -58,6 +63,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.ranker_movies = res.data;
+          this.userID_ranker = res.data.id;
         })
         .catch((err) => console.log(err));
     },

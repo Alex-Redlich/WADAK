@@ -2,7 +2,7 @@
   <div class="UserLikeList mb-4">
     <!-- 유저 이름 태그 블럭 -->
     <div class="d-flex justify-content-start align-items-baseline ps-3 pl-3">
-      <p id="UserLikeList_username">{{ following_nickname }}</p>
+      <p id="UserLikeList_username" @click="GoProfile">{{ following_nickname }}</p>
       <p id="UserLikeList_text">님이 좋아하는 영화들</p>
     </div>
     <!-- 카드 리스트 -->
@@ -32,9 +32,14 @@ export default {
     return {
       userlike_movies: {},
       following_nickname: "",
+      userID_userlike: "",
     };
   },
   methods: {
+    GoProfile() {
+      console.log(this.userID_userlike);
+      this.$router.push({ name: "profile", params: { userID: this.userID_userlike } });
+    },
     getUserLikeList() {
       axios({
         method: "get",
@@ -44,6 +49,7 @@ export default {
           console.log(res.data);
           this.userlike_movies = res.data.movies;
           this.following_nickname = res.data.following_nickname;
+          this.userID_userlike = res.data.id;
         })
         .catch((err) => console.log(err));
     },

@@ -2,7 +2,7 @@
   <div class="UserReviewList mb-4">
     <!-- 유저 이름 태그 블럭 -->
     <div class="d-flex justify-content-start align-items-baseline ps-3 pl-3">
-      <p id="UserReviewlist_username">{{ following_nickname }}</p>
+      <p id="UserReviewlist_username" @click="GoProfile">{{ following_nickname }}</p>
       <p id="UserReviewlist_text">님이 최근 리뷰를 남긴 작품들</p>
     </div>
     <!-- 카드 리스트 -->
@@ -33,10 +33,15 @@ export default {
     return {
       userreview_movies: {},
       following_nickname: "",
+      userID_userreview: "",
     };
   },
   methods: {
-    getUserLikeList() {
+    GoProfile() {
+      console.log(this.userID_userreview);
+      this.$router.push({ name: "profile", params: { userID: this.userID_userreview } });
+    },
+    getUserReviewList() {
       axios({
         method: "get",
         url: `http://127.0.0.1:8000/api/v1/movies/1/follow/review/`,
@@ -45,12 +50,13 @@ export default {
           console.log(res.data);
           this.userreview_movies = res.data.movies;
           this.following_nickname = res.data.following_nickname;
+          this.userID_userreview = res.data.id;
         })
         .catch((err) => console.log(err));
     },
   },
   created() {
-    this.getUserLikeList();
+    this.getUserReviewList();
   },
 };
 </script>
