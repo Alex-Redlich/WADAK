@@ -69,10 +69,10 @@ def follow_like_movie(request, userID):
     
     while random_following.like_movies.count() == 0:
         random_following = random.choice(followings)
-    movies = random_following.like_movies.all().order_by('-Movie_like_users__created_at')[:3]
+    movies = random_following.like_movies.all()[::-1][:3]
     
     data = {'following_nickname' : random_following.nickname}
-    serializer = MovieSimpleSerializer(movies, many = True)
+    serializer = MovieSerializer(movies, many = True)
     data.update(movies = serializer.data)
     
     return Response(data)
