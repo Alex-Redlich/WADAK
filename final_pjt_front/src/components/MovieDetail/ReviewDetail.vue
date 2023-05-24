@@ -2,21 +2,22 @@
   <div class="ReviewDetail1">
     <div id="reviewtitle">
       <h3>리뷰 제목</h3>
-      <div class="reviewtitle">{{ reviews }}</div>
+      {{ review_detail }}
+      {{reviewID}}
+      <div class="reviewtitle">{{ review_detail.title }}</div>
     </div>
     <div id="reviewuser">
       <h3>작성 유저</h3>
-      <div class="reviewuser">username</div>
+      <div class="reviewuser">{{review_detail.usernicname}}</div>
     </div>
     <div id="reviewvote">
       <h3>평점</h3>
-      <div class="reviewvote">⭐ 10</div>
+      <div class="reviewvote">⭐ {{review_detail.rating}}</div>
     </div>
     <div id="reviewcontents">
       <h3>리뷰 내용</h3>
       <div class="reviewcontents">
-        영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영
-        ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ영화 너무 재밋어영 ㅋ
+        {{review_detail.content}}
       </div>
     </div>
     <div id="deleteReview"><button type="button" class="btn btn-danger">삭제</button></div>
@@ -38,12 +39,14 @@ export default {
   },
   data() {
     return {
-      reviews: this.$route.params.reviews,
+      review_detail: this.$route.params.review_detail,
+      reviewID : this.$route.params.reviewID,
+      moviePK: this.$route.params.moviePK,
     }
   },
   methods: {
     Callback() {
-      this.$router.push({ name: "moviedetail" })
+      this.$router.push({ name: "moviedetail", params:{moviePK : this.moviePK}})
     },
   },
 }

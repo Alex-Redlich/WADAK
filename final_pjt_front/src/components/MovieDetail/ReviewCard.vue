@@ -19,12 +19,13 @@ export default {
   data() {
     return {
       reviewID: this.review.id,
-      reviews: this.review,
+      review_detail: this.review,
+      moviePK: this.$route.params.moviePK,
     }
   },
   methods: {
     ReviewDetail() {
-      this.$router.push({ name: "reviewdetail", params: { reviewID: this.reviewID, reviews: this.review } })
+      this.$router.push({ name: "reviewdetail", params: { reviewID: this.reviewID, review_detail: this.review, moviePK : this.moviePK  } })
     },
   },
   props: {
