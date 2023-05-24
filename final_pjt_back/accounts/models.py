@@ -5,10 +5,10 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 
-class Chingho(models.Model):
-    name = models.CharField(max_length=50)
-    is_first = models.BooleanField()
-    having_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="chinghos", through = "Chingho_user")
+# class Chingho(models.Model):
+#     name = models.CharField(max_length=50)
+#     is_first = models.BooleanField()
+#     having_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="chinghos", through = "Chingho_user")
     # m:n 중개테이블을 만들어야 할듯.
     # 형용사 / 명사 구분
     # is_selected = models.BooleanField(default=False)
@@ -18,7 +18,7 @@ class Chingho(models.Model):
 class User(AbstractUser):
     followings = models.ManyToManyField('self',symmetrical=False, related_name="followers")
     # 유저 팔로잉
-    
+    chingho = models.CharField(max_length=50, default="신입 유저")
     today_movie = models.ForeignKey('movies.Movie', on_delete=models.SET_NULL, null=True)
     # 오늘의 영화
     
@@ -39,7 +39,7 @@ class User(AbstractUser):
     # profile_pic = models.CharField(max_length=200)
     # 프로필 사진 링크 url
 
-class Chingho_user(models.Model):
-    chingho = models.ForeignKey('Chingho', on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    is_selected = models.BooleanField(default=False)
+# class Chingho_user(models.Model):
+#     chingho = models.ForeignKey('Chingho', on_delete=models.CASCADE)
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     is_selected = models.BooleanField(default=False)
