@@ -15,7 +15,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-        read_only_fields = ('review','user')
+        read_only_fields = ('review','user',)
         
     def to_representation(self, instance):
         rep = super().to_representation(instance)
@@ -23,6 +23,12 @@ class CommentSerializer(serializers.ModelSerializer):
         return rep
 
 class ReviewListSerializer(serializers.ModelSerializer):
+    class UserNameSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('id','nickname',)
+    
+    user = UserNameSerializer(read_only =True)
     # 작성자, 작성시간, 좋아요 수 필요, 평점
     class Meta:
         model = Review
@@ -43,6 +49,6 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
-        read_only_fields = ('movie','users','like_users')
+        read_only_fields = ('movie','users','like_users',)
 
 
