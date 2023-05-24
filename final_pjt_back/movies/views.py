@@ -125,8 +125,8 @@ def follow_review_movie(request, userID):
             
             if random_following.reviews:
                 reviews = random_following.reviews.all()[:10]
-                review_ids = list(set([review.id for review in reviews]))
-                movies = Movie.objects.filter(reviews__in=review_ids)[:3]
+                movie_ids = list(set([review.movie.id for review in reviews]))
+                movies = Movie.objects.filter(id__in=movie_ids)[:3]
                 
                 data = {
                     'following_nickname' : random_following.nickname,
