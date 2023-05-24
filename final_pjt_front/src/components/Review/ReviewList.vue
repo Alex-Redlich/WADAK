@@ -18,7 +18,9 @@
             <th @click="GoDetail(review.id, review.movie, review)" scope="row">{{ review.movie.title }}</th>
             <td @click="GoDetail(review.id, review.movie, review)">{{ review.title }}</td>
             <td @click="GoDetail(review.id, review.movie, review)">⭐ {{ review.rating }}</td>
-            <td @click="GoDetail(review.id, review.movie, review)">{{ review.user.nickname }}</td>
+            <td @click="GoDetail(review.id, review.movie, review)">
+              [{{ review.user.chingho }}] {{ review.user.nickname }}
+            </td>
             <td @click="GoDetail(review.id, review.movie, review)">{{ review.created_at }}</td>
             <td @click="GoDetail(review.id, review.movie, review)">{{ review.like_users_count }}</td>
           </tr>
