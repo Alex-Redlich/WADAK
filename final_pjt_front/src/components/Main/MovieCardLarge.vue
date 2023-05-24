@@ -1,6 +1,6 @@
 <template>
   <div class="MovieCardLarge1">
-    <div class="card hovering" style="width: 500px; height: 747px">
+    <div class="card hovering" style="width: 500px; height: 747px" @click="GoDetail">
       <figure><img id="MovieCardLarge1" :src="url" class="card-img-top" style="border: 0px" /></figure>
       <div class="movieCard__overlay">
         <h3>자세히 보러가기</h3>
@@ -12,17 +12,23 @@
 <script>
 export default {
   name: "MovieCardLarge",
-  data() {
-    return {
-      poster_path: "/3JT1oE0JIA6CQJaZDG00y3S0kP3.jpg",
-    }
+  props: {
+    movie: Object,
+  },
+  date() {
+    return {};
   },
   computed: {
     url() {
-      return "https://image.tmdb.org/t/p/w500/" + this.poster_path
+      return "https://image.tmdb.org/t/p/w500" + this.movie.poster_path;
     },
   },
-}
+  methods: {
+    GoDetail() {
+      this.$router.push({ name: "moviedetail", params: { moviePK: this.movie.id } });
+    },
+  },
+};
 </script>
 
 <style>
