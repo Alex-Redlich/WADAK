@@ -7,7 +7,7 @@
     <!-- 카드 리스트 -->
     <div>
       <div id="PopularList" class="row justify-content-center">
-          <MovieCardSmall id="MovieCardPopular" class="col" v-for="movie in movies" :key="movie.id" :movie="movie" />
+        <MovieCardSmall id="MovieCardPopular" class="col" v-for="movie in movies" :key="movie.id" :movie="movie" />
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      movies: [],
+      movies: {},
     }
   },
   methods: {

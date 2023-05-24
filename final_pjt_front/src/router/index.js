@@ -61,12 +61,12 @@ const routes = [
     component: InventoryView,
   },
   {
-    path: "/:movieId/reviewcreate",
+    path: "/reviewcreate/:moviePK",
     name: "reviewcreate",
     component: ReviewCreateForm,
   },
   {
-    path: "/:reviewId/reviewdetail",
+    path: "/reviewdetail/:reviewID",
     name: "reviewdetail",
     component: ReviewDetail,
   },

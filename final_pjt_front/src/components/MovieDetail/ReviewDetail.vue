@@ -2,7 +2,7 @@
   <div class="ReviewDetail1">
     <div id="reviewtitle">
       <h3>리뷰 제목</h3>
-      <div class="reviewtitle">이영화맛나다!</div>
+      <div class="reviewtitle">{{ reviews }}</div>
     </div>
     <div id="reviewuser">
       <h3>작성 유저</h3>
@@ -37,7 +37,9 @@ export default {
     CommentsList,
   },
   data() {
-    return {}
+    return {
+      reviews: this.$route.params.reviews,
+    }
   },
   methods: {
     Callback() {

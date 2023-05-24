@@ -8,16 +8,16 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
     isLogin: false,
-    user_pk: null,
+    userID: 1,
   },
   getters: {},
   mutations: {
     LOGIN(state, payload) {
-      state.user_pk = payload
+      state.userID = payload
       state.isLogin = true
     },
     LOGOUT(state) {
-      state.user_pk = null
+      state.userID = null
       state.isLogin = false
     },
   },

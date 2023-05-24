@@ -20,6 +20,7 @@
     </nav>
     <router-view :key="$route.path" />
     <!-- 풋터 -->
+    <div class="footering"></div>
     <footer class="row py-5 border-top">
       <div class="col">
         <img class="nav-image" src="@/assets/logo.png" alt="WADAK" />
@@ -100,5 +101,9 @@ nav a.router-link-exact-active {
   width: 200px;
   height: 100%;
   padding-top: 50px;
+}
+.footering {
+  background-color: black;
+  height: 500px;
 }
 </style>

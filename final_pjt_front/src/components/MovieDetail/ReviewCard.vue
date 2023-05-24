@@ -1,13 +1,12 @@
 <template>
-  <div class="ReviewCard">
+  <div class="ReviewCard hovering3">
     <div class="card" @click="ReviewDetail">
       <div class="card-body">
-        <h5 class="card-title text-center">리뷰 타이틀</h5>
-        <h5 class="card-subtitle mb-2 text-muted">작성자</h5>
-        <h6 class="card-subtitle mb-2 text-muted">평점</h6>
+        <h5 class="card-title text-center">{{ review.title }}</h5>
+        <h5 class="card-subtitle mb-2 text-muted">{{ review }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">⭐{{ review.rating }}</h6>
         <p class="card-text">
-          아 이영화 개 맛집 존맛탱 개맛있구요아 이영화 개 맛집 존맛탱 개맛있구요아 이영화 개 맛집 존맛탱 개맛있구요아 이영화 개 맛집 존맛탱 개맛있구요아 이영화 개 맛집 존맛탱 개맛있구요아 이영화 개
-          맛집 존맛탱 개맛있구요
+          {{ review.content }}
         </p>
       </div>
     </div>
@@ -17,10 +16,19 @@
 <script>
 export default {
   name: "ReviewCard",
+  data() {
+    return {
+      reviewID: this.review.id,
+      reviews: this.review,
+    }
+  },
   methods: {
     ReviewDetail() {
-      this.$router.push({ name: "reviewdetail" })
+      this.$router.push({ name: "reviewdetail", params: { reviewID: this.reviewID, reviews: this.review } })
     },
+  },
+  props: {
+    review: Object,
   },
 }
 </script>
@@ -37,5 +45,9 @@ export default {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+.hovering3:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 </style>
