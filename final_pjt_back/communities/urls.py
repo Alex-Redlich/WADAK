@@ -3,6 +3,8 @@ from . import views
 
 app_name = 'communities'
 urlpatterns = [
+    path('allreviews/',views.total_review_list),
+    
     path('movie/<int:movie_pk>/review/',views.review_list),
     path('movie/<int:movie_pk>/review/create/',views.review_create),
     
