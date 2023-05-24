@@ -204,26 +204,26 @@ def get_movie_popular():
         response = requests.get(url, headers=headers)
         result_list = response.json()
         for result in result_list.get("results"):
-            
-            movie = Movie(                
-                    id = result.get('id'),
-                    title = result.get('title'),
-                    overview = result.get('overview'),
-                    popularity = result.get('popularity'),
-                    vote_average =  result.get('vote_average'),
-                    vote_count =  result.get('vote_count'),
-                    tagline  =  result.get('tagline'),
-                    backdrop_path =  result.get('backdrop_path'),
-                    poster_path =  result.get('poster_path'),
-                    release_date =  result.get('release_date'),
-                    runtime =  result.get('runtime'),
-                    # genres =  result.get('genres'),
-                    )
-            movie.save()
-            
-            for genre_id in result.get('genre_ids'):
-                genre = Genre.objects.get(id=genre_id)
-                movie.genres.add(genre)
+            if overview_is_valid(result.get('overview')):
+                movie = Movie(                
+                        id = result.get('id'),
+                        title = result.get('title'),
+                        overview = result.get('overview'),
+                        popularity = result.get('popularity'),
+                        vote_average =  result.get('vote_average'),
+                        vote_count =  result.get('vote_count'),
+                        tagline  =  result.get('tagline'),
+                        backdrop_path =  result.get('backdrop_path'),
+                        poster_path =  result.get('poster_path'),
+                        release_date =  result.get('release_date'),
+                        runtime =  result.get('runtime'),
+                        # genres =  result.get('genres'),
+                        )
+                movie.save()
+                
+                for genre_id in result.get('genre_ids'):
+                    genre = Genre.objects.get(id=genre_id)
+                    movie.genres.add(genre)
                 
     movies = Movie.objects.all()
     serializer = MovieSerializer(movies, many=True)
@@ -316,9 +316,9 @@ def movie_detail_similar(request, movie_pk):
     
     i = 0
 
-    while not overview_is_valid(result.get("results")[i].get("overview")):
-        # out of range 에러 남 len(result.get("results")) 보다 작을 때 까지 조건 추가.
-        i += 1
+    # while not overview_is_valid(result.get("results")[i].get("overview")):
+    #     # out of range 에러 남 len(result.get("results")) 보다 작을 때 까지 조건 추가.
+    #     i += 1
     result = result.get("results")[i]
     
     
@@ -332,12 +332,14 @@ def movie_detail_similar(request, movie_pk):
 
 @api_view(['POST'])
 def movie_like(request, movie_pk):
-    user = request.user
+    user = User.objects.get(pk = request.data.get('userID'))
     movie = get_object_or_404(Movie, pk=movie_pk)
     if user in movie.like_users.all():
         movie.like_users.remove(user)
     else:
         movie.like_users.add(user)
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
 
 
 @api_view(['POST'])
