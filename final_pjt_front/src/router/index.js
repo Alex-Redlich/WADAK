@@ -1,18 +1,18 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import MainView from "@/views/MainView";
-import MovieDetailView from "@/views/MovieDetailView";
-import ReviewView from "@/views/ReviewView";
-import ProfileView from "@/views/ProfileView";
-import SearchView from "@/views/SearchView";
-import InventoryView from "@/views/InventoryView";
-import ReviewCreateForm from "@/components/MovieDetail/ReviewCreateForm";
-import ReviewDetail from "@/components/MovieDetail/ReviewDetail";
-import LoginForm from "@/components/Profile/LoginForm";
-import SignupForm from "@/components/Profile/SignupForm";
-import UpdateForm from "@/components/Profile/UpdateForm";
+import Vue from "vue"
+import VueRouter from "vue-router"
+import MainView from "@/views/MainView"
+import MovieDetailView from "@/views/MovieDetailView"
+import ReviewView from "@/views/ReviewView"
+import ProfileView from "@/views/ProfileView"
+import SearchView from "@/views/SearchView"
+import InventoryView from "@/views/InventoryView"
+import ReviewCreateForm from "@/components/MovieDetail/ReviewCreateForm"
+import ReviewDetail from "@/components/MovieDetail/ReviewDetail"
+import LoginForm from "@/components/Profile/LoginForm"
+import SignupForm from "@/components/Profile/SignupForm"
+import UpdateForm from "@/components/Profile/UpdateForm"
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -22,9 +22,7 @@ const routes = [
   },
   {
     path: "/movies/:moviePK",
-    alias: "/movies2/:moviePK",
     name: "moviedetail",
-    fullPath: null,
     component: MovieDetailView,
   },
   {
@@ -72,19 +70,15 @@ const routes = [
     name: "reviewdetail",
     component: ReviewDetail,
   },
-];
+]
 
 const router = new VueRouter({
   mode: "history",
-  scrollBehavior(savedPosition) {
-    if (savedPosition) {
-      return { x: 0, y: 0 };
-    } else {
-      return { x: 0, y: 0 };
-    }
+  scrollBehavior() {
+    return { x: 0, y: 0 }
   },
   base: process.env.BASE_URL,
   routes,
-});
+})
 
-export default router;
+export default router

@@ -25,8 +25,8 @@
             <img id="levelsymbol" src="@/assets/level/2.png" alt="" />
           </div>
           <p id="message">
-            난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난
-            가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다
+            난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을 흘린다난 가끔 눈물을
+            흘린다난 가끔 눈물을 흘린다
           </p>
         </div>
         <div id="Userintro" class="col-4">
@@ -34,12 +34,12 @@
           <p>팔로워 : 0 명</p>
           <p>내 게시글 : 0 명</p>
           <p>내 코멘트 : 0 명</p>
-          <div class="expoint">
+          <!-- <div class="expoint">
             <p>User's EXP</p>
             <div id="totalex">
               <div id="todayex"></div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -54,17 +54,17 @@ export default {
     return {
       userId: false,
       isFollowed: true,
-    };
+    }
   },
   methods: {
     GoInventory() {
-      this.$router.push({ name: "inventory" });
+      this.$router.push({ name: "inventory" })
     },
     GoUpdate() {
-      this.$router.push({ name: "update", params: { userID: "" } });
+      this.$router.push({ name: "update", params: { userID: "" } })
     },
   },
-};
+}
 </script>
 
 <style>
