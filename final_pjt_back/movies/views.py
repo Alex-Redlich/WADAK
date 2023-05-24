@@ -47,9 +47,9 @@ def ranker_today_movie(request):
     # {ranker_nickname, id, title}
 
 @api_view(['GET'])
-def follow_today_movie(request):
+def follow_today_movie(request, userID):
     # 팔로잉 랜덤유저 1명 닉네임, movie_detail 전체 정보
-    user = User.objects.get(pk = request.data.get("userID"))
+    user = User.objects.get(pk = userID)
     random_following = random.choice(user.followings.filter(today_movie__isnull=False, is_public__gt = 0))
     movie = random_following.today_movie
     
@@ -61,9 +61,9 @@ def follow_today_movie(request):
     # { following_nickname , id, title, ...}
 
 @api_view(['GET'])
-def follow_like_movie(request):
+def follow_like_movie(request, userID):
     #  팔로잉 랜덤유저 1명 닉네임, 최근 좋아요한 영화 id & path 3개
-    user = User.objects.get(pk = request.data.get("userID"))
+    user = User.objects.get(pk = userID)
     followings = user.followings.filter(is_public__gt = 0)
     random_following = random.choice(followings)
     
@@ -79,9 +79,9 @@ def follow_like_movie(request):
     # {following_nickname , movies }
 
 @api_view(['GET'])
-def follow_review_movie(request):
+def follow_review_movie(request, userID):
     # 팔로잉 랜덤유저 1명 닉네임, 최근 리뷰 남긴 영화 id & path 3개
-    user = User.objects.get(pk = request.data.get("userID"))
+    user = User.objects.get(pk = userID)
     followings = user.followings.filter(is_public__gt = 0)
     random_following = random.choice(followings)
     
