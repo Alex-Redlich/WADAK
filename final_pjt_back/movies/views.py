@@ -182,7 +182,7 @@ def recent_movie(request):
 
 
 def title_is_valid(title):
-    filterwords = ["쾌락","욕망","남근","처제","에로","형수","sex","섹스","아이돌","형부","sister-in-law","성행", "성애"]
+    filterwords = ["승하","쾌락","욕망","남근","처제","에로","형수","sex","섹스","아이돌","형부","sister-in-law","성행", "성애"]
     for filterword in filterwords:
         if filterword in title:
             # movie = Movie.objects.get(overview = overview)
