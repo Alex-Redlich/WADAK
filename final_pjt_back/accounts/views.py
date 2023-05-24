@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth import get_user_model
@@ -131,3 +131,14 @@ def like_list(request, user_pk):
         # 좋아요한 댓글
     return Response(serailizer.data)
 
+def rank_renewal():
+    rankers = User.objects.filter(rank__gt=0)
+    for ranker in rankers:
+        ranker.rank = 0
+        
+    newrankers = User.objects.order_by('-total_point')[:5]
+    i = 1
+    for newranker in newrankers:
+        newranker.rank = i
+        i += 1
+    

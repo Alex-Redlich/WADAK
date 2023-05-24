@@ -9,6 +9,13 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth import get_user_model
 
+@api_view(['GET'])
+def total_review_list(request):
+    reviews = Review.objects.all().order_by('-created_at')
+    serializer = ReviewListSerializer(reviews,many = True)
+    return Response(serializer.data)
+
+
 # Create your views here.
 @api_view(['GET'])
 def review_list(request, movie_pk):

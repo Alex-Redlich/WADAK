@@ -19,7 +19,7 @@ class User(AbstractUser):
     followings = models.ManyToManyField('self',symmetrical=False, related_name="followers")
     # 유저 팔로잉
     
-    today_movie = models.ForeignKey('movies.Movie', on_delete=models.CASCADE, null=True)
+    today_movie = models.ForeignKey('movies.Movie', on_delete=models.SET_NULL, null=True)
     # 오늘의 영화
     
     is_public = models.BooleanField(default=True)
