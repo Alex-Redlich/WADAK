@@ -2,6 +2,7 @@
   <div class="ReviewList">
     <div class="Reviewlistbox">
       <table id="ReviewTable" class="table">
+        
         <thead>
           <tr>
             <th scope="col-2">영화이름</th>
@@ -14,13 +15,13 @@
         </thead>
         <tbody>
           <!-- for문돌기 -->
-          <tr>
-            <th scope="row">슈퍼마리오</th>
-            <td>지금까지 이런 영화는 없었다</td>
-            <td>⭐ 7</td>
-            <td>[고독한 마블매니아] 알렉스킴</td>
-            <td>2023-05-22</td>
-            <td>123</td>
+          <tr v-for="review in reviews" :key="review.id">
+            <th scope="row">{{review.movie}}</th>
+            <td @click="GoDetail(review.id, review.movie, review)">{{review.title}}</td>
+            <td>⭐ {{review.rating}}</td>
+            <td>{{review.user.nickname}}</td>
+            <td>{{review.created_at}}</td>
+            <td>{{review.like_users_count}}</td>
           </tr>
         </tbody>
       </table>
@@ -29,9 +30,35 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "ReviewList",
-  components: {},
+  data() {
+    return{
+      reviews : []
+    }
+  },
+  methods: {
+    getAllList(){
+      axios({
+        method: "get",
+        url: "http://127.0.0.1:8000/api/v1/communities/allreviews/",
+      })
+        .then((res) => {
+          console.log("요청성공!");
+          this.reviews = res.data
+        })
+        .catch((err) => console.log(err))
+    },
+    GoDetail(id, movie, review) {
+      this.$router.push({ name: "reviewdetail", params: { reviewID: id, moviePK: movie, review_detail : review}})
+    }
+
+  },
+  created() {
+    this.getAllList()
+  }
 }
 </script>
 

@@ -32,7 +32,7 @@
       </div>
       <div id="signForm_intro" class="mb-3">
         <label for="intro" class="form-label">자기소개</label>
-        <input class="form-control" id="intro" placeholder="자기소개를 입력하세요" v-model="intro" />
+        <textarea class="form-control" id="intro" placeholder="자기소개를 입력하세요" v-model="intro" />
       </div>
       <button type="submit" class="btn btn-warning btn-lg mt-5">회원 가입</button>
     </form>
@@ -81,6 +81,7 @@ export default {
 <style>
 .SignupForm {
   margin-top: 70px;
+  padding-top: 100px;
   margin-left: 200px;
   background-color: black;
   display: flex;
@@ -89,7 +90,6 @@ export default {
 .signup {
   width: 1000px;
   height: 1000px;
-  margin: 300px;
 }
 #signForm_ID {
   text-align: start;

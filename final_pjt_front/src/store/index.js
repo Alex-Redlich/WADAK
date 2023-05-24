@@ -8,7 +8,7 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
     isLogin: false,
-    userID: 1,
+    userID: 13,
   },
   getters: {},
   mutations: {

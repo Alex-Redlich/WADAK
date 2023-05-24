@@ -6,7 +6,6 @@
     </div>
     <div id="reviewuser">
       <h3>작성 유저</h3>
-      {{review_detail}}
       <div class="reviewuser">{{review_detail.user.nickname}}</div>
     </div>
     <div id="reviewvote">
@@ -21,9 +20,8 @@
     </div>
     <div id="deleteReview"><button type="button" class="btn btn-danger" @click="DeleteReview">삭제</button></div>
     <div id="LikeReview">
-      for like_users.id in 내가 있는지
-      <button type="button" class="btn btn-danger" @click="LikeReview">좋아요</button>
-      <button type="button" class="btn btn-light" @click="LikeReview">좋아요취소</button>
+      <button v-if="!isLiked" type="button" class="btn btn-danger" @click="LikeReview">좋아요</button>
+      <button v-else type="button" class="btn btn-light" @click="LikeReview">좋아요취소</button>
     <div>{{review_detail.like_users_count}}</div></div>
     <div class="review_comments">
       <CommentsList />
@@ -46,7 +44,10 @@ export default {
       review_detail: this.$route.params.review_detail,
       reviewID : this.$route.params.reviewID,
       moviePK: this.$route.params.moviePK,
+      isLiked : false
     }
+  },
+  computed() {
   },
   methods: {
     Callback() {
