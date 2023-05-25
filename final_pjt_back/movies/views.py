@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.db.models import Q
 from django.contrib.auth import get_user_model
+from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -13,7 +14,7 @@ import random
 
 headers = {
         "accept": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMGVhNDA4YjMwNGUwZTFkODEwYjVkNzVmNmRlNWE4NiIsInN1YiI6IjYzZDMxOGJlZTcyZmU4MDA4NDkxNmUyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5S11pzIijwEo4PZ5NR65364akBOW0nkTeQa3ycHXwfs"
+        "Authorization": "Bearer " + settings.SECRET_KEY
     }
 
 # def test_func(request):
