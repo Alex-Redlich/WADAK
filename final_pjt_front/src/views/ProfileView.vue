@@ -21,7 +21,7 @@
                      <p id="chingho">{{chinghos}}</p>
                      <!-- 인벤토리버튼 -->
                      <div>
-                      <button v-if="userId" id="Btn" class="btn btn-warning" >칭호변경</button>
+                      <button v-if="userId" id="Btn" class="btn btn-warning" @click="Changechingo">칭호변경</button>
                       <div v-else>
                         <!-- 본인 프로필이 아니라면 팔로우 버튼 생성 -->
                         <button v-if="isFollowed" id="Btn" class="btn btn-danger" >Cancel</button>
@@ -94,6 +94,21 @@ export default {
   methods: {
     GoSearch() {
       this.$router.push({name : "search"})
+    },
+    Changechingo() {
+      const userdata = {
+        userID : this.userID
+      }
+      axios({
+        method: "post",
+        url: "http://127.0.0.1:8000/api/v1/accounts/chinghopick/",
+        data : userdata
+      })
+        .then((res) => {
+          console.log(res.data);
+          this.$router.go(0)
+        })
+        .catch((err) => console.log(err))
     },
     getUserProfile() {
       axios({
