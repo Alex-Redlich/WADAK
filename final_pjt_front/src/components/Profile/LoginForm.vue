@@ -43,7 +43,8 @@ export default {
       })
         .then((res) => {
           if (res.data.status === "success") {
-            this.$store.dispatch("Login", res.data.user_pk)
+            console.log(res);
+            this.$store.dispatch("Login", res.data.userID)
             this.$router.push("/")
           } else {
             alert("비밀번호가 틀렸습니다!")

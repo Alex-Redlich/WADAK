@@ -8,7 +8,7 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
     isLogin: false,
-    userID: "1",
+    userID: null,
   },
   getters: {},
   mutations: {
@@ -23,7 +23,7 @@ export default new Vuex.Store({
   },
   actions: {
     Login(context, payload) {
-      console.log(payload);
+      // console.log(payload);
       context.commit("LOGIN", payload);
     },
     Logout(context) {
