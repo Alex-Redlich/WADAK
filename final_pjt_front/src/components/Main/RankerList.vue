@@ -49,8 +49,8 @@ export default {
   },
   methods: {
     GoProfile() {
-      console.log(this.userID_ranker);
-      this.$router.push({ name: "profile", params: { userID: this.userID_ranker } });
+      console.log(this.userInfo.id);
+      this.$router.push({ name: "profile", params: { userID: this.userInfo.id } });
     },
     GoDetail() {
       this.$router.push({ name: "moviedetail", params: { moviePK: this.ranker_movies.id } });
@@ -71,6 +71,9 @@ export default {
   created() {
     this.getRanker();
   },
+  mounted() {
+    this.getRanker();
+  }
 };
 </script>
 

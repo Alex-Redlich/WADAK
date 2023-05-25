@@ -63,13 +63,15 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/movies/${this.moviePK}/`,
       })
         .then((res) => {
-          // console.log(res.data);
+          console.log(res.data);
           this.movie = res.data
         })
         .catch((err) => console.log(err))
     },
   },
   created() {
+    console.log(this.$route.params);
+    this.movie = this.$route.params.movie? this.$route.params.movie : {}
     this.getMovieDetail()
   },
   // updated() {
@@ -103,8 +105,9 @@ export default {
   bottom: 50px;
   left: 300px;
   background: #f5df4d;
-  opacity: 0.9;
+  opacity: 1;
   font-size: 40px;
   border-radius: 30px;
+  font-weight: 1000;
 }
 </style>

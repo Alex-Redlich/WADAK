@@ -4,7 +4,11 @@
       <div class="row">
       <div class="col-5 ">
         <TodayMovie v-if="TodayMovie_id" :userinfo="this.Userinfo" class="d-flex align-items-center justify-content-center" style="height: 1500px;"  />
-        <div v-else class="d-flex align-items-center justify-content-center" style="height: 1500px;">오늘의 영화를 고르세요!</div>
+        <div v-else class="d-flex align-items-center justify-content-center" style="height: 1500px;">
+          <button type="button" class="btn btn-warning btn-lg" style="font-weight: 700" @click="GoSearch">
+          오늘의 영화를 고르세요!
+          </button>
+          </div>
       </div>
       <div class="col-7">
         <div class="row flex-column">
@@ -27,7 +31,7 @@
                 </div>
                 <div class="d-flex">
                   <p id="Nickname">{{this.Userinfo.nickname}}</p>
-                    <img id="levelsymbol" src="@/assets/level/2.png" alt="" />
+                    <img id="levelsymbol" :src="url" alt="" />
                 </div>
                 <div id="UserIntro">
                   <p>{{this.Userinfo.intro}}</p>
@@ -46,8 +50,10 @@
             </div>
           </div>
         </div>
-          <LikeMovies />
-          <ReviewMovies />
+          <h1>최근 좋아한 영화들😍</h1>
+          <LikeMovies :userID="userID"/>
+          <h1>최근 리뷰남긴 영화들🤩</h1>
+          <ReviewMovies :userID="userID"/>
         </div>
       </div>
     </div>
@@ -80,9 +86,15 @@ export default {
   computed: {
     chinghos(){
       return this.Userinfo.chingho
+    },
+    url() {
+      return "/level/" + this.Userinfo.level + ".png"
     }
   },
   methods: {
+    GoSearch() {
+      this.$router.push({name : "search"})
+    },
     getUserProfile() {
       axios({
         method: "get",
@@ -99,6 +111,7 @@ export default {
   },
   created() {
     this.getUserProfile()
+    console.log(this.url)
   }
 }
 </script>
@@ -109,7 +122,6 @@ export default {
   background-color: black;
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
   padding-top: 30px;
 }
 #Profile {
@@ -150,6 +162,6 @@ export default {
 .counts {
   margin: 20px;
   font-size : 30px;
-  font-weight: 400;
+  font-weight: 700;
 }
 </style>

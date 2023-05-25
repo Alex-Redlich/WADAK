@@ -1,7 +1,7 @@
 <template>
   <div class="TodayMovie">
-    <h1>오늘의 영화</h1>
-    <MovieCardOne />
+    <MovieCardOne :userinfo="userinfo" />
+    <h1 id="TodayMovieTitle">Today Movie's📢</h1>
   </div>
 </template>
 
@@ -9,9 +9,15 @@
 import MovieCardOne from "@/components/Profile/MovieCardOne";
 export default {
   name: "TodayMovie",
+  data() {
+  },
   components: {
     MovieCardOne,
   },
+  props: {
+    userinfo : Object
+  },
+  
 };
 </script>
 
@@ -20,5 +26,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 50px;
+}
+#TodayMovieTitle {
+  margin-top: 20px;
+  font-weight: 1000;
 }
 </style>

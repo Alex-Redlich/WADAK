@@ -6,14 +6,14 @@
         <a class="navbar-brand" href="/"><img class="nav-image" src="@/assets/logo.png" alt="WADAK" /></a>
         <div class="toplist mb-4">
           <router-link to="/login">로그인</router-link> | <router-link to="/signup">회원가입</router-link> |
-          <router-link :to="{ name: 'profile', params: { userID: userID } }">프로필</router-link>
+          <router-link :to="{ name: 'profile', params: { userID: this.$store.state.userID} }">프로필</router-link>
         </div>
       </div>
     </nav>
     <!-- 좌측 사이드 바 -->
     <nav class="sidenav">
       <div class="d-flex justify-content-center flex-column">
-        <router-link to="/">영화보기</router-link>
+        <router-link to="/">영화보기</router-link >
         <router-link to="/popcorn-machine">팝콘머신</router-link>
         <router-link to="/search">찾기</router-link>
       </div>
@@ -52,9 +52,11 @@
 export default {
   data() {
     return {
-      userID: this.$store.state.userID,
     };
   },
+  methods:{
+
+  }
 };
 </script>
 

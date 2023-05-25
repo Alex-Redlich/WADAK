@@ -53,7 +53,7 @@ export default {
         .catch((err) => console.log(err));
     },
     GoDetail(id, movie, review) {
-      this.$router.push({ name: "reviewdetail", params: { reviewID: id, moviePK: movie, review_detail: review } });
+      this.$router.push({ name: "reviewdetail", params: { reviewID: id, moviePK: movie.id, review_detail: review } });
     },
   },
   created() {

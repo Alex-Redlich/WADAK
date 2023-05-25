@@ -29,6 +29,7 @@ const routes = [
     name: "community",
     component: ReviewView,
   },
+
   {
     path: "/profile/:userID",
     name: "profile",

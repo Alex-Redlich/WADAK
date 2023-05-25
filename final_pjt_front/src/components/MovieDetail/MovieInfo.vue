@@ -36,7 +36,7 @@ export default {
   name: "MovieInfo",
   data() {
     return {
-      isLikedBtn: false,
+      isLikedBtn: false, 
       isTodayMovieBtn: false,
     }
   },
