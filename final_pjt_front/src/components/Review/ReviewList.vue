@@ -21,7 +21,7 @@
             <td @click="GoDetail(review.id, review.movie, review)">
               [{{ review.user.chingho }}] {{ review.user.nickname }}
             </td>
-            <td @click="GoDetail(review.id, review.movie, review)">{{ review.created_at }}</td>
+            <td @click="GoDetail(review.id, review.movie, review)">{{ review.created_at.substr(0, 10) }}</td>
             <td @click="GoDetail(review.id, review.movie, review)">{{ review.like_users_count }}</td>
           </tr>
         </tbody>
@@ -47,7 +47,6 @@ export default {
         url: "http://127.0.0.1:8000/api/v1/communities/allreviews/",
       })
         .then((res) => {
-          console.log("요청성공!");
           this.reviews = res.data;
         })
         .catch((err) => console.log(err));

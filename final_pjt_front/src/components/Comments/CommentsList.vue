@@ -30,7 +30,6 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/communities/review/${this.reviewpk}/comment/`,
       })
         .then((res) => {
-          console.log(res.data);
           this.comments = res.data;
         })
         .catch((err) => console.log(err));

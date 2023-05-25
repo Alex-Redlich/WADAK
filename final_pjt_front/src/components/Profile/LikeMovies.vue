@@ -1,15 +1,14 @@
 <template>
   <div class="LikeMovies">
-
     <div id="LikeMovies">
-      <MovieCardSmall v-for="movie in movies" :key="movie.id" :movie="movie"/>
+      <MovieCardSmall v-for="movie in movies" :key="movie.id" :movie="movie" />
     </div>
   </div>
 </template>
 
 <script>
 import MovieCardSmall from "@/components/Profile/MovieCardSmall";
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   name: "LikeMovies",
@@ -18,29 +17,27 @@ export default {
   },
   data() {
     return {
-    movies : {}
-    }
+      movies: {},
+    };
   },
-  props:{
-    userID : Number
+  props: {
+    userID: Number,
   },
   methods: {
-    GetUserReview(){
+    GetUserReview() {
       axios({
         method: "get",
         url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.userID}/like/`,
       })
         .then((res) => {
-          console.log(res.data);
-          this.movies = res.data
-          
+          this.movies = res.data;
         })
-        .catch((err) => console.log(err))
-    }
+        .catch((err) => console.log(err));
+    },
   },
   created() {
-    this.GetUserReview()
-  }
+    this.GetUserReview();
+  },
 };
 </script>
 

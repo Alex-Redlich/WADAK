@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import ReviewCard from "@/components/MovieDetail/ReviewCard"
-import axios from "axios"
+import ReviewCard from "@/components/MovieDetail/ReviewCard";
+import axios from "axios";
 
 export default {
   name: "ReviewCardList",
@@ -21,7 +21,7 @@ export default {
     return {
       moviePK: this.$route.params.moviePK,
       reviews: {},
-    }
+    };
   },
   methods: {
     getReviewList() {
@@ -30,19 +30,18 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/communities/movie/${this.moviePK}/review/`,
       })
         .then((res) => {
-          // console.log(res.data)
-          this.reviews = res.data
+          this.reviews = res.data;
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     },
   },
   created() {
-    this.getReviewList()
+    this.getReviewList();
   },
   mounted() {
-    this.getReviewList()
-  }
-}
+    this.getReviewList();
+  },
+};
 </script>
 
 <style>

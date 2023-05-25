@@ -15,7 +15,13 @@
         </div>
         <div id="Reviewcreatecontents" class="mb-3">
           <label for="content" class="form-label">리뷰 내용</label>
-          <textarea class="form-control" id="content" rows="20" placeholder="내용을 입력하세요" v-model="content"></textarea>
+          <textarea
+            class="form-control"
+            id="content"
+            rows="20"
+            placeholder="내용을 입력하세요"
+            v-model="content"
+          ></textarea>
         </div>
         <button type="submit" class="btn btn-warning btn-lg">작성하기</button>
       </form>
@@ -24,7 +30,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 
 export default {
   name: "ReviewCreateForm",
@@ -36,7 +42,7 @@ export default {
       title: "",
       rating: "",
       content: "",
-    }
+    };
   },
   methods: {
     CreateReview() {
@@ -45,20 +51,18 @@ export default {
         title: this.title,
         rating: this.rating,
         content: this.content,
-      }
+      };
       axios({
         method: "post",
         url: `http://127.0.0.1:8000/api/v1/communities/movie/${this.moviePK}/review/create/`,
         data: data,
       })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => console.log(err))
-      this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK } })
+        .then(() => {})
+        .catch((err) => console.log(err));
+      this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK } });
     },
   },
-}
+};
 </script>
 
 <style>

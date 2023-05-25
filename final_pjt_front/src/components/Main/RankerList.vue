@@ -10,7 +10,7 @@
     <!-- 랭커 표시-->
     <div class="RankerSection">
       <div data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
-        <p class="m-0" style="padding-left: 30px">{{ userInfo.chingho }}</p>
+        <p class="m-0" style="padding-left: 30px">[{{ userInfo.chingho }}]</p>
         <div class="d-flex align-items-baseline">
           <p style="font-size: 7rem; text-shadow: 5px 5px 15px black; font-weight: 1000" @click="GoProfile">
             {{ userInfo.ranker_nickname }}
@@ -61,7 +61,6 @@ export default {
         url: "http://127.0.0.1:8000/api/v1/movies/ranker/",
       })
         .then((res) => {
-          console.log(res.data);
           this.ranker_movies = res.data.movies;
           this.userInfo = res.data;
         })
@@ -73,7 +72,7 @@ export default {
   },
   mounted() {
     this.getRanker();
-  }
+  },
 };
 </script>
 

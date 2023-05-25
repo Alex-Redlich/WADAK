@@ -9,7 +9,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ movie.title }}</h5>
             <p class="card-text">{{ movie.release_date }}</p>
-            <p class="card-text">⭐ {{ movie.vote_average }}</p>
+            <p class="card-text">⭐ {{ Math.round(movie.vote_average) }}</p>
             <p class="card-text-detail">
               {{ movie.overview }}
             </p>

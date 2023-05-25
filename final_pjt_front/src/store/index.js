@@ -5,16 +5,18 @@ import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  plugins: [createPersistedState({
-    key:'vuex',
-    storage:window.sessionStorage,
-    whiteList:[],
-    blackList: [],
-  })],
+  plugins: [
+    createPersistedState({
+      key: "vuex",
+      storage: window.sessionStorage,
+      whiteList: [],
+      blackList: [],
+    }),
+  ],
   state: {
     isLogin: false,
     userID: null,
-    userInteractions : null,
+    userInteractions: null,
   },
   getters: {},
   mutations: {
@@ -25,9 +27,10 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.userID = null;
       state.isLogin = false;
+      state.userInteractions = null;
     },
-    USERINTERACTION_UPDATE(state, payload){
-      state.userInteractions = payload
+    USERINTERACTION_UPDATE(state, payload) {
+      state.userInteractions = payload;
     },
   },
   actions: {
@@ -38,9 +41,9 @@ export default new Vuex.Store({
     Logout(context) {
       context.commit("LOGOUT");
     },
-    UserInteractionUpdate(context, payload){
-      context.commit("USERINTERACTION_UPDATE", payload.userInteractions)
-    }
+    UserInteractionUpdate(context, payload) {
+      context.commit("USERINTERACTION_UPDATE", payload.userInteractions);
+    },
   },
   modules: {},
 });

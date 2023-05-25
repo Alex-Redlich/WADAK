@@ -1,7 +1,7 @@
 <template>
   <div class="MovieCardLarge1">
-    <div class="card hovering" style="width: 500px; height: 747px" @click="GoDetail">
-      <figure><img id="MovieCardLarge1" :src="url" class="card-img-top" style="border: 0px" /></figure>
+    <div class="card hovering" style="width: 500px; height: 700px" @click="GoDetail">
+      <figure><img id="MovieCardLarge1" :src="url" class="card-img-top" style="height: 700px" /></figure>
       <div class="movieCard__overlay">
         <h3>자세히 보러가기</h3>
       </div>

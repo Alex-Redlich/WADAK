@@ -5,15 +5,16 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="/"><img class="nav-image" src="@/assets/logo.png" alt="WADAK" /></a>
         <div class="toplist mb-4">
-          <router-link to="/login">로그인</router-link> | <router-link to="/signup">회원가입</router-link> |
-          <router-link :to="{ name: 'profile', params: { userID: this.$store.state.userID} }">프로필</router-link>
+          <!-- <router-link to="/login">로그인</router-link> | <router-link to="/signup">회원가입</router-link> | -->
+          <a v-if="isLogin" style="color: #939597" @click="LogOut">로그아웃</a>
+          <router-link :to="{ name: 'profile', params: { userID: this.$store.state.userID } }">프로필</router-link>
         </div>
       </div>
     </nav>
     <!-- 좌측 사이드 바 -->
     <nav class="sidenav">
       <div class="d-flex justify-content-center flex-column">
-        <router-link to="/">영화보기</router-link >
+        <router-link to="/">영화보기</router-link>
         <router-link to="/popcorn-machine">팝콘머신</router-link>
         <router-link to="/search">찾기</router-link>
       </div>
@@ -49,40 +50,43 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 export default {
   data() {
-    return {
-    };
+    return {};
   },
-  methods:{
-
-  }
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
+  },
+  methods: {
+    LogOut() {
+      this.$store.dispatch("Logout");
+      // this.$router.push({ name: "home" });
+      this.$router.go(0);
+    },
+    loginAlert() {
+      if (!this.isLogin) {
+        Swal.fire("로그인이 필요한 서비스 입니다", "", "error");
+        this.$router.push({ name: "login" });
+      }
+    },
+  },
+  // created() {
+  //   this.loginAlert();
+  // },
 };
 </script>
 
 <style>
 #app {
-  font-family: "KBO-Dia-Gothic-l";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
   background-color: black;
-}
-@font-face {
-  font-family: "KBO-Dia-Gothic-md";
-  src: url("@/assets/fonts/KBO_Dia_Gothic_medium.ttf") format("truetype");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "KBO-Dia-Gothic-l";
-  src: url("@/assets/fonts/KBO_Dia_Gothic_light.ttf") format("truetype");
-  font-weight: 300;
-}
-@font-face {
-  font-family: "KBO-Dia-Gothic-b";
-  src: url("@/assets/fonts/KBO_Dia_Gothic_bold.ttf") format("truetype");
-  font-weight: 700;
 }
 .nav-image {
   max-height: 70px;
@@ -101,6 +105,7 @@ nav a {
   color: #939597;
   font-family: "KBO-Dia-Gothic-md";
   margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 nav a.router-link-exact-active {

@@ -68,8 +68,8 @@ export default {
         url: "http://127.0.0.1:8000/api/v1/accounts/signup/",
         data: userdata,
       })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          this.$router.push({ name: "login" });
         })
         .catch((err) => console.log(err));
       console.log(userdata);

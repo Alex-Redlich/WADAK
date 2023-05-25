@@ -10,14 +10,14 @@ import MovieCardOne from "@/components/Profile/MovieCardOne";
 export default {
   name: "TodayMovie",
   data() {
+    return {};
   },
   components: {
     MovieCardOne,
   },
   props: {
-    userinfo : Object
+    userinfo: Object,
   },
-  
 };
 </script>
 

@@ -2,7 +2,7 @@
   <div class="CreateComments d-flex justify-content-center">
     <h2 style="height: 40px; margin-right: 10px">남기기 :</h2>
     <input type="text" v-model.trim="content" @keyup.enter="createTodo" style="height: 40px; margin-right: 10px" />
-    <button @click="createcomments" class="btn btn-light" style="height: 40px">댓글 추가</button>
+    <button @click="createcomments" class="btn btn-dark" style="height: 40px">댓글 추가</button>
   </div>
 </template>
 
@@ -34,9 +34,7 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/communities/review/${this.reviewpk}/comment/create/`,
         data: commentdata,
       })
-        .then((res) => {
-          console.log(res);
-        })
+        .then(() => {})
         .catch((err) => console.log(err));
     },
   },
