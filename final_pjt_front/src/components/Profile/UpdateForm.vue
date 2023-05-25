@@ -33,17 +33,17 @@ export default {
     UpdateProfile() {
       const userdata = {
         nickname: this.Nickname,
-        intro: this.intro,
+        intro: this.Intro,
         userID: this.$store.state.userID,
       };
       axios({
-        method: "post",
+        method: "put",
         url: `http://127.0.0.1:8000/api/v1/accounts/update/${this.$store.state.userID}/`,
         data: userdata,
       })
         .then((res) => {
-          this.Userinfo = res.data;
-          this.$router.push({ name: "profile", params: { userID: this.$store.state.id, Userinfo: this.Userinfo } });
+          console.log(res.data)
+          this.$router.go({ name: "profile", params: { userID: this.$store.state.id, Userinfo: this.Userinfo } });
         })
         .catch((err) => console.log(err));
       console.log(userdata);
