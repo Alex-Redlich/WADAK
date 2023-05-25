@@ -42,6 +42,7 @@ def review_create(request, movie_pk):
 
     user.total_point += 5
     user.current_point += 5
+    user.level = user.total_point // 100
     user.save()
 
     serializer = ReviewSerializer(review)
@@ -98,8 +99,9 @@ def comment_create(request, review_pk):
     comment.user = user
     comment.review = review
 
-    user.total_point += 5
-    user.current_point += 5
+    user.total_point += 2
+    user.current_point += 2
+    user.level = user.total_point // 100
     user.save()
 
     comment.save()
