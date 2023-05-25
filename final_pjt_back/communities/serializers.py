@@ -17,10 +17,10 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('review','user',)
         
-    def to_representation(self, instance):
-        rep = super().to_representation(instance)
-        rep.pop('review',None)
-        return rep
+    # def to_representation(self, instance):
+    #     rep = super().to_representation(instance)
+    #     rep.pop('review',None)
+    #     return rep
 
 
 class ReviewSerializer(serializers.ModelSerializer):
