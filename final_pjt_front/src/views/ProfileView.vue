@@ -14,23 +14,23 @@
               오늘의 영화를 고르세요!
             </button>
           </div>
-        </div>
-        <div class="col-7">
-          <div class="row flex-column">
-            <div class="d-flex justify-content-center">
-              <div class="UserInfo">
-                <div id="UserInfo2">
-                  <div class="row flex-column align-items-start" style="width: 700px">
-                    <div class="d-flex mt-5 align-items-baseline">
-                      <p id="chingho">{{ chinghos }}</p>
-                      <!-- 인벤토리버튼 -->
-                      <div>
-                        <button v-if="userId" id="Btn" class="btn btn-warning" @click="Changechingo">칭호변경</button>
-                        <div v-else>
-                          <!-- 본인 프로필이 아니라면 팔로우 버튼 생성 -->
-                          <button v-if="isFollowed" id="Btn" class="btn btn-danger">Cancel</button>
-                          <button v-else id="Btn" class="btn btn-primary">Follow</button>
-                        </div>
+      </div>
+      <div class="col-7">
+        <div class="row flex-column">
+          <div class="d-flex justify-content-center">
+            
+            <div class="UserInfo">
+              <div id="UserInfo2">
+                <div class="row flex-column align-items-start" style="width:700px">
+                  <div class="d-flex mt-5 align-items-baseline">
+                     <p id="chingho">{{chinghos}}</p>
+                     <!-- 인벤토리버튼 -->
+                     <div>
+                      <button v-if="userCheck" id="Btn" class="btn btn-warning" @click="Changechingo">칭호변경</button>
+                      <div v-else>
+                        <!-- 본인 프로필이 아니라면 팔로우 버튼 생성 -->
+                        <button v-if="isFollowing" id="Btn" class="btn btn-danger" @click="Follow" >Cancel</button>
+                        <button v-else id="Btn" class="btn btn-primary" @click="Follow" >Follow</button>
                       </div>
                     </div>
                     <div class="d-flex">
@@ -80,16 +80,33 @@ export default {
   },
   data() {
     return {
-      Userinfo: {},
-      userID: this.$route.params.userID,
-      TodayMovie_id: "",
-      userId: true,
-      isFollowed: true,
-    };
+      Userinfo: {},                     
+      userID : this.$route.params.userID,
+      TodayMovie_id : "",
+    }
   },
   computed: {
-    chinghos() {
-      return this.Userinfo.chingho;
+    userCheck(){
+      if(this.$store.state.userID === this.Userinfo.id){
+        return true
+      }
+      return false
+    },
+    followUsers(){
+      return this.$store.state.userInteractions.followings
+    },
+    isFollowing(){
+      if(this.followUsers){
+        for(const followUser of this.followUsers){
+          if(followUser.id === this.Userinfo.id){
+            return true
+          }
+        }
+      }
+      return false
+    },
+    chinghos(){
+      return this.Userinfo.chingho
     },
     url() {
       return "/level/" + this.Userinfo.level + ".png";
@@ -117,12 +134,25 @@ export default {
     getUserProfile() {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.userID}/`,
+        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.$route.params.userID}/`,
       })
         .then((res) => {
           console.log(res.data);
           this.Userinfo = res.data;
           this.TodayMovie_id = res.data.today_movie;
+        })
+        .catch((err) => console.log(err))
+    Follow() {
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.Userinfo.id}/follow/`,
+        data: {
+          userID: this.$store.state.userID,
+        },
+      })
+        .then((res) => {
+          console.log("팔로우!");
+          this.$store.dispatch("UserInteractionUpdate", res.data)
         })
         .catch((err) => console.log(err));
     },

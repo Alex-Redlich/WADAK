@@ -103,7 +103,7 @@ def follow_like_movie(request, userID):
             if random_following.like_movies.count():
                 movies = random_following.like_movies.all()[::-1][:3]
 
-                data = {'following_nickname' : random_following.nickname}
+                data = {'following_nickname' : random_following.nickname, 'id': random_following.id}
                 serializer = MovieSerializer(movies, many = True)
                 data.update(movies = serializer.data)
                 return Response(data)
