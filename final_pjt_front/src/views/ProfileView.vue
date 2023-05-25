@@ -21,11 +21,11 @@
                      <p id="chingho">{{chinghos}}</p>
                      <!-- 인벤토리버튼 -->
                      <div>
-                      <button v-if="userId" id="Btn" class="btn btn-warning" @click="Changechingo">칭호변경</button>
+                      <button v-if="userCheck" id="Btn" class="btn btn-warning" @click="Changechingo">칭호변경</button>
                       <div v-else>
                         <!-- 본인 프로필이 아니라면 팔로우 버튼 생성 -->
-                        <button v-if="isFollowed" id="Btn" class="btn btn-danger" >Cancel</button>
-                        <button v-else id="Btn" class="btn btn-primary" >Follow</button>
+                        <button v-if="isFollowing" id="Btn" class="btn btn-danger" @click="Follow" >Cancel</button>
+                        <button v-else id="Btn" class="btn btn-primary" @click="Follow" >Follow</button>
                       </div>
                   </div>
                 </div>
@@ -79,11 +79,28 @@ export default {
       Userinfo: {},                     
       userID : this.$route.params.userID,
       TodayMovie_id : "",
-      userId : true,
-      isFollowed : true
     }
   },
   computed: {
+    userCheck(){
+      if(this.$store.state.userID === this.Userinfo.id){
+        return true
+      }
+      return false
+    },
+    followUsers(){
+      return this.$store.state.userInteractions.followings
+    },
+    isFollowing(){
+      if(this.followUsers){
+        for(const followUser of this.followUsers){
+          if(followUser.id === this.Userinfo.id){
+            return true
+          }
+        }
+      }
+      return false
+    },
     chinghos(){
       return this.Userinfo.chingho
     },
@@ -113,7 +130,7 @@ export default {
     getUserProfile() {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.userID}/`,
+        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.$route.params.userID}/`,
       })
         .then((res) => {
           console.log(res.data);
@@ -122,7 +139,21 @@ export default {
           
         })
         .catch((err) => console.log(err))
-    }
+    },
+    Follow() {
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.Userinfo.id}/follow/`,
+        data: {
+          userID: this.$store.state.userID,
+        },
+      })
+        .then((res) => {
+          console.log("팔로우!");
+          this.$store.dispatch("UserInteractionUpdate", res.data)
+        })
+        .catch((err) => console.log(err));
+    },
   },
   created() {
     this.getUserProfile()
