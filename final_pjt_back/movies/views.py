@@ -412,7 +412,7 @@ def movie_like(request, movie_pk):
         movie.like_users.add(user)
     
     serializer = UserInteractionSerializer(user)
-    return Response(serializer.data)
+    return Response({'userInteractions': serializer.data})
 
 
 @api_view(['POST'])
@@ -429,5 +429,5 @@ def movie_today(request, movie_pk):
 
     user.save()  # 변경사항 저장
     serializer = UserInteractionSerializer(user)
-    return Response(serializer.data)
+    return Response({'userInteractions': serializer.data})
 
