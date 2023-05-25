@@ -15,8 +15,8 @@ from django.contrib.auth import get_user_model
 
 @api_view(['GET'])
 def total_review_list(request):
-    reviews = Review.objects.all().order_by('-created_at')
-    serializer = ReviewSerializer(reviews,many = True)
+    reviews = Review.objects.order_by("-created_at")
+    serializer = ReviewSerializer(reviews, many = True)
     return Response(serializer.data)
 
 @api_view(['GET'])

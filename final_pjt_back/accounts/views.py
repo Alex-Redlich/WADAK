@@ -84,7 +84,7 @@ def chingho_pick(request):
         user.chingho = random.choice(first) +" " + random.choice(second)
         user.current_point -= 20
         user.save()
-        return Response({'chingho' : user.chingho})
+        return Response({'status': 'success', 'chingho' : user.chingho})
     return Response({'status': 'fail'})
 
 
