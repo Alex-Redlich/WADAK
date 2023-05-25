@@ -36,8 +36,8 @@ def login(request):
     else:
         return Response({'status':'fail'})
 
-@api_view(['PUT'])
-def update(request):
+@api_view(['put'])
+def update(request, user_pk):
     # 유저 DB 업데이트 (닉네임, 자기소개)
     user = get_object_or_404(User, pk = request.data.get('userID'))
     user.nickname = request.data.get('nickname')
