@@ -122,7 +122,7 @@ export default {
 }
 #MovieTitle {
   text-align: start;
-  font-size: 80px;
+  font-size: 70px;
   font-weight: 1000;
 }
 #MovieTagline {
