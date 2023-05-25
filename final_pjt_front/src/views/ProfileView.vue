@@ -205,9 +205,11 @@ export default {
 }
 #chingho {
   font-size: 40px;
+  font-weight: 700;
 }
 #Nickname {
   font-size: 60px;
+  font-weight: 1000;
 }
 #levelsymbol {
   width: 50px;
@@ -231,7 +233,7 @@ export default {
 }
 #UserIntro {
   font-size: 30px;
-  text-align: start;
+  text-align: center;
 }
 .counts {
   margin: 20px;

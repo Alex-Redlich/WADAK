@@ -87,6 +87,12 @@ export default {
   text-align: center;
   color: white;
   background-color: black;
+  font-family: "Nanum Gothic";
+}
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.nanumgothic * {
+  font-family: "Nanum Gothic", sans-serif;
 }
 .nav-image {
   max-height: 70px;
