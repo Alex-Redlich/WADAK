@@ -6,14 +6,14 @@
         <a class="navbar-brand" href="/"><img class="nav-image" src="@/assets/logo.png" alt="WADAK" /></a>
         <div class="toplist mb-4">
           <router-link to="/login">로그인</router-link> | <router-link to="/signup">회원가입</router-link> |
-          <router-link :to="{ name: 'profile', params: { userID: this.$store.state.userID} }">프로필</router-link>
+          <router-link :to="{ name: 'profile', params: { userID: this.$store.state.userID } }">프로필</router-link>
         </div>
       </div>
     </nav>
     <!-- 좌측 사이드 바 -->
     <nav class="sidenav">
       <div class="d-flex justify-content-center flex-column">
-        <router-link to="/">영화보기</router-link >
+        <router-link to="/">영화보기</router-link>
         <router-link to="/popcorn-machine">팝콘머신</router-link>
         <router-link to="/search">찾기</router-link>
       </div>
@@ -51,38 +51,19 @@
 <script>
 export default {
   data() {
-    return {
-    };
+    return {};
   },
-  methods:{
-
-  }
+  methods: {},
 };
 </script>
 
 <style>
 #app {
-  font-family: "KBO-Dia-Gothic-l";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
   background-color: black;
-}
-@font-face {
-  font-family: "KBO-Dia-Gothic-md";
-  src: url("@/assets/fonts/KBO_Dia_Gothic_medium.ttf") format("truetype");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "KBO-Dia-Gothic-l";
-  src: url("@/assets/fonts/KBO_Dia_Gothic_light.ttf") format("truetype");
-  font-weight: 300;
-}
-@font-face {
-  font-family: "KBO-Dia-Gothic-b";
-  src: url("@/assets/fonts/KBO_Dia_Gothic_bold.ttf") format("truetype");
-  font-weight: 700;
 }
 .nav-image {
   max-height: 70px;
