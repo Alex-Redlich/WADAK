@@ -9,7 +9,7 @@ from movies.models import Movie
 from communities.serializers import ReviewSerializer,CommentSerializer
 from movies.serializers import MovieSerializer
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserInteractionSerializer
 import random
 # Create your views here.
 
@@ -27,14 +27,17 @@ def signup(request):
         # 패스워드가 잘못됬을 경우
         # 어쩌구저쩌구
     user.save()
-    return Response({'status':'success', 'userID': user.pk})
+    serializer = UserInteractionSerializer(user)
+    return Response({'status':'success', 'userID': user.pk, 'userInteraction': serializer.data})
 
 
 @api_view(['POST'])
 def login(request):
     user = get_object_or_404(User, username=request.data.get('username'))
     if user.check_password(request.data.get('password')):
-        return Response({'status':'success', 'userID': user.pk})
+        serializer = UserInteractionSerializer(user)
+        print(serializer.data)
+        return Response({'status':'success', 'userID': user.pk, 'userInteractions' : serializer.data})
     else:
         return Response({'status':'fail'})
 
@@ -59,6 +62,7 @@ def delete(request):
 @api_view(['GET'])
 def profile_detail(request, user_pk):
     user = get_object_or_404(User, pk = user_pk)
+    
     serializer = UserSerializer(user)
     data = {
         'reviews_count' : user.reviews.count(),
@@ -94,7 +98,7 @@ def follow(request, user_pk):
         user.followings.remove(target_user)
     else:
         user.followings.add(target_user)
-    serializer = UserSerializer(user)
+    serializer = UserInteractionSerializer(user)
     return Response(serializer.data)
 
 @api_view(['GET'])

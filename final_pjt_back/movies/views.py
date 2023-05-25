@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 from .models import Movie, Genre
 from .serializers import MovieSerializer, MovieSimpleSerializer
 from accounts.models import User
-from accounts.serializers import UserSerializer
+from accounts.serializers import UserSerializer, UserInteractionSerializer
 import requests
 import random
 
@@ -409,7 +409,8 @@ def movie_like(request, movie_pk):
         movie.like_users.remove(user)
     else:
         movie.like_users.add(user)
-    serializer = MovieSerializer(movie)
+    
+    serializer = UserInteractionSerializer(user)
     return Response(serializer.data)
 
 
@@ -426,6 +427,6 @@ def movie_today(request, movie_pk):
         # movie와 다른 경우 today_movie를 해당 movie로 설정
 
     user.save()  # 변경사항 저장
-    serializer = UserSerializer(user)
+    serializer = UserInteractionSerializer(user)
     return Response(serializer.data)
 
