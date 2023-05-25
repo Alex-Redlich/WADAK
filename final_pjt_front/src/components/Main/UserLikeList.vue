@@ -46,7 +46,6 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/movies/${this.$store.state.userID}/follow/like/`,
       })
         .then((res) => {
-          console.log(res.data);
           this.userlike_movies = res.data.movies;
           this.following_nickname = res.data.following_nickname;
           this.userID_userlike = res.data.id;

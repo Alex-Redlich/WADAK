@@ -6,10 +6,28 @@
 
 <script>
 import SearchList from "@/components/Search/SearchList";
+import Swal from "sweetalert2";
+
 export default {
   name: "SearchView",
   components: {
     SearchList,
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
+  },
+  methods: {
+    loginAlert() {
+      if (!this.isLogin) {
+        Swal.fire("로그인이 필요한 서비스 입니다", "", "error");
+        this.$router.push({ name: "login" });
+      }
+    },
+  },
+  created() {
+    this.loginAlert();
   },
 };
 </script>

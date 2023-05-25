@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import MovieCardSmall from "@/components/Main/MovieCardSmall"
-import axios from "axios"
+import MovieCardSmall from "@/components/Main/MovieCardSmall";
+import axios from "axios";
 export default {
   name: "PopularList",
   components: {
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       movies: {},
-    }
+    };
   },
   methods: {
     getPopularList() {
@@ -33,16 +33,15 @@ export default {
         url: "http://127.0.0.1:8000/api/v1/movies/popular/",
       })
         .then((res) => {
-          console.log(res.data)
-          this.movies = res.data
+          this.movies = res.data;
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     },
   },
   created() {
-    this.getPopularList()
+    this.getPopularList();
   },
-}
+};
 </script>
 
 <style>

@@ -21,17 +21,20 @@ export default {
       reviewID: this.review.id,
       review_detail: this.review,
       moviePK: this.$route.params.moviePK,
-    }
+    };
   },
   methods: {
     ReviewDetail() {
-      this.$router.push({ name: "reviewdetail", params: { reviewID: this.reviewID, review_detail: this.review, moviePK : this.moviePK  } })
+      this.$router.push({
+        name: "reviewdetail",
+        params: { reviewID: this.reviewID, review_detail: this.review, moviePK: this.moviePK },
+      });
     },
   },
   props: {
     review: Object,
   },
-}
+};
 </script>
 
 <style scoped>
@@ -40,10 +43,11 @@ export default {
 }
 .card-body {
   text-align: center;
+  height: 400px;
 }
 .card-text {
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

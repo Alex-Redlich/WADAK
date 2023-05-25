@@ -1,11 +1,7 @@
 <template>
   <div class="MovieCardSmall">
-    <div class="card hovering7" style="width: 200px" @click="GoDetail">
-      <img
-        id="MovieCardSmall2"
-        :src="url"
-        class="card-img-top"
-      />
+    <div class="card hovering7" style="width: 200px; border-radius: 10px" @click="GoDetail">
+      <img id="MovieCardSmall2" :src="url" class="card-img-top" />
     </div>
   </div>
 </template>
@@ -14,19 +10,19 @@
 export default {
   name: "MovieCardSmall",
   props: {
-    movie : Object
+    movie: Object,
   },
   computed: {
     url() {
-      return "https://image.tmdb.org/t/p/w500" + this.movie.poster_path
+      return "https://image.tmdb.org/t/p/w500" + this.movie.poster_path;
     },
   },
   methods: {
     GoDetail() {
-      this.$router.push({ name: "moviedetail", params: { moviePK: this.movie.id, movie:this.movie} })
+      this.$router.push({ name: "moviedetail", params: { moviePK: this.movie.id, movie: this.movie } });
     },
-  }
-}
+  },
+};
 </script>
 
 <style>

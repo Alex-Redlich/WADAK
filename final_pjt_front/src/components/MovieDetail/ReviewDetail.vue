@@ -19,11 +19,13 @@
         {{ review_detail.content }}
       </div>
     </div>
-    <div id="deleteReview"><button type="button" class="btn btn-danger" @click="DeleteReview">삭제</button></div>
-    <div id="LikeReview">
+    <div v-if="How" id="deleteReview">
+      <button type="button" class="btn btn-danger" @click="DeleteReview">삭제</button>
+    </div>
+    <div v-else id="LikeReview">
       <button v-if="!isLiked" type="button" class="btn btn-danger" @click="LikeReview">좋아요</button>
       <button v-else type="button" class="btn btn-light" @click="LikeReview">좋아요취소</button>
-      <div>{{ review_detail.like_users_count }}</div>
+      <div id="likeuserscount">{{ review_detail.like_users_count }} 명이 좋아합니다</div>
     </div>
     <div class="review_comments"><CommentsList :reviewpk="reviewID" /></div>
     <button id="Callback" type="button" class="btn btn-warning" @click="Callback">다른 리뷰 보러 가기</button>
@@ -47,18 +49,24 @@ export default {
       review_user_ID: this.$route.params.review_detail.user.id,
     };
   },
-   computed:{
-    likeReviews(){
-      return this.$store.state.userInteractions.like_reviews
+  computed: {
+    How() {
+      if (this.review_user_ID == this.$store.state.userID) {
+        return true;
+      }
+      return false;
     },
-    isLiked(){
-      for(const review of this.likeReviews){
-        if(review.id === this.reviewID){
-          return true
+    likeReviews() {
+      return this.$store.state.userInteractions.like_reviews;
+    },
+    isLiked() {
+      for (const review of this.likeReviews) {
+        if (review.id === this.reviewID) {
+          return true;
         }
       }
-      return false
-    }
+      return false;
+    },
   },
   methods: {
     GoProfile() {
@@ -74,7 +82,6 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/communities/movie/${this.moviePK}/review/${this.reviewID}/delete/`,
       })
         .then(() => {
-          console.log("리뷰 삭제 성공!");
           this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK } });
         })
         .catch((err) => console.log(err));
@@ -88,8 +95,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log("좋아요!");
-          this.$store.dispatch("UserInteractionUpdate", res.data)
+          this.$store.dispatch("UserInteractionUpdate", res.data);
           this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK } });
         })
         .catch((err) => console.log(err));
@@ -179,5 +185,11 @@ export default {
 }
 #LikeReview {
   margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+#likeuserscount {
+  font-size: 25px;
+  margin-left: 10px;
 }
 </style>

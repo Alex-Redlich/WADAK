@@ -5,7 +5,8 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="/"><img class="nav-image" src="@/assets/logo.png" alt="WADAK" /></a>
         <div class="toplist mb-4">
-          <router-link to="/login">로그인</router-link> | <router-link to="/signup">회원가입</router-link> |
+          <!-- <router-link to="/login">로그인</router-link> | <router-link to="/signup">회원가입</router-link> | -->
+          <a v-if="isLogin" style="color: #939597" @click="LogOut">로그아웃</a>
           <router-link :to="{ name: 'profile', params: { userID: this.$store.state.userID } }">프로필</router-link>
         </div>
       </div>
@@ -49,11 +50,33 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {};
   },
-  methods: {},
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
+  },
+  methods: {
+    LogOut() {
+      this.$store.dispatch("Logout");
+      // this.$router.push({ name: "home" });
+      this.$router.go(0);
+    },
+    loginAlert() {
+      if (!this.isLogin) {
+        Swal.fire("로그인이 필요한 서비스 입니다", "", "error");
+        this.$router.push({ name: "login" });
+      }
+    },
+  },
+  // created() {
+  //   this.loginAlert();
+  // },
 };
 </script>
 
@@ -82,6 +105,7 @@ nav a {
   color: #939597;
   font-family: "KBO-Dia-Gothic-md";
   margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 nav a.router-link-exact-active {

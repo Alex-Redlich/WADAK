@@ -47,7 +47,6 @@ export default {
         url: `http://127.0.0.1:8000/api/v1/movies/${this.$store.state.userID}/follow/review/`,
       })
         .then((res) => {
-          console.log(res.data);
           this.userreview_movies = res.data.movies;
           this.following_nickname = res.data.following_nickname;
           this.userID_userreview = res.data.id;

@@ -19,7 +19,7 @@
         <p id="MovieTagline">{{ movie.tagline }}</p>
         <p id="MovieGenre">{{ moviegenre }}</p>
         <div id="MovieDetail" class="d-flex">
-          <p id="MovieVote">⭐ {{ movie.vote_average }}</p>
+          <p id="MovieVote">⭐ {{ Math.round(movie.vote_average) }}</p>
           <p id="Movieruntime">{{ movie.runtime }}분</p>
           <p id="ReleaseDate">{{ movie.release_date }}</p>
         </div>
@@ -37,45 +37,45 @@ export default {
   name: "MovieInfo",
   data() {
     return {
-      isLikedBtn: false, 
+      isLikedBtn: false,
       isTodayMovieBtn: false,
-    }
+    };
   },
   props: {
     movie: Object,
   },
   computed: {
-    interactions(){
-      return this.$store.state.userInteractions
+    interactions() {
+      return this.$store.state.userInteractions;
     },
-    isLiked(){
-      if(this.interactions.like_movies){
-        for(const likemovie of this.interactions.like_movies){
-          if(likemovie.id === this.movie.id){
-            return true
+    isLiked() {
+      if (this.interactions.like_movies) {
+        for (const likemovie of this.interactions.like_movies) {
+          if (likemovie.id === this.movie.id) {
+            return true;
           }
         }
       }
-      return false
+      return false;
     },
-    isTodaymovie(){
-      if(this.movie.id === this.interactions.today_movie){
-          return true
-        }
-      return false
+    isTodaymovie() {
+      if (this.movie.id === this.interactions.today_movie) {
+        return true;
+      }
+      return false;
     },
     url() {
-      return "https://image.tmdb.org/t/p/w500" + this.movie.poster_path
+      return "https://image.tmdb.org/t/p/w500" + this.movie.poster_path;
     },
     moviegenre() {
-      if(this.movie.genres != undefined){
-        let result = this.movie.genres[0].name
+      if (this.movie.genres != undefined) {
+        let result = this.movie.genres[0].name;
         for (let i = 1; i < this.movie.genres.length; i++) {
-          result += "·" + this.movie.genres[i].name
+          result += "·" + this.movie.genres[i].name;
         }
-        return result
+        return result;
       }
-      return null
+      return null;
     },
   },
   methods: {
@@ -88,8 +88,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log("좋아요!");
-          this.$store.dispatch("UserInteractionUpdate", res.data)
+          this.$store.dispatch("UserInteractionUpdate", res.data);
         })
         .catch((err) => console.log(err));
     },
@@ -102,13 +101,12 @@ export default {
         },
       })
         .then((res) => {
-          console.log("투데이!");
-          this.$store.dispatch("UserInteractionUpdate", res.data)
+          this.$store.dispatch("UserInteractionUpdate", res.data);
         })
         .catch((err) => console.log(err));
     },
   },
-}
+};
 </script>
 
 <style>

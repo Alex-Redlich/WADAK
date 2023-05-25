@@ -4,11 +4,11 @@
       <h1>프로필 수정</h1>
       <div id="updateForm_Nickname" class="mb-3">
         <label for="update_Nickname" class="form-label">닉네임(NICKNAME)</label>
-        <input class="form-control" id="update_Nickname" v-model="Nickname" />
+        <input class="form-control" id="update_Nickname" placeholder="닉네임을 입력하세요" v-model="Nickname" />
       </div>
       <div id="updateForm_intro" class="mb-3">
         <label for="update_intro" class="form-label">자기소개</label>
-        <input class="form-control" id="update_intro" placeholder="자기소개를 입력하세요" v-model="intro" />
+        <input class="form-control" id="update_intro" placeholder="자기소개를 입력하세요" v-model="Intro" />
       </div>
       <button type="submit" class="btn btn-warning btn-lg mt-5">수정하기</button>
     </form>
@@ -16,15 +16,39 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "UpdateForm",
   data() {
     return {
       Nickname: "",
       Intro: "",
+      userID: this.$store.state.userID,
+      Userinfo: {},
     };
   },
   components: {},
+  methods: {
+    UpdateProfile() {
+      const userdata = {
+        nickname: this.Nickname,
+        intro: this.intro,
+        userID: this.$store.state.userID,
+      };
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/api/v1/accounts/update/${this.$store.state.userID}/`,
+        data: userdata,
+      })
+        .then((res) => {
+          this.Userinfo = res.data;
+          this.$router.push({ name: "profile", params: { userID: this.$store.state.id, Userinfo: this.Userinfo } });
+        })
+        .catch((err) => console.log(err));
+      console.log(userdata);
+    },
+  },
 };
 </script>
 
