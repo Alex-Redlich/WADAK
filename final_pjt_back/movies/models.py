@@ -1,12 +1,9 @@
 from django.db import models
 from django.conf import settings
-# Create your models here.
-
 
 class Genre(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
-
 
 class Movie(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -19,10 +16,8 @@ class Movie(models.Model):
     backdrop_path = models.CharField(max_length=200, null=True)
     poster_path = models.CharField(max_length=200, null=True)
     release_date = models.CharField(max_length=50, null=True)
-    # json 시리얼라이즈 오류로 charfield로 변경.
     runtime = models.CharField(max_length=30,null=True)
     
-    # genres = models.ManyToManyField(Genre, related_name="gerne_movies")
     genres = models.ManyToManyField(Genre, related_name="gerne_movies")
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_movies", through="Movie_like_users")
 

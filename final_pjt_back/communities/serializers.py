@@ -1,10 +1,6 @@
 from rest_framework import serializers
 from .models import Review, Comment
-
-from accounts.models import User
 from accounts.serializers import UserSerializer
-
-from movies.models import Movie
 from movies.serializers import MovieSimpleSerializer
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -16,12 +12,6 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
         read_only_fields = ('review','user',)
-        
-    # def to_representation(self, instance):
-    #     rep = super().to_representation(instance)
-    #     rep.pop('review',None)
-    #     return rep
-
 
 class ReviewSerializer(serializers.ModelSerializer):
     movie = MovieSimpleSerializer(read_only=True)
@@ -37,5 +27,3 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = '__all__'
         read_only_fields = ('movie','users','like_users',)
-
-
