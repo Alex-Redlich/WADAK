@@ -42,8 +42,11 @@ export default {
         data: userdata,
       })
         .then((res) => {
-          console.log(res.data)
-          this.$router.go({ name: "profile", params: { userID: this.$store.state.id, Userinfo: this.Userinfo } });
+          this.Userinfo = res.data;
+          this.$router.push({
+            name: "profile",
+            params: { userID: this.$store.state.id, Userinfo: this.Userinfo },
+          });
         })
         .catch((err) => console.log(err));
       console.log(userdata);
