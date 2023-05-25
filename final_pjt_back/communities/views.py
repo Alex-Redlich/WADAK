@@ -38,7 +38,7 @@ def review_create(request, movie_pk):
 
     user.total_point += 5
     user.current_point += 5
-    user.level = 1 + user.total_point // 100
+    user.level = user.total_point // 100
     user.save()
 
     serializer = ReviewSerializer(review)
@@ -97,7 +97,7 @@ def comment_create(request, review_pk):
 
     user.total_point += 2
     user.current_point += 2
-    user.level = 1 + user.total_point // 100
+    user.level = user.total_point // 100
     user.save()
 
     comment.save()
@@ -110,14 +110,3 @@ def comment_delete(request, review_pk, comment_pk):
     comment = get_object_or_404(Comment, pk = comment_pk)
     comment.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
-
-@api_view(['POST'])
-def comment_like(request, review_pk, comment_pk):
-    user = User.objects.get(pk=request.data.get('userID'))
-    comment = get_object_or_404(Comment, pk = comment_pk)
-    if user in comment.like_users.all():
-        comment.like_users.remove(user)
-    else:
-        comment.like_users.add(user)
-    serializer = UserInteractionSerializer(user)
-    return Response({'userInteractions': serializer.data})

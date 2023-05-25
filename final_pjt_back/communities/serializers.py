@@ -5,8 +5,7 @@ from movies.serializers import MovieSimpleSerializer
 
 class CommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only =True)
-    like_users = UserSerializer(many = True, read_only =True)
-    like_users_count = serializers.IntegerField(source='like_users.count', read_only = True)
+
     
     class Meta:
         model = Comment

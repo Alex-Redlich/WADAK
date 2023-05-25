@@ -50,8 +50,7 @@ class UserInteractionSerializer(serializers.ModelSerializer):
     
     like_movies = MovieIdSerializer(many=True,read_only=True)
     like_reviews = ReviewIdSerializer(many=True,read_only=True)
-    like_comments = CommentIdSerializer(many=True,read_only=True)
     
     class Meta:
             model = User
-            fields = ('today_movie','like_movies','like_reviews','like_comments','followings','followers','followings_count','followers_count')
+            fields = ('today_movie','like_movies','like_reviews','followings','followers','followings_count','followers_count')
