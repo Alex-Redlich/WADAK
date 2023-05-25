@@ -99,7 +99,7 @@ def follow(request, user_pk):
     else:
         user.followings.add(target_user)
     serializer = UserInteractionSerializer(user)
-    return Response(serializer.data)
+    return Response({'userInteractions' : serializer.data})
 
 @api_view(['GET'])
 def review_list(request, user_pk):
