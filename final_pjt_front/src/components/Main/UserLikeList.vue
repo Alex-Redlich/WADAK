@@ -43,7 +43,7 @@ export default {
     getUserLikeList() {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/api/v1/movies/1/follow/like/`,
+        url: `http://127.0.0.1:8000/api/v1/movies/${this.$store.state.userID}/follow/like/`,
       })
         .then((res) => {
           console.log(res.data);

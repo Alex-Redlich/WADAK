@@ -44,7 +44,7 @@ export default {
     getUserReviewList() {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/api/v1/movies/1/follow/review/`,
+        url: `http://127.0.0.1:8000/api/v1/movies/${this.$store.state.userID}/follow/review/`,
       })
         .then((res) => {
           console.log(res.data);

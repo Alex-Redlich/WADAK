@@ -36,7 +36,7 @@ export default {
     getUserToday() {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/api/v1/movies/8/follow/today/`,
+        url: `http://127.0.0.1:8000/api/v1/movies/${this.$store.state.userID}/follow/today/`,
       })
         .then((res) => {
           console.log(res.data);
