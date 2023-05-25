@@ -44,9 +44,21 @@ export default {
       review_detail: this.$route.params.review_detail,
       reviewID: this.$route.params.reviewID,
       moviePK: this.$route.params.moviePK,
-      isLiked: false,
       review_user_ID: this.$route.params.review_detail.user.id,
     };
+  },
+   computed:{
+    likeReviews(){
+      return this.$store.state.userInteractions.like_reviews
+    },
+    isLiked(){
+      for(const review of this.likeReviews){
+        if(review.id === this.reviewID){
+          return true
+        }
+      }
+      return false
+    }
   },
   methods: {
     GoProfile() {
@@ -75,8 +87,9 @@ export default {
           userID: this.$store.state.userID,
         },
       })
-        .then(() => {
+        .then((res) => {
           console.log("좋아요!");
+          this.$store.dispatch("UserInteractionUpdate", res.data)
           this.$router.push({ name: "moviedetail", params: { moviePK: this.moviePK } });
         })
         .catch((err) => console.log(err));

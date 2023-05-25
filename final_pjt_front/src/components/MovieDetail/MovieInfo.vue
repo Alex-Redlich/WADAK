@@ -7,11 +7,11 @@
         <div class="d-flex align-items-baseline">
           <p id="MovieTitle">{{ movie.title }}</p>
           <div>
-            <img v-if="isLikedBtn" id="Btn1" @click="ClickLike" src="@/assets/Like_ON.png" alt="" />
+            <img v-if="isLiked" id="Btn1" @click="ClickLike" src="@/assets/Like_ON.png" alt="" />
             <img v-else id="Btn1" @click="ClickLike" src="@/assets/Like_OFF.png" alt="" />
           </div>
           <div>
-            <img v-if="isTodayMovieBtn" id="Btn2" @click="ClickTodayMovie" src="@/assets/TodayMovie_ON.png" alt="" />
+            <img v-if="isTodaymovie" id="Btn2" @click="ClickTodayMovie" src="@/assets/TodayMovie_ON.png" alt="" />
             <img v-else id="Btn2" @click="ClickTodayMovie" src="@/assets/TodayMovie_OFF.png" alt="" />
           </div>
         </div>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "MovieInfo",
   data() {
@@ -44,6 +45,25 @@ export default {
     movie: Object,
   },
   computed: {
+    interactions(){
+      return this.$store.state.userInteractions
+    },
+    isLiked(){
+      if(this.interactions.like_movies){
+        for(const likemovie of this.interactions.like_movies){
+          if(likemovie.id === this.movie.id){
+            return true
+          }
+        }
+      }
+      return false
+    },
+    isTodaymovie(){
+      if(this.movie.id === this.interactions.today_movie){
+          return true
+        }
+      return false
+    },
     url() {
       return "https://image.tmdb.org/t/p/w500" + this.movie.poster_path
     },
@@ -60,10 +80,32 @@ export default {
   },
   methods: {
     ClickLike() {
-      this.isLikedBtn = !this.isLikedBtn
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/api/v1/movies/${this.movie.id}/like/`,
+        data: {
+          userID: this.$store.state.userID,
+        },
+      })
+        .then((res) => {
+          console.log("좋아요!");
+          this.$store.dispatch("UserInteractionUpdate", res.data)
+        })
+        .catch((err) => console.log(err));
     },
     ClickTodayMovie() {
-      this.isTodayMovieBtn = !this.isTodayMovieBtn
+      axios({
+        method: "post",
+        url: `http://127.0.0.1:8000/api/v1/movies/${this.movie.id}/today/`,
+        data: {
+          userID: this.$store.state.userID,
+        },
+      })
+        .then((res) => {
+          console.log("투데이!");
+          this.$store.dispatch("UserInteractionUpdate", res.data)
+        })
+        .catch((err) => console.log(err));
     },
   },
 }

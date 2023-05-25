@@ -45,6 +45,7 @@ export default {
           if (res.data.status === "success") {
             console.log(res);
             this.$store.dispatch("Login", res.data.userID)
+            this.$store.dispatch("UserInteractionUpdate", res.data)
             this.$router.push("/")
           } else {
             alert("비밀번호가 틀렸습니다!")
