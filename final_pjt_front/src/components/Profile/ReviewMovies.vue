@@ -27,7 +27,7 @@ export default {
     GetUserReview() {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.userID}/review/`,
+        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.$route.params.userID}/review/`,
       })
         .then((res) => {
           this.movies = res.data;

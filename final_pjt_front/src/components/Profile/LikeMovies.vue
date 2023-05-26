@@ -21,13 +21,13 @@ export default {
     };
   },
   props: {
-    userID: Number,
+    userinfo : Object,
   },
   methods: {
     GetUserReview() {
       axios({
         method: "get",
-        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.userID}/like/`,
+        url: `http://127.0.0.1:8000/api/v1/accounts/profile/${this.$route.params.userID}/like/`,
       })
         .then((res) => {
           this.movies = res.data;
@@ -36,6 +36,7 @@ export default {
     },
   },
   created() {
+    console.log(this.userinfo);
     this.GetUserReview();
   },
 };

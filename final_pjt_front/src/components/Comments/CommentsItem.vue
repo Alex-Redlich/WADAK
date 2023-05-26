@@ -1,6 +1,6 @@
 <template>
   <div class="CommentsItem">
-    <div>{{ comment.content }}</div>
+    <div>{{comment.user.nickname}} : {{ comment.content }}</div>
   </div>
 </template>
 
