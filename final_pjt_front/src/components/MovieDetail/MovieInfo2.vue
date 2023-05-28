@@ -18,7 +18,6 @@
 <script>
 const API_URL = "https://www.googleapis.com/youtube/v3/search";
 const API_KEY = process.env.VUE_APP_YOUTUBE_API_KEY;
-// const API_KEY = "AIzaSyDIjfZ49Ye10W7qN1ilixlTCzKILYagQvI";
 
 import MovieCardLarge from "@/components/MovieDetail/MovieCardLarge";
 import axios from "axios";
